@@ -1,0 +1,130 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+
+  /* fond plus doux, moins agressif */
+  /*background: radial-gradient(circle at top, #14151a 0%, #0b0c0f 55%, #070709 100%);*/
+  color: #eaeaea;
+}
+
+/* LAYOUT GLOBAL */
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+/* CARTE PLUS ÉQUILIBRÉE */
+.card {
+  width: 100%;
+  max-width: 380px;
+
+  background: rgba(22, 22, 24, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+
+  padding: 34px;
+
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.55);
+}
+
+/* TITRE */
+h1 {
+  color: #ffffff;
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+/* SOUS-TITRE */
+p {
+  color: #b0b0b0;
+  font-size: 13px;
+  margin-bottom: 22px;
+}
+
+/* FORM */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* INPUTS PLUS CLEAN */
+input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+
+  background: rgba(10,10,12,0.9);
+  color: #fff;
+
+  outline: none;
+  transition: 0.2s;
+}
+
+input:focus {
+  border-color: #c49b63;
+  box-shadow: 0 0 0 3px rgba(196,155,99,0.12);
+}
+
+/* OPTIONS */
+.options {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #9a9a9a;
+  margin-top: 6px;
+}
+
+.options a {
+  color: #c49b63;
+  text-decoration: none;
+}
+
+.options a:hover {
+  color: #e0b87a;
+}
+
+/* BUTTON PLUS PREMIUM */
+button {
+  margin-top: 12px;
+  padding: 12px;
+
+  border-radius: 8px;
+  border: none;
+
+  background: linear-gradient(45deg, #c49b63, #8b5e3c);
+  color: #fff;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 25px rgba(196,155,99,0.18);
+}
+
+/* FOOTER TEXT HARMONISÉ */
+.bottom {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 12px;
+  color: #8a8a8a;
+}
+
+.bottom a {
+  color: #c49b63;
+  text-decoration: none;
+}
+
+.bottom a:hover {
+  color: #e0b87a;
+}
+
+
