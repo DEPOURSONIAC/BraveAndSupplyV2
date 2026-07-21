@@ -1,0 +1,5 @@
+Pour mettre à jour mon site dans le serveur apache:
+
+    sudo cp -r /home/simsim/Bureau/SimSim/projet/siteWeb/braveAndSupplyV2 /var/www/html/siteWeb/
+         cp -r /home/simsim/Bureau/SimSim/projet/siteWeb/braveAndSupplyV2 /var/www/html/siteWeb/
+        Idéalement il faut être root pour gagner du temps (niveau sécurité c'est pas top quand même)
