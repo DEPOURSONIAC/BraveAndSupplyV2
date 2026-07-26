@@ -13,13 +13,13 @@
     <title>Brave & Supply</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/font-awesome.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/templatemo-hexashop.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/owl-carousel.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/lightbox.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
-
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/font-awesome.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/templatemo-hexashop.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/owl-carousel.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/lightbox.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/style.css">
+    
 </head>
 
 <body>
@@ -38,9 +38,9 @@
                     <a href="<?= BASE_URL ?>" class="logo">
 
                         <img
-                            src="<?= BASE_URL ?>/assets/images/logo_site.png"
+                            src="<?= BASE_URL ?>assets/images/logo_site.png"
                             alt="Logo Brave & Supply"
-                            width="150"
+                            width="100"
                         >
 
                     </a>
@@ -55,19 +55,19 @@
                         </li>
 
                         <li>
-                            <a href="<?= BASE_URL ?>?action=categorie&categoryId=1">
+                            <a href="<?= BASE_URL ?>?action=category&categoryId=1">
                                 Hommes
                             </a>
                         </li>
 
                         <li>
-                            <a href="<?= BASE_URL ?>?action=categorie&categoryId=2">
+                            <a href="<?= BASE_URL ?>?action=category&categoryId=2">
                                 Femmes
                             </a>
                         </li>
 
                         <li>
-                            <a href="<?= BASE_URL ?>?action=categorie&categoryId=3">
+                            <a href="<?= BASE_URL ?>?action=category&categoryId=3">
                                 Enfants
                             </a>
                         </li>
@@ -79,20 +79,15 @@
                         </li>
 
                         <!-- Menu utilisateur -->
-                        <li class="submenu" style="position: relative;">
+                        <li class="submenu" id="menuUtilisateur"">
 
                             <a href="javascript:;" id="userDropdown">
 
-                                <?= isset($_SESSION['id'])
-                                    ? htmlspecialchars($_SESSION['name'])
-                                    : 'Invité'; ?>
+                                <?= isset($_SESSION['id']) ? htmlspecialchars($_SESSION['name']) : 'Invité'; ?>
 
                             </a>
 
-                            <ul
-                                id="userMenu"
-                                style="display:none; position:absolute; right:0; background:#222; padding:10px; border-radius:6px;"
-                            >
+                            <ul id="userMenu">
 
                                 <?php if (!isset($_SESSION['id'])): ?>
 
@@ -180,35 +175,3 @@
 
 </header>
 
-<!-- Menu utilisateur -->
-<script>
-
-document.addEventListener('DOMContentLoaded', () => {
-
-    const button = document.getElementById('userDropdown');
-    const menu = document.getElementById('userMenu');
-
-    button.addEventListener('click', (event) => {
-
-        event.preventDefault();
-
-        menu.style.display =
-            menu.style.display === 'block'
-                ? 'none'
-                : 'block';
-
-    });
-
-    document.addEventListener('click', (event) => {
-
-        if (!button.contains(event.target) && !menu.contains(event.target)) {
-
-            menu.style.display = 'none';
-
-        }
-
-    });
-
-});
-
-</script>
