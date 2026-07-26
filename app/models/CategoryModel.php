@@ -51,14 +51,12 @@ function getProductsByCategory(int $category_id): array
 
     $db = getPDO();
 
-    $sql = "SELECT * FROM products WHERE category_id = ? ORDER BY id DESC ";
+    $sql = "SELECT *  FROM products WHERE category_id = ? ORDER BY id DESC";
 
     $stmt = $db->prepare($sql);
     $stmt->execute([$category_id]);
 
-    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    return $products;
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function createCategory(string $name): bool

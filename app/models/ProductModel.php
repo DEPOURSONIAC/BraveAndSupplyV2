@@ -21,7 +21,7 @@ function getAllProducts(): array
     return $products;
 }
 
-function getProductsByCategory(int $id): ?array
+function getProductById(int $id): ?array
 {
     /*
         Retourne un produit
