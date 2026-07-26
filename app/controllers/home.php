@@ -1,6 +1,7 @@
 <?php
 
 require_once MODEL_PATH . "/ProductModel.php";
+require_once MODEL_PATH . "/CategoryModel.php";
 
 
 function home(): void

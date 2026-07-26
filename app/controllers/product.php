@@ -1,7 +1,7 @@
 <?php
 
 require_once MODEL_PATH . '/ProductModel.php';
-
+require_once MODEL_PATH . '/CategoryModel.php';
 
 function showCatalogue(): void
 {
@@ -11,9 +11,37 @@ function showCatalogue(): void
 
     $products = getAllProducts();
 
-    view('shop/catalogue');
+     view('shop/catalogue', [
+        'products' => $products
+        
+        ]);
 }
 
+function showCategory(int $id): void
+{
+    /*
+        Affiche les produits en fct de la categorie
+    */
+
+    $products = getProductsByCategory($id);
+
+    if ($id <= 0) {
+        http_response_code(400);
+        exit('Identifiant invalide.');
+    }
+
+    $product = getProductById($id);
+
+    if (!$product) {
+        http_response_code(404);
+        exit('Categorie introuvable.');
+    }
+
+    view('shop/category', [
+        'products' => $products
+        
+        ]);
+}
 
 function showProduct(int $id): void
 {
@@ -33,5 +61,8 @@ function showProduct(int $id): void
         exit('Produit introuvable.');
     }
 
-    view('shop/product');
+    view('shop/product', [
+        'product' => $product
+        
+        ]);
 }
