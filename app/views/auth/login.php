@@ -1,5 +1,6 @@
 <?php require_once INCLUDE_PATH . '/header.php'; ?>
 
+<main class="pt-5">
 <div class="page">
 
     <div class="card">
@@ -54,5 +55,6 @@
     </div>
 
 </div>
+</main>
 
 <?php require_once INCLUDE_PATH . '/footer.php'; ?>

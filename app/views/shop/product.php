@@ -1,117 +1,195 @@
-<?php require_once(__DIR__ . '/../../../includes/header.php');  ?>
+<?php include(INCLUDE_PATH . "/header.php"); ?>
 
+<main class="pt-5">
 
 <!-- BANNER -->
-<div class="page-heading" id="top">
+<div class="bg-light py-5">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <div class="inner-content">
-                    <h2><?php echo htmlspecialchars($produit['name'] ?? 'Produit'); ?></h2>
-                    <span>Détail du produit</span>
-                </div>
+            <div class="col-12 text-center">
+
+                <h2 class="fw-bold">
+                    <?= htmlspecialchars($product['name'] ?? 'Produit') ?>
+                </h2>
+
+                <p class="text-muted mb-0">
+                    Détail du produit
+                </p>
+
             </div>
         </div>
     </div>
 </div>
 
-<!-- PRODUIT -->
-<section class="section" id="product">
-    <div class="container">
-        <div class="row">
 
-            <!-- IMAGE -->
-            <div class="col-lg-8">
-                <div class="left-images">
-                    <img src="<?= BASE_URL ?>/assets/images/<?php echo htmlspecialchars($produit['image'] ?? 'default.jpg'); ?>" alt="" style="max-width:400px;">
+<!-- PRODUIT -->
+<section class="py-5" id="product">
+
+    <div class="container">
+
+        <div class="row align-items-start g-5">
+
+
+            <!-- IMAGE PRODUIT -->
+            <div class="col-lg-7">
+
+                <div class="text-center">
+
+                    <img 
+                        src="<?= BASE_URL ?>assets/images/products/<?= htmlspecialchars($product['image'] ?? 'default.jpg') ?>"
+                        class="img-fluid rounded"
+                        alt="<?= htmlspecialchars($product['name'] ?? 'Produit') ?>"
+                    >
+
                 </div>
+
             </div>
 
-            <!-- INFOS -->
-            <div class="col-lg-4">
-                <div class="right-content">
-
-                    <h4><?php echo htmlspecialchars($produit['name'] ?? 'Nom produit'); ?></h4>
-
-                    <span class="price">
-                        <?php echo number_format($produit['price'] ?? 0, 2, ',', ' '); ?> €
-                    </span>
-
-                    <ul class="stars">
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                    </ul>
-
-                    <span>
-                        <?php echo htmlspecialchars($produit['description'] ?? ''); ?>
-                    </span>
 
 
-                    <!-- FORM -->
-                    <form method="POST" style="margin-top:20px;">
+            <!-- INFORMATIONS PRODUIT -->
+            <div class="col-lg-5">
 
-                        <div class="quantity-content">
-                            <div class="left-content">
-                                <h6>Quantité</h6>
-                            </div>
+                <div>
 
-                            <div class="right-content">
-                                <div class="quantity buttons_added">
-                                    <input type="button" value="-" class="minus" style="color:#000;">
+                    <h1 class="fw-bold mb-3">
+                        <?= htmlspecialchars($product['name'] ?? 'Nom produit') ?>
+                    </h1>
 
-                                    <input type="number"
-                                           step="1"
-                                           min="1"
-                                           name="quantite"
-                                           value="1"
-                                           class="input-text qty text" style="color:#000;">
 
-                                    <input type="button" value="+" class="plus" style="color:#000;">
-                                </div>
-                            </div>
+                    <div class="mb-3">
+
+                        <span class="fs-3 fw-bold">
+                            <?= number_format($product['price'] ?? 0, 2, ',', ' ') ?> €
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- NOTES -->
+                    <div class="mb-4 text-warning">
+
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+
+                    </div>
+
+
+
+                    <!-- DESCRIPTION -->
+                    <p class="text-secondary mb-4">
+
+                        <?= htmlspecialchars($product['description'] ?? '') ?>
+
+                    </p>
+
+
+
+                    <!-- PANIER -->
+                    <form action="<?= BASE_URL ?>?action=add&id=<?= $product['id'] ?>" method="POST">
+
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-bold">
+                                Quantité
+                            </label>
+
+
+                            <input 
+                                type="number"
+                                name="quantite"
+                                value="1"
+                                min="1"
+                                class="form-control"
+                            >
+
                         </div>
 
-                        <input type="hidden" name="produit_id" value="<?php echo $produit['id']; ?>">
 
-                        <div class="total" style="margin-top:20px;">
-                            <div class="main-border-button" style="color:#000;">
-                                <button type="submit" style="background:none; border:none;" >
-                                    Ajouter au panier
-                                </button>
-                            </div>
-                        </div>
+
+                        <input 
+                            type="hidden"
+                            name="produit_id"
+                            value="<?= $product['id'] ?>"
+                        >
+
+
+
+                        <button 
+                            type="submit"
+                            class="btn btn-dark w-100 py-3">
+
+                            <i class="fa fa-shopping-cart me-2"></i>
+                            Ajouter au panier
+
+                        </button>
+
 
                     </form>
 
-                    <?php /* if ($_SERVER['REQUEST_METHOD'] === 'POST' && $produit['id'] > 0): ?>
-                        <p style="color:green; margin-top:10px;">
-                            Produit ajouté au panier ✅
+
+
+                    <!-- RETOUR -->
+                    <a 
+                        href="<?= BASE_URL ?>?action=catalogue"
+                        class="btn btn-outline-dark w-100 mt-3 py-3">
+
+                        Retour au catalogue
+
+                    </a>
+
+
+
+                    <!-- INFORMATIONS -->
+                    <div class="border-top mt-5 pt-4">
+
+
+                        <p class="mb-2">
+
+                            <strong>Référence :</strong>
+                            #<?= $product['id'] ?>
+
                         </p>
-                    <?php endif; */ ?>
+
+
+
+                        <p class="mb-0">
+
+                            <strong>Disponibilité :</strong>
+
+                            <span class="text-success">
+
+                                En stock : <?= $product['stock'] ?>
+
+                            </span>
+
+                        </p>
+
+
+                    </div>
+
 
                 </div>
+
+
             </div>
 
-        </div> <!-- row -->
-    </div> <!-- container -->
+
+        </div>
+
+
+    </div>
+
+
 </section>
 
-<!-- SCRIPT + / - -->
-<script>
-document.querySelector('.plus')?.addEventListener('click', function() {
-    let input = document.querySelector('.qty');
-    input.value = parseInt(input.value) + 1;
-});
 
-document.querySelector('.minus')?.addEventListener('click', function() {
-    let input = document.querySelector('.qty');
-    if (input.value > 1) {
-        input.value = parseInt(input.value) - 1;
-    }
-});
-</script>
+</main>
 
-<?php require_once(__DIR__ . '/../../../includes/footer.php');  ?>
+
+<?php include(INCLUDE_PATH . "/footer.php"); ?>

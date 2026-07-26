@@ -1,5 +1,6 @@
-<?php require_once(__DIR__ . '/../../../../includes/header.php'); ?>
+<?php include( INCLUDE_PATH . "/header.php"); ?>
 
+<main class="pt-5">
     <!-- ***** Main Banner Area Start ***** -->
     <div class="page-heading about-page-heading" id="top">
         <div class="container">
@@ -212,47 +213,6 @@
         </div>
     </div>
     <!-- ***** Subscribe Area Ends ***** -->
+</main>
 
-
-
-    <!-- jQuery -->
-    <script src="<?= BASE_URL ?>/assets/js/jquery-2.1.0.min.js"></script>
-
-    <!-- Bootstrap -->
-    <script src="<?= BASE_URL ?>/assets/js/popper.js"></script>
-    <script src="<?= BASE_URL ?>/assets/js/bootstrap.min.js"></script>
-
-    <!-- Plugins -->
-    <script src="<?= BASE_URL ?>/assets/js/owl-carousel.js"></script>
-    <script src="<?= BASE_URL ?>/assets/js/accordions.js"></script>
-    <script src="<?= BASE_URL ?>/assets/js/datepicker.js"></script>
-    <script src="<?= BASE_URL ?>/assets/js/scrollreveal.min.js"></script>
-    <script src="<?= BASE_URL ?>/assets/js/waypoints.min.js"></script>
-    <script src="<?= BASE_URL ?>/assets/js/jquery.counterup.min.js"></script>
-    <script src="<?= BASE_URL ?>/assets/js/imgfix.min.js"></script> 
-    <script src="<?= BASE_URL ?>/assets/js/slick.js"></script> 
-    <script src="<?= BASE_URL ?>/assets/js/lightbox.js"></script> 
-    <script src="<?= BASE_URL ?>/assets/js/isotope.js"></script> 
-    
-    <!-- Global Init -->
-    <script src="<?= BASE_URL ?>/assets/js/custom.js"></script>
-
-    <script>
-
-        $(function() {
-            var selectedClass = "";
-            $("p").click(function(){
-            selectedClass = $(this).attr("data-rel");
-            $("#portfolio").fadeTo(50, 0.1);
-                $("#portfolio div").not("."+selectedClass).fadeOut();
-            setTimeout(function() {
-              $("."+selectedClass).fadeIn();
-              $("#portfolio").fadeTo(50, 1);
-            }, 500);
-                
-            });
-        });
-
-    </script>
-
-<?php include(__DIR__ . '/../../../../includes/footer.php'); ?>
+<?php include( INCLUDE_PATH . "/footer.php"); ?>

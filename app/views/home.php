@@ -1,5 +1,6 @@
-<?php require_once INCLUDE_PATH . '/header.php'; ?>
+<?php include( INCLUDE_PATH . "/header.php"); ?>
 
+<main class="pt-5">
 <!-- ***** Bannière principale - Début ***** -->
 <div class="main-banner" id="top">
     <div class="container-fluid">
@@ -11,10 +12,10 @@
                             <h4>Brave & Supply — Maison Parisienne</h4>
                             <span>Costumes d’exception en matières 100% naturelles</span>
                             <div class="main-border-button">
-                                <a href="?action=home">Acheter maintenant</a>
+                                <a href="<?= BASE_URL ?>">Acheter maintenant</a>
                             </div>
                         </div>
-                        <img src="<?= BASE_URL ?>/assets/images/left-banner-image.jpg" alt="">
+                        <img src="<?= BASE_URL ?>assets/images/left-banner-image.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -35,11 +36,11 @@
                                             <h4>Femmes</h4>
                                             <p>Découvrez des pièces raffinées conçues à partir de matières naturelles, alliant confort, modernité et savoir-faire parisien.</p>
                                             <div class="main-border-button">
-                                                <a href="?action=categorie&&categoryId=2">Découvrir</a>
+                                                <a href="<?= BASE_URL ?>?action=category&categoryId=2">Découvrir</a>
                                             </div>
                                         </div>
                                     </div>
-                                    <img src="<?= BASE_URL ?>/assets/images/baner-right-image-01.jpg">
+                                    <img src="<?= BASE_URL ?>assets/images/baner-right-image-01.jpg">
                                 </div>
                             </div>
                         </div>
@@ -56,11 +57,11 @@
                                             <h4>Hommes</h4>
                                             <p>Explorez notre collection de costumes haut de gamme, confectionnés en laine, lin et coton pour une élégance durable.</p>
                                             <div class="main-border-button">
-                                                <a href="?action=categorie&&categoryId=1">Découvrir</a>
+                                                <a href="<?= BASE_URL ?>?action=category&categoryId=1">Découvrir</a>
                                             </div>
                                         </div>
                                     </div>
-                                    <img src="<?= BASE_URL ?>/assets/images/baner-right-image-02.jpg">
+                                    <img src="<?= BASE_URL ?>assets/images/baner-right-image-02.jpg">
                                 </div>
                             </div>
                         </div>
@@ -77,11 +78,11 @@
                                             <h4>Enfants</h4>
                                             <p>Créez un costume unique, adapté à votre silhouette et confectionné dans des matières naturelles d’exception.</p>
                                             <div class="main-border-button">
-                                                <a href="?action=categorie&&categoryId=3">Découvrir</a>
+                                                <a href="<?= BASE_URL ?>?action=category&categoryId=3">Découvrir</a>
                                             </div>
                                         </div>
                                     </div>
-                                    <img src="<?= BASE_URL ?>/assets/images/baner-right-image-03.jpg">
+                                    <img src="<?= BASE_URL ?>assets/images/baner-right-image-03.jpg">
                                 </div>
                             </div>
                         </div>
@@ -98,11 +99,11 @@
                                             <h4>Accessoires</h4>
                                             <p>Complétez votre tenue avec nos accessoires conçus à partir de matériaux nobles et durables.</p>
                                             <div class="main-border-button">
-                                                <a href="?action=categorie&&categoryId=4">Découvrir</a>
+                                                <a href="<?= BASE_URL ?>?action=category&categoryId=4">Découvrir</a>
                                             </div>
                                         </div>
                                     </div>
-                                    <img src="<?= BASE_URL ?>/assets/images/baner-right-image-04.jpg">
+                                    <img src="<?= BASE_URL ?>assets/images/baner-right-image-04.jpg">
                                 </div>
                             </div>
                         </div>
@@ -133,7 +134,7 @@
                 <div class="men-item-carousel">
                     <div class="owl-men-item owl-carousel">
 
-                        <?php foreach ($hommes as $produit): ?>
+                        <?php foreach ($hommes as $product): ?>
                         <div class="item">
 
                             <div class="thumb ratio ratio-4x3">
@@ -141,32 +142,32 @@
                                 <div class="hover-content">
                                     <ul>
                                         <li>
-                                            <a href="?action=product&id=<?= $produit['id'] ?>">
+                                            <a href="<?= BASE_URL ?>?action=product&id=<?= $product['id'] ?>">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="?action=favorite&id=<?= $produit['id'] ?>">
+                                            <a href="<?= BASE_URL ?>?action=favorite&id=<?= $product['id'] ?>">
                                                 <i class="fa fa-star"></i>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="?action=add&id=<?= $produit['id'] ?>">
+                                            <a href="<?= BASE_URL ?>?action=add&id=<?= $product['id'] ?>">
                                                 <i class="fa fa-shopping-cart"></i>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
 
-                                <img src="<?= BASE_URL ?>/assets/images/<?= htmlspecialchars($produit['image']) ?>"
-                                        style="width:100%; height:320px; object-fit:cover; display:block;"
-                                        alt="<?= htmlspecialchars($produit['name']) ?>">
+                                <img src="<?= BASE_URL ?>assets/images/products/<?= htmlspecialchars($product['image']) ?>"
+                                        id="imageProduct"
+                                        alt="<?= htmlspecialchars($product['name']) ?>">
 
                             </div>
 
                             <div class="down-content">
-                                <h4><?= htmlspecialchars($produit['name']) ?></h4>
-                                <span><?= number_format($produit['price'], 2, ',', ' ') ?> €</span>
+                                <h4><?= htmlspecialchars($product['name']) ?></h4>
+                                <span><?= number_format($product['price'], 2, ',', ' ') ?> €</span>
                             </div>
 
                         </div>
@@ -199,23 +200,23 @@
             <div class="col-lg-12">
                 <div class="women-item-carousel">
                     <div class="owl-women-item owl-carousel">
-                        <?php foreach ($femmes as $produit): ?>
+                        <?php foreach ($femmes as $product): ?>
                         <div class="item">
                             <div class="thumb">
                                 <div class="hover-content">
                                     <ul>
-                                        <li><a href="?action=product&id=<?= $produit['id'] ?>"><i class="fa fa-eye"></i></a></li>
-                                        <li><a href="?action=favorite&id=<?= $produit['id'] ?>"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="?action=add&id=<?= $produit['id'] ?>"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="<?= BASE_URL ?>?action=product&id=<?= $product['id'] ?>"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="<?= BASE_URL ?>?action=favorite&id=<?= $product['id'] ?>"><i class="fa fa-star"></i></a></li>
+                                        <li><a href="<?= BASE_URL ?>?action=add&id=<?= $product['id'] ?>"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
-                                <img src="<?= BASE_URL ?>/assets/images/<?= htmlspecialchars($produit['image']) ?>"
-                                        style="width:100%; height:320px; object-fit:cover; display:block;"
-                                        alt="<?= htmlspecialchars($produit['name']) ?>">
+                                <img src="<?= BASE_URL ?>assets/images/products/<?= htmlspecialchars($product['image']) ?>"
+                                        id= ""
+                                        alt="<?= htmlspecialchars($product['name']) ?>">
                             </div>
                             <div class="down-content">
-                                <h4><?= htmlspecialchars($produit['name']) ?></h4>
-                                <span><?= number_format($produit['price'], 2, ',', ' ') ?> €</span>
+                                <h4><?= htmlspecialchars($product['name']) ?></h4>
+                                <span><?= number_format($product['price'], 2, ',', ' ') ?> €</span>
                             </div>
                         </div>
 
@@ -245,23 +246,23 @@
             <div class="col-lg-12">
                 <div class="women-item-carousel">
                     <div class="owl-women-item owl-carousel">
-                        <?php foreach ($kids as $produit): ?>
+                        <?php foreach ($kids as $product): ?>
                         <div class="item">
                             <div class="thumb">
                                 <div class="hover-content">
                                     <ul>
-                                        <li><a href="?action=product&id=<?= $produit['id'] ?>"><i class="fa fa-eye"></i></a></li>
-                                        <li><a href="?action=favorite&id=<?= $produit['id'] ?>"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="?action=add&id=<?= $produit['id'] ?>"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="<?= BASE_URL ?>?action=product&id=<?= $product['id'] ?>"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="<?= BASE_URL ?>?action=favorite&id=<?= $product['id'] ?>"><i class="fa fa-star"></i></a></li>
+                                        <li><a href="<?= BASE_URL ?>?action=add&id=<?= $product['id'] ?>"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
-                                 <img src="<?= BASE_URL ?>/assets/images/<?= htmlspecialchars($produit['image']) ?>"
+                                 <img src="<?= BASE_URL ?>assets/images/products/<?= htmlspecialchars($product['image']) ?>"
                                         style="width:100%; height:320px; object-fit:cover; display:block;"
-                                        alt="<?= htmlspecialchars($produit['name']) ?>">
+                                        alt="<?= htmlspecialchars($product['name']) ?>">
                             </div>
                             <div class="down-content">
-                                <h4><?= htmlspecialchars($produit['name']) ?></h4>
-                                <span><?= number_format($produit['price'], 2, ',', ' ') ?> €</span>
+                                <h4><?= htmlspecialchars($product['name']) ?></h4>
+                                <span><?= number_format($product['price'], 2, ',', ' ') ?> €</span>
                             </div>
                         </div>
 
@@ -294,7 +295,7 @@
 
                     <p>Chaque costume est pensé pour durer, traverser les saisons et accompagner chaque moment important de votre vie.</p>
                     <div class="main-border-button">
-                        <a href="?action=catalogue">Découvrir plus</a>
+                        <a href="<?= BASE_URL ?>?action=catalogue">Découvrir plus</a>
                     </div>
                 </div>
             </div>
@@ -311,20 +312,20 @@
 
                         <div class="col-lg-6">
                             <div class="first-image">
-                                <img src="<?= BASE_URL ?>/assets/images/explore-image-01.jpg" alt="">
+                                <img src="<?= BASE_URL ?>assets/images/explore-image-01.jpg" alt="">
                             </div>
                         </div>
 
                         <div class="col-lg-6">
                             <div class="second-image">
-                                <img src="<?= BASE_URL ?>/assets/images/explore-image-02.jpg" alt="">
+                                <img src="<?= BASE_URL ?>assets/images/explore-image-02.jpg" alt="">
                             </div>
                         </div>
 
                         <div class="col-lg-6">
                             <div class="types">
                                 <h4>Différents types</h4>
-                                <span>Plus de 304 produits</span>
+                                <span>Plus de 1 000 produits</span>
                             </div>
                         </div>
                     </div>
@@ -358,7 +359,7 @@
                             <i class="fa fa-instagram"></i>
                         </a>
                     </div>
-                    <img src="<?= BASE_URL ?>/assets/images/instagram-01.jpg" alt="">
+                    <img src="<?= BASE_URL ?>assets/images/instagram-01.jpg" alt="">
                 </div>
             </div>
             <div class="col-2">
@@ -369,7 +370,7 @@
                             <i class="fa fa-instagram"></i>
                         </a>
                     </div>
-                    <img src="<?= BASE_URL ?>/assets/images/instagram-02.jpg" alt="">
+                    <img src="<?= BASE_URL ?>assets/images/instagram-02.jpg" alt="">
                 </div>
             </div>
             <div class="col-2">
@@ -380,7 +381,7 @@
                             <i class="fa fa-instagram"></i>
                         </a>
                     </div>
-                    <img src="<?= BASE_URL ?>/assets/images/instagram-03.jpg" alt="">
+                    <img src="<?= BASE_URL ?>assets/images/instagram-03.jpg" alt="">
                 </div>
             </div>
             <div class="col-2">
@@ -391,7 +392,7 @@
                             <i class="fa fa-instagram"></i>
                         </a>
                     </div>
-                    <img src="<?= BASE_URL ?>/assets/images/instagram-04.jpg" alt="">
+                    <img src="<?= BASE_URL ?>assets/images/instagram-04.jpg" alt="">
                 </div>
             </div>
             <div class="col-2">
@@ -402,7 +403,7 @@
                             <i class="fa fa-instagram"></i>
                         </a>
                     </div>
-                    <img src="<?= BASE_URL ?>/assets/images/instagram-05.jpg" alt="">
+                    <img src="<?= BASE_URL ?>assets/images/instagram-05.jpg" alt="">
                 </div>
             </div>
             <div class="col-2">
@@ -413,7 +414,7 @@
                             <i class="fa fa-instagram"></i>
                         </a>
                     </div>
-                    <img src="<?= BASE_URL ?>/assets/images/instagram-06.jpg" alt="">
+                    <img src="<?= BASE_URL ?>assets/images/instagram-06.jpg" alt="">
                 </div>
             </div>
         </div>
@@ -429,7 +430,7 @@
                     <h2>En vous abonnant à notre newsletter, vous pouvez bénéficier de 30 % de réduction</h2>
                     <span>Le souci du détail est ce qui rend BraveAndSupply différent des autres magasins.</span>
                 </div>
-                <form id="subscribe" action="" method="get">
+                <form id="subscribe" action="" method="post">
                     <div class="row">
                       <div class="col-lg-5">
                         <fieldset>
@@ -478,47 +479,7 @@
         </div>
     </div>
 </div>
-<!-- ***** Zone d'abonnement - Fin ***** -->
-    
+</main> 
 
-    <!-- jQuery -->
-    <script src="<?= BASE_URL ?>/assets/js/jquery-2.1.0.min.js"></script>
+<?php include( INCLUDE_PATH . "/footer.php"); ?>
 
-    <!-- Bootstrap -->
-    <script src="<?= BASE_URL ?>/assets/js/popper.js"></script>
-    <script src="<?= BASE_URL ?>/assets/js/bootstrap.min.js"></script>
-
-    <!-- Plugins -->
-    <script src="<?= BASE_URL ?>assets/js/owl-carousel.js"></script>
-    <script src="<?= BASE_URL ?>assets/js/accordions.js"></script>
-    <script src="<?= BASE_URL ?>assets/js/datepicker.js"></script>
-    <script src="<?= BASE_URL ?>assets/js/scrollreveal.min.js"></script>
-    <script src="<?= BASE_URL ?>assets/js/waypoints.min.js"></script>
-    <script src="<?= BASE_URL ?>/assets/js/jquery.counterup.min.js"></script>
-    <script src="<?= BASE_URL ?>/assets/js/imgfix.min.js"></script> 
-    <script src="<?= BASE_URL ?>assets/js/slick.js"></script> 
-    <script src="<?= BASE_URL ?>assets/js/lightbox.js"></script> 
-    <script src="<?= BASE_URL ?>/assets/js/isotope.js"></script> 
-    
-    <!-- Global Init -->
-    <script src="<?= BASE_URL ?>/assets/js/custom.js"></script>
-
-    <script>
-
-        $(function() {
-            var selectedClass = "";
-            $("p").click(function(){
-            selectedClass = $(this).attr("data-rel");
-            $("#portfolio").fadeTo(50, 0.1);
-                $("#portfolio div").not("."+selectedClass).fadeOut();
-            setTimeout(function() {
-              $("."+selectedClass).fadeIn();
-              $("#portfolio").fadeTo(50, 1);
-            }, 500);
-                
-            });
-        });
-
-    </script>
-
-<?php require_once INCLUDE_PATH . '/footer.php'; ?>
