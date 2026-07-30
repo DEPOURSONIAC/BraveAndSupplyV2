@@ -1,7 +1,10 @@
 <?php
+
 require_once CONTROLLER_PATH . "/home.php";
 require_once CONTROLLER_PATH . "/auth.php";
 require_once CONTROLLER_PATH . "/product.php";
+require_once CONTROLLER_PATH . "/user.php";
+require_once CONTROLLER_PATH . "/legal.php";
 
 function allRoutes(): array
 {
@@ -31,6 +34,26 @@ function allRoutes(): array
             'params' => []
         ],
 
+        // Pages légal
+        'infos' => [
+            'GET' => 'infos',
+            'params' => []
+        ],
+
+        'cgv' => [
+            'GET' => 'cgv',
+            'params' => []
+        ],
+
+        'reglement' => [
+            'GET' => 'reglement',
+            'params' => []
+        ],
+
+        'mentions' => [
+            'GET' => 'mentions',
+            'params' => []
+        ],
         // Authentification
         'login' => [
             'GET'  => 'loginPage',
@@ -55,9 +78,25 @@ function allRoutes(): array
             'params' => ['id']
         ],
 
+        // Catalogue
+        'catalogue' => [
+            'GET' => 'showCatalogue',
+            'params' => []
+        ],
+
+        // Category
+        'category' => [
+            'GET' => 'showCategory',
+            'params' => ['categoryId']
+        ],
+
+        // Account
+        'account' => [
+            'GET' => 'accountPage',
+            'params' => []
+        ],
     ];
 }
-
 function getRoute(): array
 {
     /*
