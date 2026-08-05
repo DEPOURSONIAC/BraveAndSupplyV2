@@ -1,7 +1,7 @@
 # BraveAndSupply V2
 
 Plateforme e-commerce de costumes (version améliorée et sécurisée).  
-Architecture MVC maison avec routing custom, PDO, protection XSS et base prête pour PayPal.
+Architecture MVC maison avec routing, PDO, protection XSS et base prête pour PayPal.
 
 ---
 
@@ -22,54 +22,117 @@ Créer une base e-commerce propre, sécurisée et évolutive :
 - PHP (MVC maison)
 - MySQL (PDO)
 - HTML / CSS / JS
-- PayPal API
-- Router maison
 
 ---
 
 ## Structure complète du projet
-```
+
+~~~python
 BraveAndSupply/
 │
-├── public/
-│   ├── index.php
-│   └── assets/
-│       ├── css/
-│       ├── js/
-│       └── img/
-│
-├── routes/
-│   └── web.php
-│
 ├── app/
+│   │
 │   ├── controllers/
-│   │   ├── home.php
-│   │   ├── auth.php
-│   │   └── user.php
+│   │   ├── AuthController.php
+│   │   ├── HomeController.php
+│   │   ├── LegalController.php
+│   │   ├── ProductController.php
+│   │   └── UserController.php
 │   │
 │   ├── models/
-│   │   └── userModel.php
-│   │
+│   │   ├── AuthModel.php
+│   │   ├── CartModel.php
+│   │   ├── CategoryModel.php
+│   │   ├── CouponModel.php
+│   │   ├── FavoriteModel.php
+│   │   ├── OrderModel.php
+│   │   ├── ProductListModel.php
+│   │   ├── ProductModel.php
+│   │   ├── ReviewModel.php
+│   │   └── UserModel.php
 │   └── views/
-│       ├── home/
-│       │   └── index.php
+│       │
 │       ├── auth/
-│       │   └── login.php
-│       └── user/
-│           └── profile.php
-│
-├── core/
-│   └── router.php
+│       │   ├── login.php
+│       │   ├── account.php
+│       │   ├── cart.php
+│       │   ├── register.php            
+│       │   ├── forgot-password.php     
+│       │   └── reset-password.php      
+│       │
+│       ├── legal/
+│       │   ├── cgv.php
+│       │   ├── infos.php
+│       │   ├── mentions.php
+│       │   ├── reglement.php
+│       │   └── privacy.php             
+│       │
+│       ├── shop/
+│       │   ├── catalogue.php
+│       │   ├── category.php
+│       │   ├── product.php
+│       │   ├── search.php              
+│       │   ├── favorites.php           
+│       │   ├── checkout.php    
+│       │   └── orders.php              
+│       │
+│       ├── annex/
+│       │   ├── about.php
+│       │   ├── contact.php
+│       │   └── faq.php            
+│       │
+│       └── home.php
 │
 ├── config/
 │   ├── config.php
 │   └── database.php
 │
-├── includes/
+├── core/
+│   ├── router.php
 │   └── helpers.php
 │
-├── storage/
-│   └── logs/
+├── deployment/
+│   └── apache2/
+│       ├── braveandsupply.conf
+│       └── .htaccess.example
 │
+├── includes/
+│   ├── header.php
+│   ├── footer.php
+│   ├── navbar.php
+│   ├── sidebar.php
+│   ├── flash.php
+│   └── pagination.php
+│
+├── public/
+│   ├── .htaccess      
+│   ├── index.php
+│   │
+│   └── assets/
+│       ├── css/
+│       │   ├── style.css
+│       │   ├── auth.css
+│       │   ├── shop.css
+│       │   └── admin.css
+│       │
+│       ├── js/
+│       │   ├── app.js
+│       │   ├── cart.js
+│       │   ├── search.js
+│       │   └── validation.js
+│       │
+│       └── images/
+│           ├── logo.png
+│           ├── products/
+│           └── users/
+│
+├── routes/
+│   └── web.php
+│
+├── storage/
+│   └──logs/
+│       └── app.log
+│ 
 └── README.md
-```
+
+~~~
