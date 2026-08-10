@@ -1,0 +1,25 @@
+AJAX sur mon ACCOUNT: 
+
+                     ACCOUNT
+                        │
+              rendu initial PHP
+                        │
+                        ▼
+              ┌─────────────────┐
+              │ Profil          │
+              │ Commandes       │
+              │ Panier          │
+              │ Avis            │
+              └────────┬────────┘
+                       │
+                 navigation AJAX
+                       │
+          ┌────────────┼────────────┐
+          ▼            ▼            ▼
+       Profil       Panier        Avis
+                      │
+              interactions AJAX
+                      │
+            ┌─────────┼─────────┐
+            ▼         ▼         ▼
+          + / -    supprimer   ajouter
