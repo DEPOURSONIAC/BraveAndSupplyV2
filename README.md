@@ -27,7 +27,7 @@ Créer une base e-commerce propre, sécurisée et évolutive :
 
 ## Structure complète du projet
 
-~~~python
+~~~asm
 BraveAndSupply/
 │
 ├── app/
@@ -50,8 +50,14 @@ BraveAndSupply/
 │   │   ├── ProductModel.php
 │   │   ├── ReviewModel.php
 │   │   └── UserModel.php
-│   └── views/
-│       │
+│   └── views/       
+│       ├── user/ 
+│       |   ├── account.php 
+│       │   └── account/ 
+│       │       ├── profile.php 
+│       │       ├── orders.php 
+│       │       ├── cart.php 
+│       │       └── reviews.php
 │       ├── auth/
 │       │   ├── login.php
 │       │   ├── account.php
@@ -64,8 +70,7 @@ BraveAndSupply/
 │       │   ├── cgv.php
 │       │   ├── infos.php
 │       │   ├── mentions.php
-│       │   ├── reglement.php
-│       │   └── privacy.php             
+│       │   └── reglement.php          
 │       │
 │       ├── shop/
 │       │   ├── catalogue.php
@@ -78,23 +83,30 @@ BraveAndSupply/
 │       │
 │       ├── annex/
 │       │   ├── about.php
-│       │   ├── contact.php
-│       │   └── faq.php            
+│       │   └── contact.php           
 │       │
 │       └── home.php
 │
 ├── config/
+|   ├── .htaccess
+|   ├── braveandsupplyv2.db
+|   ├── braveAndSupplyV2.sql
 │   ├── config.php
 │   └── database.php
 │
 ├── core/
+|   ├── .htaccess
+│   ├── bootstrap.php
 │   ├── router.php
 │   └── helpers.php
 │
 ├── deployment/
+|   ├── .htaccess
+|   ├── note/
+|   |   └── enPLus.txt
 │   └── apache2/
-│       ├── braveandsupply.conf
-│       └── .htaccess.example
+|       └── sites-available/
+│           └── 000-default.conf
 │
 ├── includes/
 │   ├── header.php
@@ -104,8 +116,7 @@ BraveAndSupply/
 │   ├── flash.php
 │   └── pagination.php
 │
-├── public/
-│   ├── .htaccess      
+├── public/      
 │   ├── index.php
 │   │
 │   └── assets/
