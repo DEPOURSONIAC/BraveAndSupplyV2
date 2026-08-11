@@ -127,14 +127,10 @@ BraveAndSupply/
 │       │   └── admin.css
 │       │
 │       ├── js/
-│       │   ├── app.js
-│       │   ├── cart.js
-│       │   ├── search.js
-│       │   └── validation.js
+│       │   └── ajax.js
 │       │
 │       └── images/
 │           ├── logo.png
-│           ├── products/
 │           └── users/
 │
 ├── routes/
@@ -142,6 +138,7 @@ BraveAndSupply/
 │
 ├── storage/
 │   └──logs/
+│           ├── products/
 │       └── app.log
 │ 
 └── README.md
