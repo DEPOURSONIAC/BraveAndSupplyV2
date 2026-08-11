@@ -72,12 +72,6 @@
                             </a>
                         </li>
 
-                        <li>
-                            <a href="<?= BASE_URL ?>?action=cart">
-                                Panier
-                            </a>
-                        </li>
-
                         <!-- Menu utilisateur -->
                         <li class="submenu" id="menuUtilisateur"">
 

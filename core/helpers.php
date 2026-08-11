@@ -43,5 +43,6 @@ function loginUser($user): bool
     $_SESSION['role'] = $user['role'];
 
     $result = 1;
+    
     return $result ;
 }

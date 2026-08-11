@@ -54,8 +54,8 @@
 
                 <ul>
                     <li><a href="<?= BASE_URL ?>?action=infos">Informations</a></li>
-                    <li><a href="<?= BASE_URL ?>?action=csv">Export CSV</a></li>
-                    <li><a href="<?= BASE_URL ?>?action=infosreglement">Règlement</a></li>
+                    <li><a href="<?= BASE_URL ?>?action=cgv">Export CGV</a></li>
+                    <li><a href="<?= BASE_URL ?>?action=reglement">Règlement</a></li>
                 </ul>
 
             </div>
@@ -120,7 +120,10 @@
 
     <script src="<?= BASE_URL ?>assets/js/custom.js"></script>
 
-    <!-- Mon JS -->
+    <!-- AJAX -->
+    <script src="<?= BASE_URL ?>assets/js/ajax.js"></script>
+
+    <!-- My JS -->
     <script src="<?= BASE_URL ?>assets/js/app.js"></script> 
 
 </body>
