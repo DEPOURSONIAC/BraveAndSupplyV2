@@ -153,3 +153,19 @@ function getOrdersByUser(int $user_id): array
 
     return $orders;
 }
+
+function countOrdersByUser(int $user_id): int
+{
+    
+    /*
+        Retourne le nombre de commande du user.
+    */
+    $db = getPDO();
+
+    $sql = "SELECT COUNT(*) FROM orders WHERE user_id = ?";
+
+    $stmt = $db->prepare($sql);
+    $stmt->execute([$user_id]);
+
+    return (int) $stmt->fetchColumn();
+}

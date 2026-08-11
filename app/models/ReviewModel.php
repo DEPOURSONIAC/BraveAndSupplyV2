@@ -80,3 +80,35 @@ function getAllReviews(): array
 
     return $reviews;
 }
+
+function getReviewsByUser(int $user_id): array
+{
+    /*
+        Retourne tous les avis du user.
+        Utilisé pour le account.
+    */
+
+    $db = getPDO();
+
+    $sql = "SELECT * FROM reviews WHERE user_id = ? ORDER BY id DESC";
+
+    $stmt = $db->prepare($sql);
+    $stmt->execute([$user_id]);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function countReviewsByUser(int $user_id): int
+{
+    /*
+        Compte le nombre d'avis du user.
+    */
+    $db = getPDO();
+
+    $sql = "SELECT COUNT(*) FROM reviews WHERE user_id = ?";
+
+    $stmt = $db->prepare($sql);
+    $stmt->execute([$user_id]);
+
+    return (int) $stmt->fetchColumn();
+}

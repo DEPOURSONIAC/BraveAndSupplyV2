@@ -9,7 +9,7 @@ function getUserById(int $id): ?array
 
     $db = getPDO();
 
-    $sql = "SELECT id, name, email, password, address, role, created_at FROM users WHERE id = ? LIMIT 1";
+    $sql = "SELECT * FROM users WHERE id = ? LIMIT 1";
 
     $stmt = $db->prepare($sql);
     $stmt->execute([$id]);

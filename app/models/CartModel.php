@@ -159,3 +159,32 @@ function clearCart(int $user_id): bool
 
     return $cleared;
 }
+
+function countProductInCartByUser(int $user_id): int
+{
+    /*
+        Compte le nombre de product dans le panier du user.
+    */
+    $db = getPDO();
+
+    $sql = "SELECT COALESCE(SUM(cart_items.quantity), 0) FROM cart_items INNER JOIN carts ON cart_items.cart_id = carts.id WHERE carts.user_id = ?";
+    
+    $stmt = $db->prepare($sql);
+    $stmt->execute([$user_id]);
+
+    return (int) $stmt->fetchColumn();
+}
+
+function updateCartItemQuantity(int $user_id, int $product_id, int $quantity): bool
+{
+    /*
+        MAJ de la quantité du produit dans le panier du user
+    */
+    $db = getPDO();
+
+    $sql = "UPDATE cart_items SET quantity = ? WHERE cart_id = ( SELECT id FROM carts WHERE user_id = ? ) AND product_id = ? ";
+
+    $stmt = $db->prepare($sql);
+
+    return $stmt->execute([$quantity, $user_id, $product_id]);
+}
