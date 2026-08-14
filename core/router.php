@@ -1,123 +1,232 @@
 <?php
+
 function allRoutes(): array
 {
     /*
-        Retourne toutes les routes disponibles.
+        Déclare toutes les routes/ action de l'application.
 
-        Chaque route définit :
-        - les fonctions à exécuter selon la méthode HTTP ;
-        - les paramètres attendus.
+        Chaque méthode HTTP définit :
+        - la fonction du 'controllers' à exécuter ;
+        - les paramètres nécessaires pour la page.
+
+        Les paramètres sont récupérés par le Router
+        depuis $_GET ou $_POST selon la méthode HTTP à travers le CRUD.
     */
 
     return [
 
         // Pages générales
+
+
         'home' => [
-            'GET' => 'home',
-            'params' => []
+            'GET' => [
+                'function' => 'showHome',
+                'params' => []
+            ]
         ],
 
         'contact' => [
-            'GET' => 'contact',
-            'params' => []
+            'GET' => [
+                'function' => 'showContact',
+                'params' => []
+            ]
         ],
 
         'about' => [
-            'GET' => 'about',
-            'params' => []
+            'GET' => [
+                'function' => 'showAbout',
+                'params' => []
+            ]
         ],
 
-        // Pages légal
+        // Pages légales
+
         'infos' => [
-            'GET' => 'infos',
-            'params' => []
+            'GET' => [
+                'function' => 'showInfos',
+                'params' => []
+            ]
         ],
 
         'cgv' => [
-            'GET' => 'cgv',
-            'params' => []
+            'GET' => [
+                'function' => 'showCgv',
+                'params' => []
+            ]
         ],
 
         'reglement' => [
-            'GET' => 'reglement',
-            'params' => []
+            'GET' => [
+                'function' => 'showReglement',
+                'params' => []
+            ]
         ],
 
         'mentions' => [
-            'GET' => 'mentions',
-            'params' => []
+            'GET' => [
+                'function' => 'showMentions',
+                'params' => []
+            ]
         ],
 
-        // Pages account
+        // Compte utilisateur
+
         'account' => [
-            'GET' => 'accountPage',
-            'params' => []
-        ],
-        'orders' => [
-            'GET' => 'orders',
-            'params' => []
+            'GET' => [
+                'function' => 'showAccount',
+                'params' => []
+            ]
         ],
 
-        'cart' => [
-            'GET' => 'cart',
-            'params' => []
+        'profile' => [
+            'GET' => [
+                'function' => 'showProfile',
+                'params' => []
+            ]
+        ],
+
+        'orders' => [
+            'GET' => [
+                'function' => 'showOrders',
+                'params' => []
+            ]
         ],
 
         'reviews' => [
-            'GET' => 'reviews',
-            'params' => []
+            'GET' => [
+                'function' => 'showReviews',
+                'params' => []
+            ]
         ],
-        
-        'profile' => [
-            'GET' => 'profile',
-            'params' => []
+
+        // Panier
+
+        'cart' => [
+            'GET' => [
+                'function' => 'showCart',
+                'params' => []
+            ]
         ],
+
+        'addToCart' => [
+            'POST' => [
+                'function' => 'addToCart',
+                'params' => [
+                    'product_id',
+                    'quantity'
+                ]
+            ]
+        ],
+
+        'updateCart' => [
+            'POST' => [
+                'function' => 'updateCart',
+                'params' => [
+                    'product_id',
+                    'quantity'
+                ]
+            ]
+        ],
+
+        'removeFromCart' => [
+            'POST' => [
+                'function' => 'removeFromCart',
+                'params' => [
+                    'product_id'
+                ]
+            ]
+        ],
+
         // Authentification
+
         'login' => [
-            'GET'  => 'loginPage',
-            'POST' => 'login',
-            'params' => []
+
+            'GET' => [
+                'function' => 'showLogin',
+                'params' => []
+            ],
+
+            'POST' => [
+                'function' => 'login',
+                'params' => [
+                    'email',
+                    'password'
+                ]
+            ]
         ],
 
         'register' => [
-            'GET'  => 'registerPage',
-            'POST' => 'register',
-            'params' => []
+
+            'GET' => [
+                'function' => 'showRegister',
+                'params' => []
+            ],
+
+            'POST' => [
+                'function' => 'register',
+                'params' => [
+                    'name',
+                    'email',
+                    'address',
+                    'password',
+                    'password_confirm'
+                ]
+            ]
         ],
 
         'logout' => [
-            'GET' => 'logout',
-            'params' => []
+            'GET' => [
+                'function' => 'logout',
+                'params' => []
+            ]
         ],
 
         // Produits
+
         'product' => [
-            'GET' => 'showProduct',
-            'params' => ['id']
+            'GET' => [
+                'function' => 'showProduct',
+                'params' => [
+                    'id'
+                ]
+            ]
         ],
 
         // Catalogue
+
         'catalogue' => [
-            'GET' => 'showCatalogue',
-            'params' => []
+            'GET' => [
+                'function' => 'showCatalogue',
+                'params' => []
+            ]
         ],
 
-        // Category
+        // Catégories
+
         'category' => [
-            'GET' => 'showCategory',
-            'params' => ['categoryId']
+            'GET' => [
+                'function' => 'showCategory',
+                'params' => [
+                    'category_id'
+                ]
+            ]
         ],
-
     ];
 }
+
 
 function getRoute(): array
 {
     /*
-        Retourne la route demandée par l'utilisateur.
+        Récupère la route demandée.
 
-        Si aucune action n'est présente dans l'URL,
-        la page d'accueil est utilisée par défaut.
+        Genre :
+            ?action=product&id=15
+
+        Retourne la route 'product'.
+
+        S'il y a rien:
+            -Remplacer par 'home'
     */
 
     $routes = allRoutes();
@@ -136,28 +245,33 @@ function getRoute(): array
     return $route;
 }
 
+
 function protectRoute(array $route): array
 {
     /*
-        Vérifie que l'utilisateur peut accéder
-        à la route demandée.
+        Vérifie si l'utilisateur peut accéder à la route.
 
-        Si l'accès est refusé, une route autorisée
-        est retournée.
+        L'application nécessite une connexion,
+        sauf pour les pages 'login' et 'register'.
+
+        Si l'utilisateur n'est pas connecté,
+        il est redirigé vers 'login'.
+
+        Si l'utilisateur est déjà connecté
+        et tente d'accéder à 'login' ou 'register'
+        il est redirigé vers 'home'.
     */
 
-    $isLogged = isset($_SESSION['id']);
+    $is_logged = isset($_SESSION['id']);
 
     $routes = allRoutes();
 
-    if (!$isLogged && !in_array($route['name'], ['login', 'register'], true)) {
-
+    if (!$is_logged && !in_array($route['name'], ['login', 'register'], true)) {
         $route = $routes['login'];
         $route['name'] = 'login';
     }
 
-    elseif ($isLogged && $route['name'] === 'login') {
-
+    if ($is_logged && $route['name'] === 'login' && $route['name'] === 'register') {
         $route = $routes['home'];
         $route['name'] = 'home';
     }
@@ -165,34 +279,38 @@ function protectRoute(array $route): array
     return $route;
 }
 
+
 function getRouteArguments(array $route): array
 {
     /*
-        Retourne les paramètres attendus
-        par la route.
-    */
+        Récupère les paramètres nécessaires à la route
+        depuis GET ou POST selon la méthode HTTP.
 
-    $args = [];
+        Genre :
 
-    foreach ($route['params'] as $param) {
+        Route :
+            'cartUpdate' => [
+                'POST' => [
+                    'function' => 'cartUpdate',
+                    'params' => [
+                        'product_id',
+                        'quantity'
+                    ]
+                ]
+            ]
 
-        $value = $_GET[$param] ?? null;
+        CRUD :
+            POST
 
-        if ($value === null) {
-            exit("Le paramètre " . $param . " est manquant.");
-        }
+        Data :
+            $_POST['product_id']
+            $_POST['quantity']
 
-        $args[] = $value;
-    }
-
-    return $args;
-}
-
-function executeRoute(array $route, array $args): void
-{
-    /*
-        Exécute la fonction associée
-        à la route et à la méthode HTTP.
+        Résultat(en forme de tableau) :
+            [
+                $product_id,
+                $quantity
+            ]
     */
 
     $method = $_SERVER['REQUEST_METHOD'];
@@ -202,5 +320,44 @@ function executeRoute(array $route, array $args): void
         exit('Méthode non autorisée');
     }
 
-    $route[$method](...$args);
+    $params = $route[$method]['params'];
+
+    $source = match ($method) {
+        'GET' => $_GET,
+        'POST' => $_POST,
+        default => []
+    };
+
+    $args = [];
+
+    foreach ($params as $param) {
+
+        if (!isset($source[$param])) {
+            exit("Le paramètre $param est manquant.");
+        }
+
+        $args[] = $source[$param];
+    }
+
+    return $args;
+}
+
+
+function executeRoute(array $route, array $args): void
+{
+    /*
+        Exécute la fonction Controller associée
+        à la méthode HTTP utilisée.
+    */
+
+    $method = $_SERVER['REQUEST_METHOD'];
+
+    if (!isset($route[$method])) {
+        http_response_code(405);
+        exit('Méthode non autorisée');
+    }
+
+    $function = $route[$method]['function'];
+
+    $function(...$args);
 }

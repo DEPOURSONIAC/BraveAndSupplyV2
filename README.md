@@ -1,7 +1,7 @@
-# BraveAndSupply V2
+# BraveAndSupply
 
-Plateforme e-commerce de costumes (version améliorée et sécurisée).  
-Architecture MVC maison avec routing, PDO, protection XSS et base prête pour PayPal.
+Plateforme e-commerce de costumes.  
+Architecture MVC maison avec routing, PDO, protection XSS, SQLi et base prête pour PayPal.
 
 ---
 
