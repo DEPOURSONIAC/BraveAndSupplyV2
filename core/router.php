@@ -271,7 +271,7 @@ function protectRoute(array $route): array
         $route['name'] = 'login';
     }
 
-    if ($is_logged && $route['name'] === 'login' && $route['name'] === 'register') {
+    if ($is_logged && in_array($route['name'], ['login', 'register'], true)) {
         $route = $routes['home'];
         $route['name'] = 'home';
     }
