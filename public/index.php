@@ -44,14 +44,14 @@ require_once ROOT . '/core/router.php';
 // ROUTING
 // ---------------
 
-// Récupère la route demandée.
+// Récupère la route demandée
 $route = getRoute();
 
-// Vérifie si l'utilisateur peut accéder à cette route.
+// Vérifie si l'utilisateur peut accéder à cette route
 $route = protectRoute($route);
 
-// Récupère les paramètres nécessaires à la fonction.
+// Récupère les paramètres nécessaires à la fonction
 $args = getRouteArguments($route);
 
-// Exécute la fonction associée à la route.
+// Exécute la fonction associée à la route
 executeRoute($route, $args);
