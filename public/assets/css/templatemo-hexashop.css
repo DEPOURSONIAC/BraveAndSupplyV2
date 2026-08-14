@@ -656,9 +656,15 @@ banner
   padding-bottom: 30px;
 }
 
+.main-banner .left-content .thumb {
+    position: relative;
+    width: 100%;
+}
+
 .main-banner .left-content .thumb img {
-  width: 100%;
-  overflow: hidden;
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
 .main-banner .left-content .inner-content {
@@ -2384,4 +2390,23 @@ responsive
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+
+.main-banner .left-content,
+.main-banner .left-content .thumb {
+    width: 100%;
+    height: auto;
+}
+
+.main-banner .left-content .thumb {
+    position: relative;
+    overflow: visible;
+}
+
+.main-banner .left-content .thumb img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
 }

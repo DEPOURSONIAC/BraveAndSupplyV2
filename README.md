@@ -20,7 +20,7 @@ Créer une base e-commerce propre, sécurisée et évolutive :
 ## Stack technique
 
 - PHP (MVC maison)
-- MySQL (PDO)
+- SQLite (PDO)
 - HTML / CSS / JS
 
 ---
@@ -144,3 +144,18 @@ BraveAndSupply/
 └── README.md
 
 ~~~
+
+## Conventions de nommage
+
+Le projet suit des conventions de nommage uniformes afin de faciliter la lecture et la maintenance du code car sinon je me perds.
+
+- **Variables et paramètres** : `snake_case`
+  - Exemple : `$user_id`, `$product_id`
+- **Fonctions** : `camelCase`
+  - Exemple : `getCurrentUser()`, `addToCart()`
+- **Fichiers PHP** : `PascalCase`
+  - Exemple : `UserController.php`, `CartModel.php`
+- **Constantes** : `UPPER_SNAKE_CASE`
+  - Exemple : `BASE_URL`, `MODEL_PATH`
+- **Tables et colonnes SQL** : `snake_case`
+  - Exemple : `cart_items`, `product_id`

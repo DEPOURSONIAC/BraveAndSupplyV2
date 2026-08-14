@@ -1,3 +1,8 @@
+/*
+.nom-classe
+#nom-id
+*/
+
 html, body {
   height: 100%;
   margin: 0;
@@ -6,6 +11,13 @@ html, body {
   /* fond plus doux, moins agressif */
   /*background: radial-gradient(circle at top, #14151a 0%, #0b0c0f 55%, #070709 100%);*/
   color: #eaeaea;
+}
+#menuUtilisateur{
+  position: relative;
+}
+
+#userMenu{
+  display:none; position:absolute; right:0; background:#222; padding:10px; border-radius:6px;
 }
 
 /* LAYOUT GLOBAL */
@@ -127,4 +139,461 @@ button:hover {
   color: #e0b87a;
 }
 
+#imageProduct{
+  width:100%; height:320px; object-fit:cover; display:block;
+}
 
+.product {
+  transition: 0.3s;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+/*     category   */
+.product:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.product .img {
+  height: 260px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #f8f8f8;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.product:hover .overlay {
+  opacity: 1;
+}
+
+.pagination .active .page-link {
+  background: #000;
+  border-color: #000;
+}
+
+/*  *account */
+
+.account-container{
+    max-width:900px;
+}
+
+.account-profile{
+    display:flex;
+    align-items:center;
+    gap:1.5rem;
+    margin-bottom:3rem;
+    padding-bottom:2rem;
+    border-bottom:1px solid #e9e9e9;
+}
+
+.account-avatar{
+    width:72px;
+    height:72px;
+    border-radius:50%;
+    background:#f5f5f5;
+    color:#000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    font-weight:600;
+    flex-shrink:0;
+}
+
+.account-email{
+    color:#666;
+    font-size:.9rem;
+}
+
+.account-menu{
+    list-style:none;
+    display:flex;
+    padding:0;
+    margin:0 0 3rem;
+    border-bottom:1px solid #e9e9e9;
+}
+
+.account-menu li{
+    margin-right:2rem;
+}
+
+.account-menu a{
+    display:block;
+    padding-bottom:1rem;
+    color:#000;
+    text-decoration:none;
+    transition:.2s;
+}
+
+.account-menu a:hover{
+    color:#aaa;
+}
+
+.account-menu a.active{
+    border-bottom:2px solid #000;
+    font-weight:600;
+}
+
+.account-stats{
+    margin-bottom:3rem;
+    padding-bottom:3rem;
+    border-bottom:1px solid #e9e9e9;
+}
+
+.account-stat-number{
+    color:#000;
+    font-weight:600;
+    margin-bottom:.25rem;
+}
+
+.account-stat-label{
+    color:#666;
+    margin-bottom:0;
+    font-size:.9rem;
+}
+
+.account-section{
+    margin-bottom:3rem;
+    padding-bottom:3rem;
+    border-bottom:1px solid #e9e9e9;
+}
+
+.account-section-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:2rem;
+}
+
+.account-section-header h5{
+    margin:0;
+}
+
+.account-section-header a{
+    color:#000;
+    text-decoration:none;
+    font-weight:500;
+    font-size:.9rem;
+}
+
+.account-section small{
+    display:block;
+    margin-bottom:.35rem;
+    color:#666;
+}
+
+.account-section span{
+    color:#000;
+}
+
+.account-order{
+    margin-bottom:2rem;
+}
+
+.account-order-box{
+    background:#f8f9fa;
+    border-radius:8px;
+    padding:1.5rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:1.5rem;
+}
+
+.account-order-box span{
+    display:block;
+    font-size:.85rem;
+    color:#666;
+}
+
+.account-order-box strong{
+    color:#000;
+    font-weight:600;
+}
+
+.account-status{
+    display:inline-block !important;
+    background:#d1e7dd;
+    color:#0f5132 !important;
+    padding:.45rem 1rem;
+    border-radius:50rem;
+    font-size:.8rem !important;
+    font-weight:600;
+}
+
+.account-order-box>a{
+    color:#000;
+    text-decoration:none;
+    font-weight:600;
+}
+
+#account-main{
+    padding-top: 120px;
+    padding-bottom: 80px;
+}
+
+/* panier */
+.section-dark {
+  background: #ffffff;
+}
+.table-dark-custom {
+  background: #fff;
+  border: 1px solid #eee;
+}
+.table-dark-custom th {
+  background: #fafafa;
+  color: #333;
+}
+.btn-premium {
+  background: black;
+  border: none;
+  color: white;
+}
+.btn-premium:hover {
+  background: #333;
+}
+.total-box {
+  background: #fafafa;
+  border: 1px solid #eee;
+}
+.remove-btn {
+  cursor: pointer;
+  color: #999;
+}
+.remove-btn:hover {
+  color: black;
+}
+
+/* ============================
+   Tableau commun (panier / commandes)
+   ============================ */
+
+.account-table-count {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.account-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.account-table thead th {
+    text-align: left;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #6c757d;
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid #eee;
+}
+
+.account-table tbody td {
+    padding: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: middle;
+}
+
+.account-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.account-table-product {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.account-table-thumb {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.account-qty-input {
+    width: 60px;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.account-table-remove {
+    color: #dc3545;
+    font-size: 0.9rem;
+}
+
+.account-table-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* ============================
+   États des commandes
+   ============================ */
+
+.account-status {
+    display: inline-block;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: #f0f0f0;
+    color: #555;
+}
+
+.account-status-pending    { background: #fff3cd; color: #856404; }
+.account-status-processing { background: #cfe2ff; color: #084298; }
+.account-status-shipped    { background: #d1ecf1; color: #0c5460; }
+.account-status-delivered  { background: #d4edda; color: #155724; }
+.account-status-cancelled  { background: #f8d7da; color: #721c24; }
+
+/* ============================
+   Résumé panier
+   ============================ */
+
+.account-cart-summary {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 1.25rem;
+    margin-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.account-cart-summary strong {
+    font-size: 1.25rem;
+}
+
+/* ============================
+   Avis
+   ============================ */
+
+.account-review-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.account-review-card {
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 10px;
+}
+
+.account-review-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.account-review-head > div {
+    flex: 1;
+}
+
+.account-review-stars {
+    color: #f5a623;
+    font-size: 0.9rem;
+}
+
+.account-review-date {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.account-review-comment {
+    margin: 0.5rem 0;
+    color: #333;
+}
+
+.account-review-actions {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+}
+
+/* ============================
+   État vide
+   ============================ */
+
+.account-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #6c757d;
+}
+
+.account-empty .btn-primary {
+    display: inline-block;
+    margin-top: 1rem;
+}
+
+.quantity-control {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    height: 32px;
+}
+
+.quantity-control button {
+    box-sizing: border-box;
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #ccc;
+  
+    color: #000;
+
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.quantity-control input {
+    box-sizing: border-box;
+    width: 48px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+
+    border: 1px solid #ccc;
+    border-left: 0;
+    border-right: 0;
+
+    background: #fff;
+    color: #000;
+
+    text-align: center;
+    font-size: 16px;
+    line-height: 32px;
+}
+
+.quantity-control button:focus,
+.quantity-control input:focus {
+    outline: none;
+}
