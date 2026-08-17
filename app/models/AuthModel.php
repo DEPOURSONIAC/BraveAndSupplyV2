@@ -1,23 +1,21 @@
 <?php
 
-function createUser(string $name, string $email, string $address, string $hashedPassword): bool
-{
+function createUser(string $name, string $email, string $address, string $hashed_password): bool {
     /*
         Crée un nouvel utilisateur.
     */
 
     $db = getPDO();
 
-    $created = false;
-
     try {
-        if (!emailExists($email)) {
+        $created = false;
 
-            $sql = "INSERT INTO users ( name, email, password, address) VALUES (?, ?, ?, ?) ";
+        if (!emailExists($email)) {
+            $sql = "INSERT INTO users ( name, email, password, address) VALUES (?, ?, ?, ?)";
 
             $stmt = $db->prepare($sql);
 
-            $created = $stmt->execute([$name, $email, $hashedPassword, $address]);
+            $created = $stmt->execute([$name, $email, $hashed_password,$address,]);
         }
     } catch (PDOException $e) {
         error_log(__FUNCTION__ . '(): ' . $e->getMessage());
@@ -35,12 +33,17 @@ function emailExists(string $email): bool
 
     $db = getPDO();
 
-    $sql = " SELECT 1 FROM users WHERE email = ? LIMIT 1";
+    try {
+        $sql = "SELECT 1 FROM users WHERE email = ? LIMIT 1";
 
-    $stmt = $db->prepare($sql);
-    $stmt->execute([$email]);
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$email]);
 
-    $exists = $stmt->fetch() !== false;
+        $exists = $stmt->fetch() !== false;
+
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
+    }
 
     return $exists;
 }
@@ -54,20 +57,24 @@ function getUserByEmail(string $email): ?array
 
     $db = getPDO();
 
-    $user = null;
+    try {
 
-    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $user = null;
 
-        $sql = "SELECT * FROM users WHERE email = ? LIMIT 1";
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $sql = "SELECT * FROM users WHERE email = ? LIMIT 1";
 
-        $stmt = $db->prepare($sql);
-        $stmt->execute([$email]);
+            $stmt = $db->prepare($sql);
+            $stmt->execute([$email]);
 
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($result) {
-            $user = $result;
+            if ($result) {
+                $user = $result;
+            }
         }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
     }
 
     return $user;

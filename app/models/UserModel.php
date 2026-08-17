@@ -1,6 +1,6 @@
 <?php
 
-function getUserById(int $id): ?array
+function getUserById(int $user_id): ?array
 {
     /*
         Retourne un utilisateur
@@ -9,14 +9,19 @@ function getUserById(int $id): ?array
 
     $db = getPDO();
 
-    $sql = "SELECT * FROM users WHERE id = ? LIMIT 1";
+    try {
+        $sql = "SELECT * FROM users WHERE id = ? LIMIT 1";
+        
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$user_id]);
 
-    $stmt = $db->prepare($sql);
-    $stmt->execute([$id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user = $result ?: null;
 
-    $user = $result ?: null;
+    } catch (PDOException $e) {
+            error_log(__FUNCTION__ . '(): ' . $e->getMessage());
+        }
 
     return $user;
 }
@@ -28,22 +33,25 @@ function getAllUsers(): array
     */
 
     $db = getPDO();
+    
+    try {
+        $sql = "SELECT * FROM users ORDER BY id DESC";
 
-    $sql = "SELECT * FROM users ORDER BY id DESC";
+        $stmt = $db->query($sql);
 
-    $stmt = $db->query($sql);
-
-    $users = [];
-
-    if ($stmt) {
-        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $users = [];
+        
+        if ($stmt) {
+            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
+        }
 
     return $users;
 }
 
-function updateUser(int $id, string $name, string $email, string $password, string $address): bool
-{
+function updateUser(int $user_id, string $name, string $email, string $password, string $address): bool {
     /*
         Met à jour
         un utilisateur.
@@ -51,30 +59,26 @@ function updateUser(int $id, string $name, string $email, string $password, stri
 
     $db = getPDO();
 
-    $updated = false;
+    try {
+        $updated = false;
 
-    $email = strtolower(trim($email));
+        $email = strtolower(trim($email));
 
-    if (!empty($name) && !empty($email) && !empty($address) && !empty($password) && filter_var($email, FILTER_VALIDATE_EMAIL)
-    ) {
-
-            try {
-
+        if (!empty($name) && !empty($email) && !empty($address) && !empty($password) &&filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $sql = "UPDATE users SET name = ?, email = ?, password = ?, address = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
-
             $stmt = $db->prepare($sql);
 
-            $updated = $stmt->execute([$name, $email, $password, $address, $id]);
+            $updated = $stmt->execute([$name, $email, $password, $address,$user_id,]);       
+        }
 
-        } catch (PDOException $e) {
+    } catch (PDOException $e) {
             error_log(__FUNCTION__ . '(): ' . $e->getMessage());
         }
-    }
 
     return $updated;
 }
 
-function deleteUser(int $id): bool
+function deleteUser(int $user_id): bool
 {
     /*
         Supprime
@@ -83,16 +87,14 @@ function deleteUser(int $id): bool
 
     $db = getPDO();
 
-    $deleted = false;
-
     try {
+        $deleted = false;
 
         $sql = "DELETE FROM users WHERE id = ?";
 
         $stmt = $db->prepare($sql);
 
-        $deleted = $stmt->execute([$noU]);
-
+        $deleted = $stmt->execute([$user_id]);
     } catch (PDOException $e) {
         error_log(__FUNCTION__ . '(): ' . $e->getMessage());
     }
