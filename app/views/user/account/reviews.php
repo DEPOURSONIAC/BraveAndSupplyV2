@@ -10,13 +10,7 @@
                     <div class="form-group">
                         <label for="comment">Votre avis</label>
 
-                        <textarea
-                            id="comment"
-                            name="comment"
-                            rows="5"
-                            class="form-control"
-                            placeholder="Partagez votre expérience..."
-                            required>
+                        <textarea id="comment" name="comment" rows="5" class="form-control" placeholder="Partagez votre expérience..." required>
                         </textarea>
                     </div>
 
@@ -48,7 +42,7 @@
                         <?php foreach ($reviews as $review): ?>
                             <div class="account-review-card">
                                 <p class="account-review-comment">
-                                    <?= htmlspecialchars($review['comment']) ?>
+                                    <?= htmlspecialchars($review['comment'], ENT_QUOTES, 'UTF-8') ?>
                                 </p>
 
                                 <div class="account-review-actions">

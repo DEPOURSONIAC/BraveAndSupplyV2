@@ -1,92 +1,147 @@
-    <!-- TABLEAU DE BORD -->
-                <div class="row gy-4 account-stats">
+<!-- TABLEAU DE BORD -->
+<div class="row gy-4 account-stats">
 
-                    <div class="col-4">
-                        <h3 class="account-stat-number"><?= htmlspecialchars($orderCount) ?> </h3>
-                        <p class="account-stat-label">Commandes</p>
-                    </div>
+    <div class="col-4">
+        <h3 class="account-stat-number">
+            <?= (int) $order_count ?>
+        </h3>
 
-                    <div class="col-4">
-                        <h3 class="account-stat-number"><?= htmlspecialchars($cartCount) ?> </h3>
-                        <p class="account-stat-label">Articles au panier</p>
-                    </div>
+        <p class="account-stat-label">
+            Commandes
+        </p>
+    </div>
 
-                    <div class="col-4">
-                        <h3 class="account-stat-number"><?= htmlspecialchars($reviewCount) ?> </h3>
-                        <p class="account-stat-label">Avis publiés</p>
-                    </div>
+    <div class="col-4">
+        <h3 class="account-stat-number">
+            <?= (int) $cart_count ?>
+        </h3>
 
-                </div>
+        <p class="account-stat-label">
+            Articles au panier
+        </p>
+    </div>
 
-                <!-- INFORMATIONS -->
-                <div class="account-section">
+    <div class="col-4">
+        <h3 class="account-stat-number">
+            <?= (int) $review_count ?>
+        </h3>
 
-                    <div class="account-section-header">
+        <p class="account-stat-label">
+            Avis publiés
+        </p>
+    </div>
 
-                        <h5>Informations personnelles</h5>
+</div>
 
-                        <a href="<?= BASE_URL ?>?action=accountEdit">
-                            Modifier
-                        </a>
 
-                    </div>
+<!-- INFORMATIONS PERSONNELLES -->
+<div class="account-section">
 
-                    <div class="row gy-4">
+    <div class="account-section-header">
 
-                        <div class="col-sm-4">
-                            <small>Pseudo</small>
-                            <span><?= htmlspecialchars($user['name']) ?></span>
-                        </div>
+        <h5>Informations personnelles</h5>
 
-                        <div class="col-sm-4">
-                            <small>Adresse e-mail</small>
-                            <span> <?= htmlspecialchars($user['email']) ?> </span>
-                        </div>
+        <a href="<?= BASE_URL ?>?action=accountEdit">
+            Modifier
+        </a>
 
-                    </div>
+    </div>
 
-                </div>
+    <div class="row gy-4">
 
-                <!-- DERNIÈRE COMMANDE -->
-                <div class="account-order">
+        <div class="col-sm-4">
 
-                    <div class="account-section-header">
+            <small>Pseudo</small>
 
-                        <h5>Dernière commande</h5>
+            <span>
+                <?= htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8') ?>
+            </span>
 
-                        <a href="<?= BASE_URL ?>?action=orders">
-                            Toutes les commandes
-                        </a>
+        </div>
 
-                    </div>
+        <div class="col-sm-4">
 
-                    <div class="account-order-box">
-                    <?php        foreach ($orders as $order):     ?>
-                        <div>
-                            <span>N° commande</span>
-                            <strong><?= $order['id'] ?></strong>
-                        </div>
+            <small>Adresse e-mail</small>
 
-                        <div>
-                            <span>Date</span>
-                            <strong><?= $order['created_at'] ?></strong>
-                        </div>
+            <span>
+                <?= htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8') ?>
+            </span>
 
-                        <div>
-                            <span>Total</span>
-                            <strong><?= $order['total_price'] ?></strong>
-                        </div>
+        </div>
 
-                        <div>
-                            <span class="account-status">
-                                <?= $order['status'] ?>
-                            </span>
-                        </div>
+    </div>
 
-                        <a href="<?= BASE_URL ?>?action=order&orderId=<?= (int) $order['id'] ?>">
-                            Voir le détail ->
-                        </a>
-                    <?php      endforeach      ?>
-                    </div>
+</div>
 
-                </div>
+
+<!-- DERNIÈRE COMMANDE -->
+<div class="account-order">
+
+    <div class="account-section-header">
+
+        <h5>Dernière commande</h5>
+
+    </div>
+
+    <?php if (!empty($order_last)): ?>
+
+        <div class="account-order-box">
+
+            <!-- NUMÉRO -->
+            <div>
+                <span>N° commande</span>
+
+                <strong>
+                    #<?= (int) $order_last['id'] ?>
+                </strong>
+            </div>
+
+
+            <!-- DATE -->
+            <div>
+                <span>Date</span>
+
+                <strong>
+                    <?= htmlspecialchars($order_last['created_at'], ENT_QUOTES, 'UTF-8') ?>
+                </strong>
+            </div>
+
+
+            <!-- TOTAL -->
+            <div>
+                <span>Total</span>
+
+                <strong>
+                    <?= number_format( (float) $order_last['total_price'], 2, ',', ' ') ?> €
+                </strong>
+            </div>
+
+
+            <!-- STATUT -->
+            <div>
+
+                <span class="account-status">
+                    <?= htmlspecialchars($order_last['status'], ENT_QUOTES, 'UTF-8') ?>
+                </span>
+
+            </div>
+
+
+            <!-- DÉTAIL -->
+            <a href="<?= BASE_URL ?>?action=order&id=<?= (int) $order_last['id'] ?>">
+                Voir le détail ->
+            </a>
+
+        </div>
+
+    <?php else: ?>
+
+        <div class="account-order-box">
+
+            <p>Aucune commande pour le moment.</p>
+
+        </div>
+
+    <?php endif; ?>
+
+</div>

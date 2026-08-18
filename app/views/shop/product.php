@@ -21,6 +21,29 @@
     </div>
 </div>
 
+<!-- MESSAGE PANIER -->
+<?php if (isset($_GET['OK'])): ?>
+
+    <div class="container mt-4">
+
+        <?php if ($_GET['OK'] === 'TRUE'): ?>
+
+            <div class="alert alert-success text-center mb-0" role="alert">
+                Le produit a bien été ajouté au panier.
+            </div>
+
+        <?php elseif ($_GET['OK'] === 'FALSE'): ?>
+
+            <div class="alert alert-danger text-center mb-0" role="alert">
+                Une erreur est survenue lors de l'ajout au panier.
+            </div>
+
+        <?php endif; ?>
+
+    </div>
+
+<?php endif; ?>
+
 
 <!-- PRODUIT -->
 <section class="py-5" id="product">
@@ -35,11 +58,7 @@
 
                 <div class="text-center">
 
-                    <img 
-                        src="<?= BASE_URL ?>assets/images/products/<?= htmlspecialchars($product['image'] ?? 'default.jpg') ?>"
-                        class="img-fluid rounded"
-                        alt="<?= htmlspecialchars($product['name'] ?? 'Produit') ?>"
-                    >
+                    <img src="<?= BASE_URL ?>assets/images/products/<?= htmlspecialchars($product['image'] ?? 'default.jpg') ?>"  class="img-fluid rounded" alt="<?= htmlspecialchars($product['name'] ?? 'Produit') ?>">
 
                 </div>
 
@@ -89,84 +108,46 @@
 
 
 
-                    <!-- PANIER -->
-                    <form action="<?= BASE_URL ?>?action=add&id=<?= $product['id'] ?>" method="POST">
+                <!-- PANIER -->
+                <form action="<?= BASE_URL ?>?action=addToCart" method="POST">
 
+                    <div class="mb-4">
+                        <label for="quantity" class="form-label fw-bold">
+                            Quantité
+                        </label>
 
-                        <div class="mb-4">
+                        <input type="number" name="quantity" id="quantity" value="1" min="1" max="<?= (int) $product['stock'] ?>" class="form-control" required>
+                    </div>
 
-                            <label class="form-label fw-bold">
-                                Quantité
-                            </label>
+                    <input type="hidden" name="product_id" value="<?= (int) $product['id'] ?>">
 
+                    <button type="submit" class="btn btn-dark w-100 py-3">
+                        <i class="fa fa-shopping-cart me-2"></i>
+                        Ajouter au panier
+                    </button>
 
-                            <input 
-                                type="number"
-                                name="quantite"
-                                value="1"
-                                min="1"
-                                class="form-control"
-                            >
-
-                        </div>
-
-
-
-                        <input 
-                            type="hidden"
-                            name="produit_id"
-                            value="<?= $product['id'] ?>"
-                        >
-
-
-
-                        <button 
-                            type="submit"
-                            class="btn btn-dark w-100 py-3">
-
-                            <i class="fa fa-shopping-cart me-2"></i>
-                            Ajouter au panier
-
-                        </button>
-
-
-                    </form>
-
-
+                </form>
 
                     <!-- RETOUR -->
-                    <a 
-                        href="<?= BASE_URL ?>?action=catalogue"
-                        class="btn btn-outline-dark w-100 mt-3 py-3">
-
+                    <a  href="<?= BASE_URL ?>?action=catalogue" class="btn btn-outline-dark w-100 mt-3 py-3">
                         Retour au catalogue
-
                     </a>
-
-
 
                     <!-- INFORMATIONS -->
                     <div class="border-top mt-5 pt-4">
 
-
                         <p class="mb-2">
 
                             <strong>Référence :</strong>
-                            #<?= $product['id'] ?>
+                                #<?= $product['id'] ?>
 
                         </p>
 
-
-
                         <p class="mb-0">
 
-                            <strong>Disponibilité :</strong>
+                            <strong>En stock :</strong>
 
-                            <span class="text-success">
-
-                                En stock : <?= $product['stock'] ?>
-
-                            </span>
+                            <span class="text-success"> <?= $product['stock'] ?> </span>
 
                         </p>
 

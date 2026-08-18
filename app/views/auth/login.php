@@ -7,22 +7,24 @@
 
         <h1>Connexion</h1>
 
-        <p>Accède à ton espace</p>
+        <p>Accédez à votre espace</p>
 
         <form action="<?= BASE_URL ?>?action=login" method="POST">
 
-            <input type="email" name="email" placeholder="Email" required >
+            <input type="email" name="email" placeholder="Email" autocomplete="email" required >
 
-            <input type="password" name="password" placeholder="Mot de passe" required>
+            <input type="password" name="password" placeholder="Mot de passe"autocomplete="current-password"  required>
 
             <div class="options">
 
                 <label>
-                    <input type="checkbox" name="remember">
+                    <input type="checkbox" name="remember" value="1">
                     Se souvenir
                 </label>
 
-                <a href="#">Mot de passe oublié</a>
+               <a href="<?= BASE_URL ?>?action=forgotPassword">
+                    Mot de passe oublié ?
+                </a>
 
             </div>
 
@@ -45,6 +47,14 @@
     </div>
 
 </div>
+
+<?php /* if (!empty($error)): ?>
+
+    <div class="alert alert-danger" role="alert">
+        <?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?>
+    </div>
+
+<?php endif; */?>
 </main>
 
 <?php require_once INCLUDE_PATH . '/footer.php'; ?>

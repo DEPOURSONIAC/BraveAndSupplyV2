@@ -15,9 +15,9 @@
 
                 <div>
                     <h4 class="mb-1">
-                        <?= htmlspecialchars($user['name']) ?></h4>
+                        <?= htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8') ?></h4>
                     <p class="account-email mb-0">
-                        <?= htmlspecialchars($user['email']) ?>
+                        <?= htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8') ?>
                     </p>
                 </div>
 

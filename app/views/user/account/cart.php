@@ -5,8 +5,8 @@
 
                     <h5>Mon panier</h5>
 
-                    <span class="account-table-count">
-                        <?= $cartCount ?> article(s)
+                    <span class="account-table-count" id="account-table-count">
+                        <?= $cart_count ?> article(s)
                     </span>
 
                 </div>
@@ -48,18 +48,14 @@
 
                                 <?php foreach ($cart['products'] as $product): ?>
 
-                                    <tr>
+                                    <tr data-product-id="<?= (int) $product['id'] ?>">
 
                                         <!-- PRODUIT -->
                                         <td>
 
                                             <div class="account-table-product">
 
-                                                <img
-                                                    src="<?= BASE_URL ?>assets/images/products/<?= htmlspecialchars($product['image']) ?>"
-                                                    alt="<?= htmlspecialchars($product['name']) ?>"
-                                                    class="account-table-thumb"
-                                                >
+                                                <img src="<?= BASE_URL ?>assets/images/products/<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="account-table-thumb">
 
                                                 <span>
                                                     <?= htmlspecialchars($product['name']) ?>
@@ -86,7 +82,7 @@
                                                         -
                                                     </button>
 
-                                                    <input type="number" onchange="updateProductInCart(event)" name="quantity" min="1" value="<?= (int) $product['quantity'] ?>" class="quantity-input" aria-label="Quantity">
+                                                    <input type="number"  name="quantity" min="1" value="<?= (int) $product['quantity'] ?>" class="quantity-input" aria-label="Quantity">
 
                                                     <button type="button" class="quantity-plus" aria-label="Augmenter la quantité">
                                                         +
@@ -99,8 +95,8 @@
 
                                         <!-- TOTAL PRODUIT -->
                                         <td>
-                                            <strong style="color: black;">
-                                                <?= htmlspecialchars($product['totalByProduct']) ?> €
+                                            <strong style="color: black;" class="product-total">
+                                                <?= htmlspecialchars($product['total_by_product']) ?> €
                                             </strong>
                                         </td>
 
@@ -108,7 +104,7 @@
                                         <!-- SUPPRIMER -->
                                         <td> 
 
-                                            <a href="<?= BASE_URL ?>?action=cartRemove&id=<?= (int) $product['id'] ?>" class="account-table-remove" aria-label="Retirer <?= htmlspecialchars($product['name']) ?>" onclick="removeProductFromCart(event)">
+                                            <a href="<?= BASE_URL ?>?action=cartRemove" data-product-id="<?= (int) $product['id'] ?>" class="account-table-remove" onclick="removeProductFromCart(event)">
                                                 Retirer
                                             </a>
 
@@ -132,7 +128,7 @@
 
                             <span>Total</span>
 
-                            <strong>
+                            <strong id="cartTotal">
                                 <?= htmlspecialchars($cart['total']) ?> €
                             </strong>
 
