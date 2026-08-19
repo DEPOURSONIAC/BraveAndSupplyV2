@@ -211,6 +211,33 @@ function allRoutes(): array
                 ]
             ]
         ],
+
+         
+        // PAYPAL / CHECKOUT
+
+        'checkout' => [
+            'GET' => [
+                'function' => 'showCheckout',
+                'params' => []
+            ]
+        ],
+
+        'paypalCreateOrder' => [
+            'POST' => [
+                'function' => 'paypalCreateOrder',
+                'params' => []
+            ]
+        ],
+
+        'paypalCaptureOrder' => [
+            'POST' => [
+                'function' => 'paypalCaptureOrder',
+                'params' => [
+                    'order_id'
+                ]
+            ]
+        ],
+
     ];
 }
 
