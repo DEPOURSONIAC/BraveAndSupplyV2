@@ -1,4 +1,4 @@
-    async function readAccount(event) {
+async function readAccount(event) {
 
     const link = event.target.closest('a');
 
@@ -42,13 +42,17 @@
 
 // Change the quantity with JavaScript because it will help with AJAX
 
+// -----
+// Modification du panier
+// -----
+
 async function updateCart(form, quantity) {
 
-    const productId = form.querySelector('input[name="product_id"]');
+    const product_id = form.querySelector('input[name="product_id"]');
 
     const data = new URLSearchParams();
 
-    data.append('product_id', productId.value);
+    data.append('product_id', product_id.value);
     data.append('quantity', quantity);
 
     const response = await fetch(form.action, {
@@ -57,41 +61,65 @@ async function updateCart(form, quantity) {
     });
 
     if (!response.ok) {
-
         throw new Error(`HTTP error: ${response.status}`);
     }
 
     const result = await response.json();
 
-    const productRow = document.querySelector(`tr[data-product-id="${productId.value}"]`);
+    console.log('Réponse updateCart :', result);
 
-    if (productRow) {
+    // Ligne du produit modifié
+    const product_row = document.querySelector(
+        `tr[data-product-id="${product_id.value}"]`
+    );
 
-            const product = result.cart.products.find(
-                product => Number(product.id) === Number(productId.value)
-            );
+    if (product_row) {
 
-            if (product) {
-                const productTotal = productRow.querySelector('.product-total');
+        const product = result.cart.products.find(
+            product => Number(product.id) === Number(product_id.value)
+        );
 
-                productTotal.textContent =  Math.round(product.totalByProduct * 100) / 100 + ' €';
-            }
+        if (product) {
+
+            const product_total = product_row.querySelector('.product-total');
+
+            product_total.textContent =
+                Number(product.total_by_product).toFixed(2) + ' €';
         }
+    }
 
-    document.getElementById('account-table-count').innerHTML = result.cartCount + " article(s)";
-    document.getElementById('cartTotal').innerHTML = Math.round(result.cart.total * 100) / 100;
+    // Nombre d'articles
+    const account_table_count =
+        document.getElementById('account_table_count');
+
+    if (account_table_count) {
+        account_table_count.textContent =
+            result.cart_count + ' article(s)';
+    }
+
+    // Total panier
+    const cart_total =
+        document.getElementById('cart_total');
+
+    if (cart_total) {
+        cart_total.textContent =
+            Number(result.cart.total).toFixed(2) + ' €';
+    }
 
     return result;
-
 }
 
+
+// -----
+// Change la quantité
+// -----
 
 async function changeQuantity(event) {
 
     if (event.type === 'click') {
 
         if (!event.target.classList.contains('quantity-plus') && !event.target.classList.contains('quantity-minus')) {
-            return 0;
+            return;
         }
 
         const form = event.target.closest('form');
@@ -100,74 +128,104 @@ async function changeQuantity(event) {
         if (event.target.classList.contains('quantity-plus')) {
 
             input.value = Number(input.value) + 1;
-        }
 
-        else if (event.target.classList.contains('quantity-minus')) {
+        } else {
 
             if (Number(input.value) <= 1) {
-                return 0;
+                return;
             }
 
             input.value = Number(input.value) - 1;
         }
 
-        
-        const result = await updateCart(form, input.value);
-
-        console.log(result);
+        await updateCart(form, input.value);
     }
 
 
     else if (event.type === 'change') {
 
         if (!event.target.classList.contains('quantity-input')) {
-            return 0;
+            return;
         }
 
         const form = event.target.closest('form');
 
-        const result = await updateCart(form, event.target.value);
+        // Evite une quantité invalide
+        if (Number(event.target.value) < 1) {
+            event.target.value = 1;
+        }
 
-        console.log(result);
+        await updateCart(form, event.target.value);
     }
 }
+
+
+// -----
+// Supp le produit
+// -----
+
 
 async function removeProductFromCart(event) {
 
     event.preventDefault();
 
-    const link = event.currentTarget;
+    const form = event.currentTarget;
 
-    const productId = link.dataset.productId;
+    const product_id = form.querySelector('input[name="product_id"]').value;
 
     const data = new URLSearchParams();
 
-    data.append('product_id', productId);
+    data.append('product_id', product_id);
 
-    const response = await fetch(link.href, {
-        method: 'POST',
-        body: data
-    });
+    try {
 
-    if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
-    }
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: data
+        });
 
-    const result = await response.json();
-
-    console.log(result);
-
-    if (result.success) {
-
-        const productRow = link.closest('tr');
-
-        if (productRow) {
-            productRow.remove();
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
         }
 
-        document.getElementById('account-table-count').innerHTML = result.cartCount + " article(s)";
-        document.getElementById('cartTotal').innerHTML = Math.round(result.cart.total * 100) / 100;
+        const result = await response.json();
+
+        console.log('Réponse removeProductFromCart :', result);
+
+        if (!result.success) {
+            return;
+        }
+
+        // Supprime la ligne du tableau
+        const product_row = document.querySelector(`tr[data-product-id="${product_id}"]`);
+
+        if (product_row) {
+            product_row.remove();
+        }
+
+        // Mise à jour du nombre d'articles
+        const account_table_count = document.getElementById('account_table_count');
+
+        if (account_table_count) {
+            account_table_count.textContent = result.cart_count + ' article(s)';
+        }
+
+        // Mise à jour du total
+        const cart_total = document.getElementById('cart_total');
+
+        if (cart_total) {
+            cart_total.textContent = Number(result.cart.total).toFixed(2) + ' €';
+        }
+
+    } catch (error) {
+        console.error('Erreur lors de la suppression du produit :', error);
     }
 }
+
+
+// -----
+// Event
+// -----
+
 document.addEventListener('click', changeQuantity);
 document.addEventListener('change', changeQuantity);
