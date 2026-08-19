@@ -5,7 +5,7 @@
 
                     <h5>Mon panier</h5>
 
-                    <span class="account-table-count" id="account-table-count">
+                    <span class="account-table-count" id="account_table_count">
                         <?= $cart_count ?> article(s)
                     </span>
 
@@ -55,10 +55,10 @@
 
                                             <div class="account-table-product">
 
-                                                <img src="<?= BASE_URL ?>assets/images/products/<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="account-table-thumb">
+                                                <img src="<?= BASE_URL ?>assets/images/products/<?= htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?>" class="account-table-thumb">
 
                                                 <span>
-                                                    <?= htmlspecialchars($product['name']) ?>
+                                                    <?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?>
                                                 </span>
 
                                             </div>
@@ -68,12 +68,12 @@
 
                                         <!-- PRIX -->
                                         <td style="color: black;">
-                                            <?= htmlspecialchars($product['price']) ?> €
+                                            <?= htmlspecialchars($product['price'], ENT_QUOTES, 'UTF-8') ?> €
                                         </td>
 
                                         <!-- QUANTITÉ -->
                                         <td>
-                                            <form method="post" action="<?= BASE_URL ?>?action=cartUpdate" class="account-qty-form" >
+                                            <form method="post" action="<?= BASE_URL ?>?action=updateCart" class="account-qty-form" >
                                                 <input type="hidden" name="product_id" value="<?= (int) $product['id'] ?>">
 
                                                 <div class="quantity-control">
@@ -104,9 +104,16 @@
                                         <!-- SUPPRIMER -->
                                         <td> 
 
-                                            <a href="<?= BASE_URL ?>?action=cartRemove" data-product-id="<?= (int) $product['id'] ?>" class="account-table-remove" onclick="removeProductFromCart(event)">
-                                                Retirer
-                                            </a>
+
+                                            <form action="<?= BASE_URL ?>?action=removeFromCart" method="POST" class="account-remove-form" onsubmit="removeProductFromCart(event)">
+
+                                                <input type="hidden" name="product_id" value="<?= (int) $product['id'] ?>">
+
+                                                <button type="submit" class="account-table-remove" >
+                                                    Retirer
+                                                </button>
+
+                                            </form>
 
                                         </td>
 
@@ -128,8 +135,8 @@
 
                             <span>Total</span>
 
-                            <strong id="cartTotal">
-                                <?= htmlspecialchars($cart['total']) ?> €
+                            <strong id="cart_total" style="color: black;">
+                                <?= htmlspecialchars($cart['total'], ENT_QUOTES, 'UTF-8') ?> €
                             </strong>
 
                         </div>
