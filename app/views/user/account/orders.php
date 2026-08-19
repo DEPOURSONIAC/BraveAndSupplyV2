@@ -67,7 +67,7 @@
 
                             <td>
 
-                                <a href="<?= BASE_URL ?>?action=order&order_id=<?= (int) $order['id'] ?>"  class="account-table-link">
+                                <a href="<?= BASE_URL ?>?action=order&id=<?= (int) $order['id'] ?>"  class="account-table-link">
                                     Voir le détail ->
                                 </a>
 
