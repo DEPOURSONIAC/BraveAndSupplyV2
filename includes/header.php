@@ -37,11 +37,7 @@
                     <!-- Logo -->
                     <a href="<?= BASE_URL ?>" class="logo">
 
-                        <img
-                            src="<?= BASE_URL ?>assets/images/logo_site.png"
-                            alt="Logo Brave & Supply"
-                            width="100"
-                        >
+                        <img src="<?= BASE_URL ?>assets/images/logo_site.png" alt="Logo Brave & Supply" width="100">
 
                     </a>
 
@@ -55,19 +51,19 @@
                         </li>
 
                         <li>
-                            <a href="<?= BASE_URL ?>?action=category&categoryId=1">
+                            <a href="<?= BASE_URL ?>?action=category&category_id=1">
                                 Hommes
                             </a>
                         </li>
 
                         <li>
-                            <a href="<?= BASE_URL ?>?action=category&categoryId=2">
+                            <a href="<?= BASE_URL ?>?action=category&category_id=2">
                                 Femmes
                             </a>
                         </li>
 
                         <li>
-                            <a href="<?= BASE_URL ?>?action=category&categoryId=3">
+                            <a href="<?= BASE_URL ?>?action=category&category_id=3">
                                 Enfants
                             </a>
                         </li>
