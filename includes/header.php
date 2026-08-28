@@ -51,19 +51,19 @@
                         </li>
 
                         <li>
-                            <a href="<?= BASE_URL ?>?action=category&category_id=1">
+                            <a href="<?= BASE_URL ?>?action=category&id=1">
                                 Hommes
                             </a>
                         </li>
 
                         <li>
-                            <a href="<?= BASE_URL ?>?action=category&category_id=2">
+                            <a href="<?= BASE_URL ?>?action=category&id=2">
                                 Femmes
                             </a>
                         </li>
 
                         <li>
-                            <a href="<?= BASE_URL ?>?action=category&category_id=3">
+                            <a href="<?= BASE_URL ?>?action=category&id=3">
                                 Enfants
                             </a>
                         </li>

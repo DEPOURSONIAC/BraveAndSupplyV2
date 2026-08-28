@@ -207,7 +207,7 @@ function allRoutes(): array
             'GET' => [
                 'function' => 'showCategory',
                 'params' => [
-                    'category_id'
+                    'id'
                 ]
             ]
         ],
