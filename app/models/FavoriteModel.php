@@ -7,39 +7,32 @@ function addFavorite(int $user_id, int $product_id): bool
         aux favoris.
     */
 
-
     $db = getPDO();
 
-    $added = false;
+    try {
+        $added = false;
 
-    if ($user_id > 0 && $product_id > 0) {
-
-        try {
-
-            $sql = "SELECT 1 FROM favorites WHERE user_id = ? AND product_id = ?";
+        if ($user_id > 0 && $product_id > 0) {
+            $sql = "SELECT 1 FROM favorites WHERE user_id = ? AND product_id = ? LIMIT 1";
 
             $stmt = $db->prepare($sql);
-            $stmt->execute([$user_id, $product_id]);
+            $stmt->execute([$user_id, $product_id,]);
 
             $exists = $stmt->fetch() !== false;
 
             if ($exists) {
-
                 $added = true;
-
             } else {
-
-                $sql = "
-                    INSERT INTO favorites ( user_id, product_id) VALUES (?, ?)";
+                $sql = " INSERT INTO favorites (user_id, product_id) VALUES (?, ?)";
 
                 $stmt = $db->prepare($sql);
 
-                $added = $stmt->execute([$user_id, $noP]);
+                $added = $stmt->execute([$user_id, $product_id,]);
+                
             }
-
-        } catch (PDOException $e) {
-            error_log(__FUNCTION__ . '(): ' . $e->getMessage());
         }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
     }
 
     return $added;
@@ -54,16 +47,17 @@ function removeFavorite(int $user_id, int $product_id): bool
 
     $db = getPDO();
 
-    $removed = false;
-
     try {
+        $removed = false;
 
-        $sql = "DELETE FROM favorites WHERE user_id = ? AND product_id = ?";
+        if ($user_id > 0 && $product_id > 0) {
+            $sql = "DELETE FROM favorites WHERE user_id = ? AND product_id = ?";
 
-        $stmt = $db->prepare($sql);
+            $stmt = $db->prepare($sql);
 
-        $removed = $stmt->execute([$user_id, $product_id]);
+            $removed = $stmt->execute([$user_id, $product_id,]);
 
+        }
     } catch (PDOException $e) {
         error_log(__FUNCTION__ . '(): ' . $e->getMessage());
     }
@@ -80,12 +74,21 @@ function getFavorites(int $user_id): array
 
     $db = getPDO();
 
-    $sql = "SELECT p.* FROM favorites f INNER JOIN products p ON p.id = f.product_id WHERE f.user_id = ? ORDER BY f.id DESC";
+    try {
+        $favorites = [];
 
-    $stmt = $db->prepare($sql);
-    $stmt->execute([$user_id]);
+        if ($user_id > 0) {
+            $sql = "SELECT p.* FROM favorites f INNER JOIN products p ON p.id = f.product_id WHERE f.user_id = ? ORDER BY f.id DESC";
 
-    $favorites = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = $db->prepare($sql);
+            $stmt->execute([$user_id]);
+
+            $favorites = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
+    }
 
     return $favorites;
 }
@@ -99,12 +102,21 @@ function isFavorite(int $user_id, int $product_id): bool
 
     $db = getPDO();
 
-    $sql = "SELECT 1 FROM favorites WHERE user_id = ? AND product_id = ?";
+    try {
+        $favorite = false;
 
-    $stmt = $db->prepare($sql);
-    $stmt->execute([$user_id, $product_id]);
+        if ($user_id > 0 && $product_id > 0) {
+            $sql = "SELECT 1 FROM favorites WHERE user_id = ? AND product_id = ? LIMIT 1";
 
-    $favorite = $stmt->fetch() !== false;
+            $stmt = $db->prepare($sql);
+            $stmt->execute([ $user_id, $product_id,]);
+
+            $favorite = $stmt->fetch() !== false;
+
+        }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
+    }
 
     return $favorite;
 }

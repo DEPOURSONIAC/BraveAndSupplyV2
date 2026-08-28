@@ -23,7 +23,7 @@
                 </label>
 
                <a href="<?= BASE_URL ?>?action=forgotPassword">
-                    Mot de passe oublié ?
+                    Mot de passe oublié ? (Le service est momentanément indisponible.)
                 </a>
 
             </div>

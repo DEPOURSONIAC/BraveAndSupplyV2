@@ -92,10 +92,44 @@ function allRoutes(): array
             ]
         ],
 
+        'order' => [
+            'GET' => [
+                'function' => 'showOrder',
+                'params' => ['id']
+            ]
+        ],
+
         'reviews' => [
             'GET' => [
                 'function' => 'showReviews',
                 'params' => []
+            ]
+        ],
+
+        // Favorite
+
+        'favorite' => [
+            'GET' => [
+                'function' => 'showFavorite',
+                'params' => []
+            ]
+        ],
+
+        'addToFavorite' => [
+            'POST' => [
+                'function' => 'addToFavorite',
+                'params' => [
+                    'product_id',
+                ]
+            ]
+        ],
+
+        'removeFromFavorite' => [
+            'POST' => [
+                'function' => 'removeFromFavorite',
+                'params' => [
+                    'product_id'
+                ]
             ]
         ],
 

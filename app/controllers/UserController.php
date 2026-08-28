@@ -35,7 +35,7 @@ function getUserStats(int $user_id): array
     ];
 }
 
-// AJAX(pages dynamiques)
+// AJAX (pages dynamiques)
 
 function showAccount(): void
 {
@@ -58,17 +58,15 @@ function showAccount(): void
         'order_count'  => $stats['order_count'],
         'cart_count'   => $stats['cart_count'],
         'review_count' => $stats['review_count'],
-        'orders'       => $orders,
-    ]);
+        'order_last'   => $orders[0] ?? null,]);
 }
 
 function showProfile(): void
 {
     /*
-        Affiche le contenu du profil utilisateur.
+        Affiche uniquement le contenu du profil utilisateur.
 
-        Cette section est destinée à être chargée dynamiquement
-        depuis la page du compte.
+        Cette vue est chargée dynamiquement via AJAX.
     */
 
     $user = getCurrentUser();
@@ -77,13 +75,12 @@ function showProfile(): void
     $stats = getUserStats($user_id);
     $orders = getOrdersByUser($user_id);
 
-    view('user/account', [
+    view('user/account/profile', [
         'user'         => $user,
         'order_count'  => $stats['order_count'],
         'cart_count'   => $stats['cart_count'],
         'review_count' => $stats['review_count'],
-        'orders'       => $orders,
-    ]);
+        'order_last'   => $orders[0] ?? null,]);
 }
 
 function showOrders(): void

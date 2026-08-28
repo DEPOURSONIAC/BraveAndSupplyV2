@@ -8,20 +8,23 @@ function getAllProducts(): array
 
     $db = getPDO();
 
-    $sql = "SELECT * FROM products ORDER BY id DESC";
+    try {
+        $products = [];
 
-    $stmt = $db->query($sql);
+        $sql = "SELECT * FROM products ORDER BY id DESC";
 
-    $products = [];
+        $stmt = $db->query($sql);
 
-    if ($stmt) {
         $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
     }
 
     return $products;
 }
 
-function getProductById(int $id): ?array
+function getProductById(int $product_id): ?array
 {
     /*
         Retourne un produit
@@ -30,75 +33,74 @@ function getProductById(int $id): ?array
 
     $db = getPDO();
 
-    $sql = "SELECT * FROM products WHERE id = ? LIMIT 1";
+    try {
+        $product = null;
 
-    $stmt = $db->prepare($sql);
-    $stmt->execute([$id]);
+        $sql = "SELECT * FROM products WHERE id = ? LIMIT 1";
 
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$product_id]);
 
-    $product = $result ?: null;
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $product = $result ?: null;
+
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
+    }
 
     return $product;
 }
 
-function createProduct(int $category_id, string $name, string $description, float $price,float $stock, string $image): bool
-{
+function createProduct(int $category_id, string $name,string $description, float $price, float $stock, string $image): bool {
     /*
         Crée un nouveau produit.
     */
 
     $db = getPDO();
 
-    $created = false;
+    try {
+        $created = false;
 
-    if ($category_id > 0 && !empty($name) && !empty($description) && $price > 0 && $stock > 0 && !empty($image)) {
-
-        try {
-
-            $sql = "INSERT INTO products (category_id, name, description, price, stock, image) VALUES (?, ?, ?, ?, ?)";
+        if ($category_id > 0 && !empty($name) && !empty($description) && $price > 0 && $stock > 0 && !empty($image)) {
+            $sql = "INSERT INTO products (category_id, name, description, price, stock, image) VALUES (?, ?, ?, ?, ?, ?)";
 
             $stmt = $db->prepare($sql);
 
-            $created = $stmt->execute([$category_id, $name, $description, $price, $stock, $image]);
-
-        } catch (PDOException $e) {
-            error_log(__FUNCTION__ . '(): ' . $e->getMessage());
+            $created = $stmt->execute([$category_id, $name, $description, $price, $stock, $image,]);
         }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
     }
 
     return $created;
 }
 
-function updateProduct(int $id, int $category_id, string $name, string $description, float $price, float $stock, string $image): bool
-{
+function updateProduct(int $product_id, int $category_id, string $name, string $description, float $price, float $stock, string $image): bool {
     /*
         Met à jour un produit.
     */
 
     $db = getPDO();
 
-    $updated = false;
+    try {
+        $updated = false;
 
-    if ( $id > 0 && $category_id > 0 && !empty($name) && !empty($description) && price > 0 && $stock > 0 && !empty($image)) {
-
-        try {
-
-            $sql = " UPDATE products SET name = ?, description = ?, price = ?,  stock = ?, image = ?, category_id = ? WHERE id = ?";
+        if ($product_id > 0 && $category_id > 0 && !empty($name) && !empty($description) && $price > 0 && $stock > 0 && !empty($image)) {
+            $sql = "UPDATE products SET name = ?, description = ?, price = ?, stock = ?, image = ?, category_id = ? WHERE id = ?";
 
             $stmt = $db->prepare($sql);
 
-            $updated = $stmt->execute([$name, $description, $price, $stock, $image, $category_id, $id]);
-
-        } catch (PDOException $e) {
-            error_log(__FUNCTION__ . '(): ' . $e->getMessage());
+            $updated = $stmt->execute([$name, $description, $price, $stock, $image, $category_id, $product_id,]);
         }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
     }
 
     return $updated;
 }
 
-function deleteProduct(int $id): bool
+function deleteProduct(int $product_id): bool
 {
     /*
         Supprime un produit.
@@ -106,15 +108,14 @@ function deleteProduct(int $id): bool
 
     $db = getPDO();
 
-    $deleted = false;
-
     try {
+        $deleted = false;
 
-        $sql = "DELETE FROM products WHERE id = ?";
+        $sql = " DELETE FROM products WHERE id = ?";
 
         $stmt = $db->prepare($sql);
 
-        $deleted = $stmt->execute([$id]);
+        $deleted = $stmt->execute([$product_id]);
 
     } catch (PDOException $e) {
         error_log(__FUNCTION__ . '(): ' . $e->getMessage());
@@ -122,4 +123,3 @@ function deleteProduct(int $id): bool
 
     return $deleted;
 }
-

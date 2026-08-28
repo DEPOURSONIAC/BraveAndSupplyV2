@@ -1,8 +1,6 @@
 <?php
 
-require_once MODEL_PATH . '/CartModel.php';
-
-function createOrder(int $user_id, float $totalPrice, string $status = 'pending'): int
+function createOrder(int $user_id, float $total_price, string $status = 'pending'): int 
 {
     /*
         Crée une nouvelle commande
@@ -11,19 +9,29 @@ function createOrder(int $user_id, float $totalPrice, string $status = 'pending'
 
     $db = getPDO();
 
-    $sql = "INSERT INTO orders (user_id, total_price, status) VALUES (?, ?, ?) ";
+    try {
+        $order_id = 0;
 
-    $stmt = $db->prepare($sql);
+        if ($user_id > 0 && $total_price >= 0 && !empty($status)) {
 
-    $stmt->execute([$user_id, $totalPrice, $status]);
+            $sql = "INSERT INTO orders ( user_id, total_price, status) VALUES (?, ?, ?)";
 
-    $orderId = (int) $db->lastInsertId();
+            $stmt = $db->prepare($sql);
 
-    return $orderId;
+            $created = $stmt->execute([$user_id, $total_price, $status,]);
+
+            if ($created) {
+                $order_id = (int) $db->lastInsertId();
+            }
+        }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
+    }
+
+    return $order_id;
 }
 
-
-function addOrderItem(int $order_id, int $product_id, int $quantity, float $price): bool
+function addOrderItem(int $order_id, int $product_id, int $quantity, float $price): bool 
 {
     /*
         Ajoute un produit
@@ -32,17 +40,25 @@ function addOrderItem(int $order_id, int $product_id, int $quantity, float $pric
 
     $db = getPDO();
 
-    $sql = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?) ";
+    try {
+        $added = false;
 
-    $stmt = $db->prepare($sql);
+        if ($order_id > 0 && $product_id > 0 && $quantity > 0 && $price >= 0) {
+            $sql = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
 
-    $added = $stmt->execute([$order_id, $product_id, $quantity, $price]);
+            $stmt = $db->prepare($sql);
+
+            $added = $stmt->execute([ $order_id, $product_id, $quantity, $price,]);
+
+        }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
+    }
 
     return $added;
 }
 
-
-function createOrderFromCart(int $user_id, string $status = 'pending'): ?int
+function createOrderFromCart(int $user_id,string $status = 'pending'): ?int 
 {
     /*
         Transforme le panier utilisateur
@@ -53,52 +69,61 @@ function createOrderFromCart(int $user_id, string $status = 'pending'): ?int
         suppression du panier.
     */
 
-    $cart = getCart($user_id);
+    try {
+        $order_id = null;
 
-    $orderId = null;
+        if ($user_id > 0) {
+            $cart = getCart($user_id);
 
-    if (!empty($cart['products'])) {
+            if (!empty($cart['products'])) {
+                $order_id = createOrder($user_id, $cart['total'], $status);
 
-        $orderId = createOrder($user_id, $cart['total'], $status);
+                if ($order_id > 0) {
 
-        foreach ($cart['products'] as $product) {
+                    foreach ($cart['products'] as $product) {
+                        addOrderItem($order_id, (int) $product['id'], (int) $product['quantity'], (float) $product['price']);
+                    }
 
-            addOrderItem($orderId, $product['noP'], $product['quantity'], $product['price']);
+                    clearCart($user_id);
+                }
+            }
         }
-
-        clearCart($user_id);
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
     }
 
-    return $orderId;
+    return $order_id;
 }
-
 
 function getAllOrders(): array
 {
     /*
         Retourne toutes les commandes.
-        
+
         Utilisé principalement
         pour l'administration.
     */
 
     $db = getPDO();
 
-    $sql = " SELECT * FROM orders ORDER BY id DESC ";
+    try {
+        $orders = [];
 
-    $stmt = $db->query($sql);
+        $sql = "SELECT * FROM orders ORDER BY id DESC
+        ";
 
-    $orders = [];
+        $stmt = $db->query($sql);
 
-    if ($stmt) {
         $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
     }
 
     return $orders;
 }
 
-
-function getOrderById(int $id): ?array
+function getOrderById(int $order_id, int $user_id): ?array
 {
     /*
         Retourne une commande complète
@@ -107,33 +132,37 @@ function getOrderById(int $id): ?array
 
     $db = getPDO();
 
-    $orderDetails = null;
+    try {
+        $order_details = null;
 
-    $sql = "SELECT * FROM orders WHERE id = ?";
+        if ($order_id > 0 && $user_id > 0) {
+            $sql = "SELECT * FROM orders WHERE id = ? AND user_id = ?";
 
-    $stmt = $db->prepare($sql);
-    $stmt->execute([$noO]);
+            $stmt = $db->prepare($sql);
+            $stmt->execute([$order_id, $user_id]);
 
-    $order = $stmt->fetch(PDO::FETCH_ASSOC);
+            $order = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($order) {
+            if ($order) {
+                $sql = "SELECT oi.product_id, oi.quantity, oi.price, p.name, p.image FROM order_items oi INNER JOIN products p ON p.id = oi.product_id WHERE oi.order_id = ? ";
 
-        $sql = "SELECT oi.product_id, oi.quantity, oi.price, p.name, p.image FROM order_items oi INNER JOIN products p ON p.id = oi.product_id WHERE oi.order_items = ?";
+                $stmt = $db->prepare($sql);
+                $stmt->execute([$order_id]);
 
-        $stmt = $db->prepare($sql);
-        $stmt->execute([$id]);
+                $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $orderDetails = [
-            'order' => $order,
-            'items' => $items
-        ];
+                $order_details = [
+                    'order' => $order,
+                    'items' => $items,
+                ];
+            }
+        }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
     }
 
-    return $orderDetails;
+    return $order_details;
 }
-
 
 function getOrdersByUser(int $user_id): array
 {
@@ -144,28 +173,49 @@ function getOrdersByUser(int $user_id): array
 
     $db = getPDO();
 
-    $sql = "SELECT * FROM orders WHERE user_id = ? ORDER BY id DESC";
+    try {
+        $orders = [];
 
-    $stmt = $db->prepare($sql);
-    $stmt->execute([$user_id]);
+        if ($user_id > 0) {
+            $sql = "SELECT * FROM orders WHERE user_id = ? ORDER BY id DESC";
 
-    $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = $db->prepare($sql);
+            $stmt->execute([$user_id]);
+
+            $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
+    }
 
     return $orders;
 }
 
 function countOrdersByUser(int $user_id): int
 {
-    
     /*
-        Retourne le nombre de commande du user.
+        Retourne le nombre
+        de commandes d'un utilisateur.
     */
+
     $db = getPDO();
 
-    $sql = "SELECT COUNT(*) FROM orders WHERE user_id = ?";
+    try {
+        $order_count = 0;
 
-    $stmt = $db->prepare($sql);
-    $stmt->execute([$user_id]);
+        if ($user_id > 0) {
+            $sql = "SELECT COUNT(*) FROM orders WHERE user_id = ?";
 
-    return (int) $stmt->fetchColumn();
+            $stmt = $db->prepare($sql);
+            $stmt->execute([$user_id]);
+
+            $order_count = (int) $stmt->fetchColumn();
+
+        }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
+    }
+
+    return $order_count;
 }

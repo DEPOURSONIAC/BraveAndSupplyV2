@@ -3,34 +3,30 @@
 function addReview(int $user_id, string $comment): bool
 {
     /*
-        Ajoute un avis
-        sur un produit.
+        Ajoute un avis.
     */
 
     $db = getPDO();
 
-    $added = false;
+    try {
+        $added = false;
 
-    if (
-        $user_id > 0 && !empty($comment)) {
-
-        try {
-
+        if ($user_id > 0 && !empty($comment)) {
             $sql = "INSERT INTO reviews (user_id, comment) VALUES (?, ?)";
 
             $stmt = $db->prepare($sql);
 
-            $added = $stmt->execute([$user_id, $comment]);
-
-        } catch (PDOException $e) {
-            error_log(__FUNCTION__ . '(): ' . $e->getMessage());
+            $added = $stmt->execute([$user_id, $comment,]);
+            
         }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
     }
 
     return $added;
 }
 
-function deleteReview(int $id, int $user_id): bool
+function deleteReview(int $review_id, int $user_id): bool
 {
     /*
         Supprime un avis.
@@ -41,16 +37,17 @@ function deleteReview(int $id, int $user_id): bool
 
     $db = getPDO();
 
-    $deleted = false;
-
     try {
+        $deleted = false;
 
-        $sql = "DELETE FROM reviews WHERE id = ? AND user_id = ?";
+        if ($review_id > 0 && $user_id > 0) {
+            $sql = "DELETE FROM reviews WHERE id = ? AND user_id = ?";
 
-        $stmt = $db->prepare($sql);
+            $stmt = $db->prepare($sql);
 
-        $deleted = $stmt->execute([$id, $user_id]);
+            $deleted = $stmt->execute([$review_id, $user_id,]);
 
+        }
     } catch (PDOException $e) {
         error_log(__FUNCTION__ . '(): ' . $e->getMessage());
     }
@@ -68,14 +65,17 @@ function getAllReviews(): array
 
     $db = getPDO();
 
-    $sql = "SELECT r.*, u.name FROM reviews r INNER JOIN users u ON u.id = r.user_id ORDER BY r.created_at DESC ";
+    try {
+        $reviews = [];
 
-    $stmt = $db->query($sql);
+        $sql = "SELECT r.*, u.name FROM reviews r INNER JOIN users u ON u.id = r.user_id ORDER BY r.created_at DESC";
 
-    $reviews = [];
+        $stmt = $db->query($sql);
 
-    if ($stmt) {
         $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
     }
 
     return $reviews;
@@ -84,31 +84,57 @@ function getAllReviews(): array
 function getReviewsByUser(int $user_id): array
 {
     /*
-        Retourne tous les avis du user.
-        Utilisé pour le account.
+        Retourne tous les avis
+        d'un utilisateur.
+
+        Utilisé pour le compte.
     */
 
     $db = getPDO();
 
-    $sql = "SELECT * FROM reviews WHERE user_id = ? ORDER BY id DESC";
+    try {
+        $reviews = [];
 
-    $stmt = $db->prepare($sql);
-    $stmt->execute([$user_id]);
+        if ($user_id > 0) {
+            $sql = "SELECT * FROM reviews WHERE user_id = ? ORDER BY id DESC";
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = $db->prepare($sql);
+            $stmt->execute([$user_id]);
+
+            $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
+    }
+
+    return $reviews;
 }
 
 function countReviewsByUser(int $user_id): int
 {
     /*
-        Compte le nombre d'avis du user.
+        Compte le nombre d'avis
+        d'un utilisateur.
     */
+
     $db = getPDO();
 
-    $sql = "SELECT COUNT(*) FROM reviews WHERE user_id = ?";
+    try {
+        $review_count = 0;
 
-    $stmt = $db->prepare($sql);
-    $stmt->execute([$user_id]);
+        if ($user_id > 0) {
+            $sql = "SELECT COUNT(*) FROM reviews WHERE user_id = ?";
 
-    return (int) $stmt->fetchColumn();
+            $stmt = $db->prepare($sql);
+            $stmt->execute([$user_id]);
+
+            $review_count = (int) $stmt->fetchColumn();
+
+        }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
+    }
+
+    return $review_count;
 }

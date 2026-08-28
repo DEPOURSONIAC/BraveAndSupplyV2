@@ -50,6 +50,19 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="<?= BASE_URL ?>?action=favorites">
+                        Favoris
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?= BASE_URL ?>?action=lists">
+                        Listes
+                    </a>
+                </li>
+
+
             </ul>
 
             <section id="account-content">

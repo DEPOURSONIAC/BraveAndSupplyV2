@@ -35,3 +35,5 @@ require_once CONTROLLER_PATH . '/LegalController.php';
 require_once CONTROLLER_PATH . '/ProductController.php';
 require_once CONTROLLER_PATH . '/UserController.php';
 require_once CONTROLLER_PATH . '/CartController.php';
+require_once CONTROLLER_PATH . '/OrderController.php';
+require_once CONTROLLER_PATH . '/FavoriteController.php';

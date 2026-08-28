@@ -9,18 +9,22 @@ function getCouponByCode(string $code): ?array
 
     $db = getPDO();
 
-    $coupon = null;
+    try {
+        $coupon = null;
 
-    if (!empty($code)) {
+        if (!empty($code)) {
+            $sql = "SELECT * FROM coupons WHERE code = ? LIMIT 1";
 
-        $sql = "SELECT * FROM coupons WHERE code = ? LIMIT 1";
+            $stmt = $db->prepare($sql);
+            $stmt->execute([$code]);
 
-        $stmt = $db->prepare($sql);
-        $stmt->execute([$code]);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $coupon = $result ?: null;
+            $coupon = $result ?: null;
+            
+        }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
     }
 
     return $coupon;
@@ -33,15 +37,21 @@ function validateCoupon(string $code): ?array
         avant son utilisation.
     */
 
-    $coupon = getCouponByCode($code);
+    try {
+        $valid_coupon = null;
 
-    $validCoupon = null;
+        if (!empty($code)) {
+            $coupon = getCouponByCode($code);
 
-    if ($coupon) {
-        $validCoupon = $coupon;
+            if ($coupon) {
+                $valid_coupon = $coupon;
+            }
+        }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
     }
 
-    return $validCoupon;
+    return $valid_coupon;
 }
 
 function applyCoupon(float $total, string $code): float
@@ -51,20 +61,25 @@ function applyCoupon(float $total, string $code): float
         sur le montant total.
     */
 
-    $coupon = validateCoupon($code);
+    try {
+        $new_total = $total;
 
-    $newTotal = $total;
+        if ($total >= 0 && !empty($code)) {
+            $coupon = validateCoupon($code);
 
-    if ($coupon) {
+            if ($coupon) {
+                $reduce = (float) $coupon['reduce'];
 
-        $reduce = (float) $coupon['reduce'];
+                $new_total = $total - ($total * $reduce / 100);
 
-        $newTotal = $total - ($total * $reduce / 100);
-
-        $newTotal = max(0, $newTotal);
+                $new_total = max(0, $new_total);
+            }
+        }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
     }
 
-    return $newTotal;
+    return $new_total;
 }
 
 function createCoupon(string $code, float $reduce): bool
@@ -75,21 +90,19 @@ function createCoupon(string $code, float $reduce): bool
 
     $db = getPDO();
 
-    $created = false;
+    try {
+        $created = false;
 
-    if (!empty($code) && $reduce > 0 && $reduce <= 100) {
-
-        try {
-
+        if (!empty($code) && $reduce > 0 && $reduce <= 100) {
             $sql = "INSERT INTO coupons (code, reduce) VALUES (?, ?)";
 
             $stmt = $db->prepare($sql);
 
-            $created = $stmt->execute([$code, $reduce ]);
+            $created = $stmt->execute([$code, $reduce,]);
 
-        } catch (PDOException $e) {
-            error_log(__FUNCTION__ . '(): ' . $e->getMessage());
         }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
     }
 
     return $created;
@@ -98,16 +111,25 @@ function createCoupon(string $code, float $reduce): bool
 function deleteCoupon(string $code): bool
 {
     /*
- -       Supprime un coupon.
+        Supprime un coupon.
     */
 
     $db = getPDO();
 
-    $sql = "DELETE FROM coupons WHERE code = ? ";
+    try {
+        $deleted = false;
 
-    $stmt = $db->prepare($sql);
+        if (!empty($code)) {
+            $sql = "DELETE FROM coupons WHERE code = ?";
 
-    $deleted = $stmt->execute([$code]);
+            $stmt = $db->prepare($sql);
+
+            $deleted = $stmt->execute([$code]);
+
+        }
+    } catch (PDOException $e) {
+        error_log(__FUNCTION__ . '(): ' . $e->getMessage());
+    }
 
     return $deleted;
 }
