@@ -133,6 +133,63 @@ function allRoutes(): array
             ]
         ],
 
+        // Lists
+
+
+        'lists' => [
+            'GET' => [
+                'function' => 'showLists',
+                'params' => []
+            ]
+        ],
+
+        'createList' => [
+            'POST' => [
+                'function' => 'createList',
+                'params' => [
+                    'name'
+                ]
+            ]
+        ],
+
+        'deleteList' => [
+            'POST' => [
+                'function' => 'deleteList',
+                'params' => [
+                    'list_id'
+                ]
+            ]
+        ],
+
+        'list' => [
+            'GET' => [
+                'function' => 'showList',
+                'params' => [
+                    'list_id'
+                ]
+            ]
+        ],
+
+        'addToList' => [
+            'POST' => [
+                'function' => 'addToList',
+                'params' => [
+                    'product_id',
+                    'list_id'
+                ]
+            ]
+        ],
+
+        'removeFromList' => [
+            'POST' => [
+                'function' => 'removeFromList',
+                'params' => [
+                    'product_id',
+                    'list_id'
+                ]
+            ]
+        ],
+
         // Panier
 
         'cart' => [

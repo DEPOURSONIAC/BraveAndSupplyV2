@@ -1,6 +1,6 @@
 <?php
 
-function addFavorite(int $user_id, int $product_id): bool
+function insertFavorite(int $user_id, int $product_id): bool
 {
     /*
         Ajoute un produit
