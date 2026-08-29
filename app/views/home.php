@@ -46,7 +46,7 @@
                                                 </p>
 
                                                 <div class="main-border-button">
-                                                    <a href="<?= BASE_URL ?>?action=category&category_id=2">
+                                                    <a href="<?= BASE_URL ?>?action=category&id=2">
                                                         Découvrir
                                                     </a>
                                                 </div>
@@ -77,7 +77,7 @@
                                                 </p>
 
                                                 <div class="main-border-button">
-                                                    <a href="<?= BASE_URL ?>?action=category&category_id=1">
+                                                    <a href="<?= BASE_URL ?>?action=category&id=1">
                                                         Découvrir
                                                     </a>
                                                 </div>
@@ -108,7 +108,7 @@
                                                 </p>
 
                                                 <div class="main-border-button">
-                                                    <a href="<?= BASE_URL ?>?action=category&category_id=3">
+                                                    <a href="<?= BASE_URL ?>?action=category&id=3">
                                                         Découvrir
                                                     </a>
                                                 </div>
@@ -139,7 +139,7 @@
                                                 </p>
 
                                                 <div class="main-border-button">
-                                                    <a href="<?= BASE_URL ?>?action=category&category_id=4">
+                                                    <a href="<?= BASE_URL ?>?action=category&id=4">
                                                         Découvrir
                                                     </a>
                                                 </div>
