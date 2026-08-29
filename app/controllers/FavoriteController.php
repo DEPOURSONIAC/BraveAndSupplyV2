@@ -40,7 +40,10 @@ function addToFavorite(int $product_id): void
         http_response_code(500);
         exit("Impossible d'ajouter le produit aux favoris.");
     }
+
+    redirect('account');
 }
+
 
 function removeFromFavorite(int $product_id): void
 {
@@ -52,15 +55,21 @@ function removeFromFavorite(int $product_id): void
     $user = getCurrentUser();
     $user_id = (int) $user['id'];
 
-    if ($product_id <= 0) {
-        http_response_code(400);
-        exit('Identifiant de produit invalide.');
+    $success = false;
+
+    if ($product_id > 0) {
+
+        $removed = removeFavorite($user_id, $product_id);
+
+        if ($removed) {
+            $success = true;
+        }
     }
 
-    $removed = removeFavorite($user_id, $product_id);
+    header('Content-Type: application/json');
 
-    if (!$removed) {
-        http_response_code(500);
-        exit('Impossible de retirer le produit des favoris.');
-    }
+    echo json_encode([
+        'success' => $success
+    ]);
+
 }

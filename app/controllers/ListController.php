@@ -54,21 +54,26 @@ function createList(string $name): void
 
     $name = trim($name);
 
-    if ($name === '') {
-        http_response_code(400);
-        exit('Nom de liste invalide.');
+    $success = false;
+
+    if ($name !== '') {
+
+        $created = insertList($user_id, $name);
+
+        if ($created) {
+            $success = true;
+        }
     }
 
-    $created = insertList($user_id, $name);
+    header('Content-Type: application/json');
 
-    if (!$created) {
-        http_response_code(500);
-        exit('Impossible de créer la liste.');
-    }
+    echo json_encode([
+        'success' => $success]);
 }
 
 function deleteList(int $list_id): void
 {
+
     /*
         Supprime une liste de l'utilisateur connecté.
     */
@@ -76,17 +81,21 @@ function deleteList(int $list_id): void
     $user = getCurrentUser();
     $user_id = (int) $user['id'];
 
-    if ($list_id <= 0) {
-        http_response_code(400);
-        exit('Identifiant de liste invalide.');
+    $success = false;
+
+    if ($list_id > 0) {
+
+        $deleted = removeList($user_id, $list_id);
+
+        if ($deleted) {
+            $success = true;
+        }
     }
 
-    $deleted = removeList($user_id, $list_id);
+    header('Content-Type: application/json');
 
-    if (!$deleted) {
-        http_response_code(500);
-        exit('Impossible de supprimer la liste.');
-    }
+    echo json_encode([
+        'success' => $success]);
 }
 
 function addToList(int $product_id, int $list_id): void

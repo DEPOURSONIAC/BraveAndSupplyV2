@@ -51,7 +51,7 @@
                 </li>
 
                 <li>
-                    <a href="<?= BASE_URL ?>?action=favorites">
+                    <a href="<?= BASE_URL ?>?action=favorite">
                         Favoris
                     </a>
                 </li>
