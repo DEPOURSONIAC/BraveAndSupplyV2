@@ -1,3 +1,11 @@
+// ============================================================
+// ACCOUNT
+// ============================================================
+
+// -----
+// Navigation entre les sections du compte
+// -----
+
 async function readAccount(event) {
 
     const link = event.target.closest('a');
@@ -7,10 +15,9 @@ async function readAccount(event) {
     }
 
     event.preventDefault();
-    
-    // Loading the page itself
-    
-    const currentActive = document.querySelector('.account-menu a.active');
+
+    const currentActive =
+        document.querySelector('.account-menu a.active');
 
     if (currentActive) {
         currentActive.classList.remove('active');
@@ -20,7 +27,7 @@ async function readAccount(event) {
 
     try {
 
-        const response = await fetch(link.href); // Wait an answser of the server
+        const response = await fetch(link.href);
 
         if (!response.ok) {
             throw new Error(`HTTP error: ${response.status}`);
@@ -28,31 +35,40 @@ async function readAccount(event) {
 
         const accountText = await response.text();
 
-        console.log(response);
-        console.log('Status code:', response.status, 'Status text:', response.statusText);
+        const accountContent =
+            document.getElementById('account-content');
 
-        document.getElementById('account-content').innerHTML = accountText; // write in the HTML page
+        if (accountContent) {
+            accountContent.innerHTML = accountText;
+        }
 
     } catch (error) {
 
-        console.error('Error:', error);
-
+        console.error('Erreur navigation account :',error);
     }
 }
 
-// Change the quantity with JavaScript because it will help with AJAX
+
+// ============================================================
+// PANIER
+// ============================================================
 
 // -----
-// Modification du panier
+// Modification de la quantité
 // -----
 
 async function updateCart(form, quantity) {
 
-    const product_id = form.querySelector('input[name="product_id"]');
+    const productIdInput =
+        form.querySelector('input[name="product_id"]');
+
+    if (!productIdInput) {
+        return;
+    }
 
     const data = new URLSearchParams();
 
-    data.append('product_id', product_id.value);
+    data.append('product_id', productIdInput.value);
     data.append('quantity', quantity);
 
     const response = await fetch(form.action, {
@@ -68,42 +84,35 @@ async function updateCart(form, quantity) {
 
     console.log('Réponse updateCart :', result);
 
-    // Ligne du produit modifié
-    const product_row = document.querySelector(
-        `tr[data-product-id="${product_id.value}"]`
-    );
+    const productRow =document.querySelector(`tr[data-product-id="${productIdInput.value}"]`);
 
-    if (product_row) {
+    if (productRow) {
 
-        const product = result.cart.products.find(
-            product => Number(product.id) === Number(product_id.value)
-        );
+        const product =result.cart.products.find( product => Number(product.id) === Number(productIdInput.value));
 
         if (product) {
 
-            const product_total = product_row.querySelector('.product-total');
+            const productTotal = productRow.querySelector('.product-total');
 
-            product_total.textContent =
-                Number(product.total_by_product).toFixed(2) + ' €';
+            if (productTotal) {
+
+                productTotal.textContent =`${Number(product.total_by_product).toFixed(2)} €`;
+            }
         }
     }
 
-    // Nombre d'articles
-    const account_table_count =
-        document.getElementById('account_table_count');
+    const accountTableCount = document.getElementById('account_table_count');
 
-    if (account_table_count) {
-        account_table_count.textContent =
-            result.cart_count + ' article(s)';
+    if (accountTableCount) {
+
+        accountTableCount.textContent =`${result.cart_count} article(s)`;
     }
 
-    // Total panier
-    const cart_total =
-        document.getElementById('cart_total');
+    const cartTotal = document.getElementById('cart_total');
 
-    if (cart_total) {
-        cart_total.textContent =
-            Number(result.cart.total).toFixed(2) + ' €';
+    if (cartTotal) {
+
+        cartTotal.textContent = `${Number(result.cart.total).toFixed(2)} €`;
     }
 
     return result;
@@ -111,84 +120,144 @@ async function updateCart(form, quantity) {
 
 
 // -----
-// Change la quantité
+// Gestion des boutons + / -
+// et du champ quantité
 // -----
 
 async function changeQuantity(event) {
 
     if (event.type === 'click') {
 
-        if (!event.target.classList.contains('quantity-plus') && !event.target.classList.contains('quantity-minus')) {
+        const button =
+            event.target.closest('.quantity-plus, .quantity-minus');
+
+        if (!button) {
             return;
         }
 
-        const form = event.target.closest('form');
+        const form = button.closest('form');
+
+        if (!form) {
+            return;
+        }
+
         const input = form.querySelector('.quantity-input');
 
-        if (event.target.classList.contains('quantity-plus')) {
+        if (!input) {
+            return;
+        }
 
-            input.value = Number(input.value) + 1;
+        let quantity = Number(input.value);
+
+        if (button.classList.contains('quantity-plus')) {
+
+            quantity++;
 
         } else {
 
-            if (Number(input.value) <= 1) {
+            if (quantity <= 1) {
                 return;
             }
 
-            input.value = Number(input.value) - 1;
+            quantity--;
         }
 
-        await updateCart(form, input.value);
+        input.value = quantity;
+
+        try {
+
+            await updateCart(form, quantity);
+
+        } catch (error) {
+
+            console.error('Erreur modification quantité :', error);
+        }
+
+        return;
     }
 
 
-    else if (event.type === 'change') {
+    if (event.type === 'change') {
 
-        if (!event.target.classList.contains('quantity-input')) {
+        const input =
+            event.target.closest('.quantity-input');
+
+        if (!input) {
             return;
         }
 
-        const form = event.target.closest('form');
+        const form =
+            input.closest('form');
 
-        // Evite une quantité invalide
-        if (Number(event.target.value) < 1) {
-            event.target.value = 1;
+        if (!form) {
+            return;
         }
 
-        await updateCart(form, event.target.value);
+        let quantity =
+            Number(input.value);
+
+        if (quantity < 1) {
+            quantity = 1;
+            input.value = 1;
+        }
+
+        try {
+
+            await updateCart(
+                form,
+                quantity
+            );
+
+        } catch (error) {
+
+            console.error(
+                'Erreur modification quantité :',
+                error
+            );
+        }
     }
 }
 
 
 // -----
-// Supp le produit
+// Suppression d'un produit du panier
 // -----
-
 
 async function removeProductFromCart(event) {
 
     event.preventDefault();
 
-    const form = event.currentTarget;
+    const form = event.target.closest('.cart-remove-form');
 
-    const product_id = form.querySelector('input[name="product_id"]').value;
+    if (!form) {
+        return;
+    }
 
-    const data = new URLSearchParams();
+    const productIdInput = form.querySelector('input[name="product_id"]');
 
-    data.append('product_id', product_id);
+    if (!productIdInput) {
+        return;
+    }
+
+    const productId = productIdInput.value;
+
+    const data =  new URLSearchParams();
+
+    data.append('product_id', productId);
 
     try {
 
-        const response = await fetch(form.action, {
-            method: 'POST',
-            body: data
-        });
+        const response =
+            await fetch(form.action, {
+                method: 'POST',
+                body: data
+            });
 
         if (!response.ok) {
             throw new Error(`HTTP error: ${response.status}`);
         }
 
-        const result = await response.json();
+        const result =await response.json();
 
         console.log('Réponse removeProductFromCart :', result);
 
@@ -196,36 +265,307 @@ async function removeProductFromCart(event) {
             return;
         }
 
-        // Supprime la ligne du tableau
-        const product_row = document.querySelector(`tr[data-product-id="${product_id}"]`);
+        const productRow = document.querySelector(`tr[data-product-id="${productId}"]`);
 
-        if (product_row) {
-            product_row.remove();
+        if (productRow) {
+            productRow.remove();
         }
 
-        // Mise à jour du nombre d'articles
-        const account_table_count = document.getElementById('account_table_count');
+        const accountTableCount =document.getElementById('account_table_count');
 
-        if (account_table_count) {
-            account_table_count.textContent = result.cart_count + ' article(s)';
+        if (accountTableCount) {
+
+            accountTableCount.textContent = `${result.cart_count} article(s)`;
         }
 
-        // Mise à jour du total
-        const cart_total = document.getElementById('cart_total');
+        const cartTotal = document.getElementById('cart_total');
 
-        if (cart_total) {
-            cart_total.textContent = Number(result.cart.total).toFixed(2) + ' €';
+        if (cartTotal) {
+
+            cartTotal.textContent = `${Number(result.cart.total).toFixed(2)} €`;
         }
 
     } catch (error) {
-        console.error('Erreur lors de la suppression du produit :', error);
+
+        console.error('Erreur suppression produit panier :', error);
+    }
+}
+
+
+// ============================================================
+// FAVORIS
+// ============================================================
+
+// -----
+// Suppression d'un favori
+// -----
+
+async function removeFavorite(event) {
+
+    event.preventDefault();
+
+    const form = event.target.closest('.favorite-remove-form');
+
+    if (!form) {
+        return;
+    }
+
+    const productIdInput = form.querySelector('input[name="product_id"]');
+
+    if (!productIdInput) {
+        return;
+    }
+
+    const productId =productIdInput.value;
+
+    const data =new URLSearchParams();
+
+    data.append('product_id',productId);
+
+    try {
+
+        const response =
+            await fetch(form.action, {
+                method: 'POST',
+                body: data
+            });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+        }
+
+        const result = await response.json();
+ 
+        console.log('Réponse removeFavorite :', result);
+
+        if (!result.success) {
+            return;
+        }
+
+        const productRow =document.querySelector(`tr[data-product-id="${productId}"]`);
+
+        if (productRow) {
+            productRow.remove();
+        }
+
+    } catch (error) {
+
+        console.error('Erreur suppression favori :', error);
+    }
+}
+
+
+// ============================================================
+// LISTES
+// ============================================================
+
+// -----
+// Suppression d'une liste
+// -----
+
+async function deleteList(event) {
+
+    event.preventDefault();
+
+    const form = event.target.closest('.list-delete-form');
+
+    if (!form) {
+        return;
+    }
+
+    const listIdInput =
+        form.querySelector('input[name="list_id"]');
+
+    if (!listIdInput) {
+        return;
+    }
+
+    const listId = listIdInput.value;
+
+    const data = new URLSearchParams();
+
+    data.append('list_id', listId);
+
+    try {
+
+        const response =
+            await fetch(form.action, {
+                method: 'POST',
+                body: data
+            });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        console.log('Réponse deleteList :', result);
+
+        if (!result.success) {
+            return;
+        }
+
+        const listBox = form.closest('.list-box');
+
+        if (listBox) {
+            listBox.remove();
+        }
+
+    } catch (error) {
+
+        console.error('Erreur suppression liste :', error);
     }
 }
 
 
 // -----
-// Event
+// Création d'une liste
+// -----
+
+async function createList(event) {
+
+    event.preventDefault();
+
+    const form = event.target.closest('.list-create-form');
+
+    if (!form) {
+        return;
+    }
+
+    const nameInput = form.querySelector('input[name="name"]');
+
+    if (!nameInput) {
+        return;
+    }
+
+    const name = nameInput.value.trim();
+
+    if (name === '') {
+        return;
+    }
+
+    const data =
+        new URLSearchParams();
+
+    data.append('name', name);
+
+    try {
+
+        const response =
+            await fetch(form.action, {
+                method: 'POST',
+                body: data
+            });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        console.log('Réponse createList :', result);
+
+        if (!result.success) {
+            return;
+        }
+
+        const listsUrl = form.dataset.listsUrl;
+
+        if (!listsUrl) {
+            return;
+        }
+
+        const listsResponse = await fetch(listsUrl);
+
+        if (!listsResponse.ok) {
+            throw new Error(`HTTP error: ${listsResponse.status}`);
+        }
+
+        const listsText =await listsResponse.text();
+
+        const accountContent = document.getElementById('account-content');
+
+        if (accountContent) {
+            accountContent.innerHTML = listsText;
+        }
+
+    } catch (error) {
+
+        console.error('Erreur création liste :', error);
+    }
+}
+
+
+// ============================================================
+// EVENTS AJAX
+// ============================================================
+
+// -----
+// Navigation account
+// -----
+
+const accountMenu =document.querySelector('.account-menu');
+
+if (accountMenu) {
+
+    accountMenu.addEventListener('click', readAccount);
+}
+
+
+// -----
+// Panier
 // -----
 
 document.addEventListener('click', changeQuantity);
+
 document.addEventListener('change', changeQuantity);
+
+
+// ============================================================
+// FORMULAIRES AJAX
+// ============================================================
+
+document.addEventListener(
+    'submit',
+    function (event) {
+
+        const form = event.target;
+
+        // Suppression favori
+        if (
+            form.matches('.favorite-remove-form')
+        ) {
+
+            removeFavorite(event);
+            return;
+        }
+
+        // Suppression d'une liste
+        if (
+            form.matches('.list-delete-form')
+        ) {
+
+            deleteList(event);
+            return;
+        }
+
+        // Création d'une liste
+        if (
+            form.matches('.list-create-form')
+        ) {
+
+            createList(event);
+            return;
+        }
+
+        // Suppression produit panier
+        if (
+            form.matches('.cart-remove-form')
+        ) {
+
+            removeProductFromCart(event);
+            return;
+        }
+    }
+);
