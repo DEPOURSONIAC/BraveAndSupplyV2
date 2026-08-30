@@ -165,7 +165,7 @@ function allRoutes(): array
             'GET' => [
                 'function' => 'showList',
                 'params' => [
-                    'list_id'
+                    'id'
                 ]
             ]
         ],

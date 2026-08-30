@@ -119,6 +119,8 @@ function addToList(int $product_id, int $list_id): void
         http_response_code(500);
         exit("Impossible d'ajouter le produit à la liste.");
     }
+
+    redirect('account');
 }
 
 function removeFromList(int $product_id, int $list_id): void
@@ -136,10 +138,7 @@ function removeFromList(int $product_id, int $list_id): void
         exit('Identifiant invalide.');
     }
 
-    $removed = removeFromList($user_id, $list_id, $product_id);
+    deleteProductFromList($user_id, $list_id, $product_id);
 
-    if (!$removed) {
-        http_response_code(500);
-        exit('Impossible de retirer le produit de la liste.');
-    }
+    redirect('list&id=' . $list_id);
 }

@@ -128,6 +128,41 @@
 
                 </form>
 
+                <!-- LISTES -->
+                <div class="border-top mt-4 pt-4">
+
+                    <h5 class="fw-bold mb-3">
+                        Ajouter à une liste
+                    </h5>
+
+                    <?php if (!empty($lists)): ?>
+
+                        <?php foreach ($lists as $list): ?>
+
+                            <form action="<?= BASE_URL ?>?action=addToList" method="POST" class="add-to-list-form mb-2">
+
+                                <input type="hidden" name="product_id" value="<?= (int) $product['id'] ?>">
+
+                                <input type="hidden" name="list_id" value="<?= (int) $list['id'] ?>">
+
+                                <button type="submit" class="btn btn-outline-dark w-100">
+                                    Ajouter à << <?= htmlspecialchars($list['name'], ENT_QUOTES, 'UTF-8') ?> >>
+                                </button>
+
+                            </form>
+
+                        <?php endforeach; ?>
+
+                    <?php else: ?>
+
+                        <p class="text-muted mb-0">
+                            Vous n'avez pas encore créé de liste.
+                        </p>
+
+                    <?php endif; ?>
+
+                </div>
+
                     <!-- RETOUR -->
                     <a  href="<?= BASE_URL ?>?action=catalogue" class="btn btn-outline-dark w-100 mt-3 py-3">
                         Retour au catalogue
@@ -160,6 +195,7 @@
 
             </div>
 
+        
 
         </div>
 

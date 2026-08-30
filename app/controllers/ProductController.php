@@ -54,7 +54,13 @@ function showProduct(int $product_id): void
         exit('Produit introuvable.');
     }
 
+    $user = getCurrentUser();
+    $user_id = (int) $user['id'];
+
+    $lists = getLists($user_id);
+
     view('shop/product', [
-        'product' => $product
+        'product' => $product,
+        'lists'   => $lists,
     ]);
 }
