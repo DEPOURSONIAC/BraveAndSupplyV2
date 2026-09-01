@@ -157,5 +157,26 @@ Le projet suit des conventions de nommage uniformes afin de faciliter la lecture
   - Exemple : `UserController.php`, `CartModel.php`
 - **Constantes** : `UPPER_SNAKE_CASE`
   - Exemple : `BASE_URL`, `MODEL_PATH`
-- **Tables et colonnes SQL** : `snake_case`
-  - Exemple : `cart_items`, `product_id`
+- **Tables SQL** : `camelCase`
+  - Exemple : `cartItems`
+- **Colonnes SQL** : `snake_case`
+  - Exemple : `$user_id`
+  
+## Reste à faire:
+  Favoris
+  Liste de produits
+
+  Avis
+  
+  Coupons
+
+  Mini-onglets
+
+  Checkout
+  Paiement
+
+  Sécurité
+  Tests
+
+  Refactoring / nettoyage
+  README final

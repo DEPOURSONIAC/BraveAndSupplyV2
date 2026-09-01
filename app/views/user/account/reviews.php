@@ -46,13 +46,34 @@
                                 </p>
 
                                 <div class="account-review-actions">
-                                    <a href="<?= BASE_URL ?>?action=reviewEdit&id=<?= (int) $review['id'] ?>">
-                                        Modifier
-                                    </a>
-                                    <a href="<?= BASE_URL ?>?action=reviewDelete&id=<?= (int) $review['id'] ?>"
-                                       class="account-table-remove">
-                                        Supprimer
-                                    </a>
+                                    <form action="<?= BASE_URL ?>?action=reviewEdit" method="POST">
+
+                                        <div class="form-group">
+
+                                            <input type="hidden" name="review_id" value="<?= (int) $review['id'] ?>">
+
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">
+                                            Modifier
+                                        </button>
+
+                                    </form>
+
+                                    <form action="<?= BASE_URL ?>?action=reviewDelete" method="POST">
+
+                                        <div class="form-group">
+
+                                            <input type="hidden" name="review_id" value="<?= (int) $review['id'] ?>">
+
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">
+                                            Supprimer
+                                        </button>
+
+                                    </form>
+
                                 </div>
 
                             </div>

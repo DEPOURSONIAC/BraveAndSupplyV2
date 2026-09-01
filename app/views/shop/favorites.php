@@ -72,7 +72,7 @@
 
             <p>Vous n'avez pas encore ajouté de favoris.</p>
 
-            <a href="<?= BASE_URL ?>?action=catalogues" class="btn-premium">
+            <a href="<?= BASE_URL ?>?action=catalogue" class="btn-premium">
                 Découvrir les produits
             </a>
 

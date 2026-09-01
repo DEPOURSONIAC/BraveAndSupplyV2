@@ -133,8 +133,36 @@ function allRoutes(): array
             ]
         ],
 
-        // Lists
+        // Reviews
 
+        'reviewCreate' => [
+            'POST' => [
+                'function' => 'reviewCreate',
+                'params' => [
+                    'comment',
+                ]
+            ]
+        ],
+
+         'reviewCreate' => [
+            'POST' => [
+                'function' => 'reviewCreate',
+                'params' => [
+                    'comment',
+                ]
+            ]
+        ],
+
+         'reviewCreate' => [
+            'POST' => [
+                'function' => 'reviewCreate',
+                'params' => [
+                    'comment',
+                ]
+            ]
+        ],
+
+        // Lists
 
         'lists' => [
             'GET' => [
