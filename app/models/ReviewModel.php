@@ -59,8 +59,6 @@ function getAllReviews(): array
 {
     /*
         Retourne tous les avis.
-
-        Utilisé pour l'administration.
     */
 
     $db = getPDO();

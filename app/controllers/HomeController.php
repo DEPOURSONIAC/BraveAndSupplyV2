@@ -13,12 +13,16 @@ function showHome(): void
     $femmes = getProductsByCategory(CATEGORY_FEMME);
     $kids = getProductsByCategory(CATEGORY_KIDS);
 
-    view('home', [
-        'hommes' => $hommes,
-        'femmes' => $femmes,
-        'kids' => $kids
-    ]);
+    $reviews = getAllReviews();
+
+    view('home', [ 
+        'hommes' => $hommes, '
+        femmes' => $femmes, 
+        'kids' => $kids, 
+        'reviews' => $reviews ]); 
+
 }
+
 
 function showContact(): void
 {
