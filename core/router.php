@@ -135,29 +135,20 @@ function allRoutes(): array
 
         // Reviews
 
-        'reviewCreate' => [
+        'createReview' => [
             'POST' => [
-                'function' => 'reviewCreate',
+                'function' => 'createReview',
                 'params' => [
                     'comment',
                 ]
             ]
         ],
 
-         'reviewCreate' => [
+        'removeReview' => [
             'POST' => [
-                'function' => 'reviewCreate',
+                'function' => 'removeReview',
                 'params' => [
-                    'comment',
-                ]
-            ]
-        ],
-
-         'reviewCreate' => [
-            'POST' => [
-                'function' => 'reviewCreate',
-                'params' => [
-                    'comment',
+                    'review_id',
                 ]
             ]
         ],

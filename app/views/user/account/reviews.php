@@ -5,7 +5,7 @@
                     <h5>Donner mon avis</h5>
                 </div>
 
-                <form action="<?= BASE_URL ?>?action=reviewCreate" method="POST">
+                <form action="<?= BASE_URL ?>?action=createReview" method="POST">
 
                     <div class="form-group">
                         <label for="comment">Votre avis</label>
@@ -45,22 +45,7 @@
                                     <?= htmlspecialchars($review['comment'], ENT_QUOTES, 'UTF-8') ?>
                                 </p>
 
-                                <div class="account-review-actions">
-                                    <form action="<?= BASE_URL ?>?action=reviewEdit" method="POST">
-
-                                        <div class="form-group">
-
-                                            <input type="hidden" name="review_id" value="<?= (int) $review['id'] ?>">
-
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary">
-                                            Modifier
-                                        </button>
-
-                                    </form>
-
-                                    <form action="<?= BASE_URL ?>?action=reviewDelete" method="POST">
+                                    <form action="<?= BASE_URL ?>?action=removeReview" method="POST">
 
                                         <div class="form-group">
 

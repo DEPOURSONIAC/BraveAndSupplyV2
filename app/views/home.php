@@ -458,11 +458,11 @@
 
                                         <i class="fa fa-quote-left"></i>
 
-                                        <p>
+                                        <p style="color:black;">
                                             <?= htmlspecialchars($review['comment'], ENT_QUOTES, 'UTF-8') ?>
                                         </p>
 
-                                        <strong>
+                                        <strong style="color: grey;">
                                             <?= htmlspecialchars($review['name'], ENT_QUOTES, 'UTF-8') ?>
                                         </strong>
 

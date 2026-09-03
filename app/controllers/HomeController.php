@@ -16,8 +16,8 @@ function showHome(): void
     $reviews = getAllReviews();
 
     view('home', [ 
-        'hommes' => $hommes, '
-        femmes' => $femmes, 
+        'hommes' => $hommes, 
+        'femmes' => $femmes, 
         'kids' => $kids, 
         'reviews' => $reviews ]); 
 
