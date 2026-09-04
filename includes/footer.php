@@ -9,9 +9,7 @@
                 <div class="first-item">
 
                     <div class="logo">
-                        <img src="<?= BASE_URL ?>assets/images/logo_site.png"
-                             alt="Logo Brave & Supply"
-                             width="150">
+                        <img src="<?= BASE_URL ?>assets/images/logo_site.png" alt="Logo Brave & Supply" width="150">
                     </div>
 
                     <ul>
@@ -28,9 +26,9 @@
                 <h4>Shopping & Categories</h4>
 
                 <ul>
-                    <li><a href="<?= BASE_URL ?>?action=categorie&categoryId=1">Hommes</a></li>
-                    <li><a href="<?= BASE_URL ?>?action=categorie&categoryId=2">Femmes</a></li>
-                    <li><a href="<?= BASE_URL ?>?action=categorie&categoryId=3">Enfants</a></li>
+                    <li><a href="<?= BASE_URL ?>?action=categorie&id=1">Hommes</a></li>
+                    <li><a href="<?= BASE_URL ?>?action=categorie&id=2">Femmes</a></li>
+                    <li><a href="<?= BASE_URL ?>?action=categorie&id=3">Enfants</a></li>
                 </ul>
 
             </div>

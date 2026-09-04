@@ -153,6 +153,35 @@ function allRoutes(): array
             ]
         ],
 
+        // accountEdit
+
+        'accountEdit' => [
+            'GET' => [
+                'function' => 'showAccountEdit',
+                'params' => []
+            ],
+            'POST' => [
+                'function' => 'updateProfile',
+                'params' => ['name', 'email', 'address', 'new_password']
+            ]
+        ],
+
+        // COUPONS
+
+        'applyCoupon' => [
+            'POST' => [
+                'function' => 'applyCouponToCart',
+                'params' => ['code']
+            ]
+        ],
+
+        'removeCoupon' => [
+            'POST' => [
+                'function' => 'removeCouponFromCart',
+                'params' => []
+            ]
+        ],
+
         // Lists
 
         'lists' => [
