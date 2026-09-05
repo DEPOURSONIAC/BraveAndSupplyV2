@@ -39,3 +39,5 @@ require_once CONTROLLER_PATH . '/OrderController.php';
 require_once CONTROLLER_PATH . '/FavoriteController.php';
 require_once CONTROLLER_PATH . '/ListController.php';
 require_once CONTROLLER_PATH . '/ReviewController.php';
+require_once CONTROLLER_PATH . '/accountEditController.php';
+

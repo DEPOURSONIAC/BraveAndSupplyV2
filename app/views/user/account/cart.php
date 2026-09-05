@@ -127,6 +127,35 @@
 
                     </div>
 
+                    <form action="<?= BASE_URL ?>?action=applyCoupon" method="POST">
+                        <label for="code">Code promo</label>
+
+                        <input type="text" id="code" name="code" placeholder="Votre code">
+
+                        <button type="submit">Appliquer</button>
+                    </form>
+
+                    <?php if (!empty($coupon)): ?>
+
+                        <div>
+                            <span>Code promo : <?= htmlspecialchars($coupon['code'], ENT_QUOTES, 'UTF-8') ?></span>
+
+                            <form action="<?= BASE_URL ?>?action=removeCoupon" method="POST">
+                                <button type="submit">Supprimer</button>
+                            </form>
+                        </div>
+
+                    <?php endif; ?>
+
+                    <?php if (!empty($discount)): ?>
+
+                        <div>
+                            <span>Réduction</span>
+                            <span>-<?= number_format($discount, 2, ',', ' ') ?> €</span>
+                        </div>
+
+                    <?php endif; ?>
+
 
                     <!-- TOTAL DU PANIER -->
                     <div class="account-cart-summary">

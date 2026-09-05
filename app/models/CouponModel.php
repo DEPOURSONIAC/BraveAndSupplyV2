@@ -2,9 +2,9 @@
 
 function getCouponByCode(string $code): ?array
 {
-    """
+    /*
     Obtien le coupon via le code
-    """
+    */
     $db = getPDO();
 
     try {
@@ -34,9 +34,9 @@ function getCouponByCode(string $code): ?array
 
 function validateCoupon(string $code): ?array
 {
-    """
+    /*
     Valide le coupon
-    """
+    */
     $valid_coupon = null;
 
     $code = strtoupper(trim($code));
@@ -59,9 +59,9 @@ function validateCoupon(string $code): ?array
 
 function applyCoupon(float $total, string $code): float
 {
-    """
+    /*
     Applique le coupon
-    """
+    */
     $new_total = $total;
 
     if ($total >= 0) {
@@ -81,9 +81,9 @@ function applyCoupon(float $total, string $code): float
 
 function createCoupon(string $code, int $reduce): bool
 {
-    """
+    /*
     Crée le coupon
-    """
+    */
     $db = getPDO();
 
     try {
@@ -108,9 +108,9 @@ function createCoupon(string $code, int $reduce): bool
 
 function deleteCoupon(string $code): bool
 {
-    """
+    /*
     Supp le coupon
-    """
+    */
     $db = getPDO();
 
     try {

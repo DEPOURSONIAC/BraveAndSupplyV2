@@ -84,8 +84,56 @@ function showCart(): void
     $stats = getUserStats($user_id);
     $cart = getCart($user_id);
 
+    $coupon = null;
+    $discount = 0;
+
+    if (!empty($_SESSION['coupon'])) {
+        $coupon = validateCoupon($_SESSION['coupon']);
+
+        if ($coupon) {
+            $old_total = (float) $cart['total'];
+            $new_total = applyCoupon($old_total, $coupon['code']);
+
+            $discount = $old_total - $new_total;
+            $cart['total'] = $new_total;
+        }
+    }
+
     view('user/account/cart', [
         'cart'       => $cart,
         'cart_count' => $stats['cart_count'],
+        'coupon'     => $coupon,
+        'discount'   => $discount,
     ]);
+}
+
+
+// Coupon part
+
+function applyCouponToCart(string $code): void
+{
+    /*
+        Applique un coupon au panier de l'utilisateur.
+    */
+
+    $coupon = validateCoupon($code);
+
+    if ($coupon) {
+        $_SESSION['coupon'] = $coupon['code'];
+        redirect('account');
+    }
+
+    redirect('cart&coupon=FALSE');
+}
+
+
+function removeCouponFromCart(): void
+{
+    /*
+        Retire le coupon actuellement appliqué au panier.
+    */
+
+    unset($_SESSION['coupon']);
+
+    redirect('account');
 }
