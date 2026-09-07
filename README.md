@@ -37,86 +37,97 @@ BraveAndSupply/
 │   │   ├── HomeController.php
 │   │   ├── LegalController.php
 │   │   ├── ProductController.php
+│   │   ├── CartController.php
+│   │   ├── FavoriteController.php
+│   │   ├── ReviewController.php
+│   │   ├── CouponController.php
+│   │   ├── OrderController.php
+│   │   ├── CheckoutController.php
 │   │   └── UserController.php
 │   │
 │   ├── models/
 │   │   ├── AuthModel.php
-│   │   ├── CartModel.php
-│   │   ├── CategoryModel.php
-│   │   ├── CouponModel.php
-│   │   ├── FavoriteModel.php
-│   │   ├── OrderModel.php
-│   │   ├── ProductListModel.php
+│   │   ├── UserModel.php
 │   │   ├── ProductModel.php
+│   │   ├── ProductListModel.php
+│   │   ├── CategoryModel.php
+│   │   ├── CartModel.php
+│   │   ├── FavoriteModel.php
 │   │   ├── ReviewModel.php
-│   │   └── UserModel.php
-│   └── views/       
-│       ├── user/ 
-│       |   ├── account.php 
-│       │   └── account/ 
-│       │       ├── profile.php 
-│       │       ├── orders.php 
-│       │       ├── cart.php 
-│       │       └── reviews.php
-│       ├── auth/
-│       │   ├── login.php
-│       │   ├── account.php
-│       │   ├── cart.php
-│       │   ├── register.php            
-│       │   ├── forgot-password.php     
-│       │   └── reset-password.php      
+│   │   ├── CouponModel.php
+│   │   └── OrderModel.php
+│   │
+│   └── views/
 │       │
-│       ├── legal/
-│       │   ├── cgv.php
-│       │   ├── infos.php
-│       │   ├── mentions.php
-│       │   └── reglement.php          
+│       ├── layouts/
+│       │   ├── header.php
+│       │   └── footer.php
 │       │
-│       ├── shop/
-│       │   ├── catalogue.php
-│       │   ├── category.php
-│       │   ├── product.php
-│       │   ├── search.php              
-│       │   ├── favorites.php           
-│       │   ├── checkout.php    
-│       │   └── orders.php              
+│       ├── components/
+│       │   ├── navbar.php
+│       │   ├── user-menu.php
+│       │   ├── flash.php
+│       │   ├── pagination.php
+│       │   └── product-card.php
 │       │
-│       ├── annex/
-│       │   ├── about.php
-│       │   └── contact.php           
+│       ├── pages/
+│       │   ├── home.php
 │       │
-│       └── home.php
+│       │   ├── auth/
+│       │   │   ├── login.php
+│       │   │   ├── register.php
+│       │   │   ├── forgot-password.php
+│       │   │   └── reset-password.php
+│       │   │
+│       │   ├── shop/
+│       │   │   ├── catalogue.php
+│       │   │   ├── category.php
+│       │   │   ├── product.php
+│       │   │   ├── search.php
+│       │   │   └── favorites.php
+│       │   │
+│       │   ├── cart/
+│       │   │   ├── cart.php
+│       │   │   └── checkout.php
+│       │   │
+│       │   ├── orders/
+│       │   │   ├── orders.php
+│       │   │   └── order.php
+│       │   │
+│       │   ├── user/
+│       │   │   ├── account.php
+│       │   │   ├── profile.php
+│       │   │   └── reviews.php
+│       │   │
+│       │   ├── legal/
+│       │   │   ├── cgv.php
+│       │   │   ├── infos.php
+│       │   │   ├── mentions.php
+│       │   │   └── reglement.php
+│       │   │
+│       │   └── annex/
+│       │       ├── about.php
+│       │       └── contact.php
+│       │
+│       └── errors/
+│           ├── 403.php
+│           ├── 404.php
+│           └── 500.php
 │
 ├── config/
-|   ├── .htaccess
-|   ├── braveandsupplyv2.db
-|   ├── braveAndSupplyV2.sql
+│   ├── .htaccess
 │   ├── config.php
-│   └── database.php
+│   ├── database.php
+│   ├── braveandsupplyv2.db
+│   └── braveAndSupplyV2.sql
 │
 ├── core/
-|   ├── .htaccess
+│   ├── .htaccess
 │   ├── bootstrap.php
 │   ├── router.php
 │   └── helpers.php
 │
-├── deployment/
-|   ├── .htaccess
-|   ├── note/
-|   |   └── enPLus.txt
-│   └── apache2/
-|       └── sites-available/
-│           └── 000-default.conf
-│
-├── includes/
-│   ├── header.php
-│   ├── footer.php
-│   ├── navbar.php
-│   ├── sidebar.php
-│   ├── flash.php
-│   └── pagination.php
-│
-├── public/      
+├── public/
 │   ├── index.php
 │   │
 │   └── assets/
@@ -124,25 +135,36 @@ BraveAndSupply/
 │       │   ├── style.css
 │       │   ├── auth.css
 │       │   ├── shop.css
+│       │   ├── cart.css
+│       │   ├── account.css
+│       │   ├── checkout.css
 │       │   └── admin.css
 │       │
 │       ├── js/
-│       │   └── ajax.js
+│       │   ├── main.js
+│       │   ├── ajax.js
+│       │   ├── cart.js
+│       │   └── checkout.js
 │       │
 │       └── images/
 │           ├── logo.png
-│           └── users/
+│           ├── products/
+│           └── supplement/
 │
 ├── routes/
 │   └── web.php
 │
 ├── storage/
-│   └──logs/
-│           ├── products/
-│       └── app.log
-│ 
+│   ├── logs/
+│   │   └── app.log
+│
+├── deployment/
+│   ├── .htaccess
+│   └── apache2/
+│       └── sites-available/
+│           └── 000-default.conf
+│
 └── README.md
-
 ~~~
 
 ## Conventions de nommage
