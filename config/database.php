@@ -1,13 +1,15 @@
 <?php
 
+/**
+ * Returns the database connection.
+ *
+ * If the connection already exists, it is used.
+ * This avoids creating a new connection every time.
+ *
+ * @return PDO The PDO database connection.
+ */
 function getPDO(): PDO
 {
-    /*
-        Retourne la connexion à la base de données.
-        Si elle existe déjà, on réutilise la même.
-        (On gagne du temps)
-    */
-
     static $pdo = null;
 
     if ($pdo === null) {
@@ -17,9 +19,6 @@ function getPDO(): PDO
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
-
-    // TEST
-    // echo 'BDD okay.';
 
     return $pdo;
 }

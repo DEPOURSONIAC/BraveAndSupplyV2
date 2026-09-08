@@ -1,19 +1,20 @@
 <?php
 
 /*
-    Config générale de l'application.
+    Project configuration.
 
-    Contient :
-    - les chemins  du projet
-    - l'URL
-    - la config de la BDD
-    - les constantes de l'application
+    Contains:
+    - Project paths
+    - Application URL
+    - Database configuration
+    - Application constants
 */
 
 
 // --------------------
-// Chemins du projet
+// PROJECT ROOT
 // --------------------
+
 define('ROOT', dirname(__DIR__));
 
 define('APP_PATH', ROOT . '/app');
@@ -25,16 +26,22 @@ define('INCLUDE_PATH', ROOT . '/includes');
 define('PUBLIC_PATH', ROOT . '/public');
 
 
+// --------------------
 // URL
+// --------------------
+
 define('BASE_URL', '/braveAndSupplyV2/');
 
 
-// BDD
+// --------------------
+// DATABASE
+// --------------------
+
 define('DB_PATH', ROOT . '/config/braveandsupplyv2.db');
 
 
 // --------------------
-// Catégories
+// CATEGORIES
 // --------------------
 
 define('CATEGORY_HOMME', 1);
