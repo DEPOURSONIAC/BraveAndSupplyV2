@@ -1,8 +1,6 @@
-<?php include(INCLUDE_PATH . "/header.php"); ?>
-
 <main class="pt-5">
 
-    <!-- ***** Bannière principale - Début ***** -->
+    <!-- ***** Main - Beginning ***** -->
     <div class="main-banner" id="top">
         <div class="container-fluid">
             <div class="row">
@@ -19,7 +17,7 @@
                                 </div>
                             </div>
 
-                            <img src="<?= BASE_URL ?>assets/images/left-banner-image.jpg" alt="Acheter maintenant">
+                            <img src="<?= BASE_URL ?>assets/images/supplement/left-banner-image.jpg" alt="Acheter maintenant">
                         </div>
                     </div>
                 </div>
@@ -53,7 +51,7 @@
                                             </div>
                                         </div>
 
-                                        <img src="<?= BASE_URL ?>assets/images/baner-right-image-01.jpg" alt="Femmes">
+                                        <img src="<?= BASE_URL ?>assets/images/supplement/baner-right-image-01.jpg" alt="Femmes">
 
                                     </div>
                                 </div>
@@ -84,7 +82,7 @@
                                             </div>
                                         </div>
 
-                                        <img src="<?= BASE_URL ?>assets/images/baner-right-image-02.jpg" alt="Hommes">
+                                        <img src="<?= BASE_URL ?>assets/images/supplement/baner-right-image-02.jpg" alt="Hommes">
 
                                     </div>
                                 </div>
@@ -115,7 +113,7 @@
                                             </div>
                                         </div>
 
-                                        <img src="<?= BASE_URL ?>assets/images/baner-right-image-03.jpg" alt="Enfants">
+                                        <img src="<?= BASE_URL ?>assets/images/supplement/baner-right-image-03.jpg" alt="Enfants">
 
                                     </div>
                                 </div>
@@ -146,7 +144,7 @@
                                             </div>
                                         </div>
 
-                                        <img src="<?= BASE_URL ?>assets/images/baner-right-image-04.jpg" alt="Accessoires">
+                                        <img src="<?= BASE_URL ?>assets/images/supplement/baner-right-image-04.jpg" alt="Accessoires">
 
                                     </div>
                                 </div>
@@ -159,10 +157,10 @@
             </div>
         </div>
     </div>
-    <!-- ***** Bannière principale - Fin ***** -->
+    <!-- ***** Main - end ***** -->
 
 
-    <!-- ***** Section Hommes - Début ***** -->
+    <!-- ***** Men - beginning ***** -->
     <section class="section men-section" id="men">
 
         <div class="container">
@@ -247,10 +245,10 @@
         </div>
 
     </section>
-    <!-- ***** Section Hommes - Fin ***** -->
+    <!-- ***** Men - end ***** -->
 
 
-    <!-- ***** Section Femmes - Début ***** -->
+    <!-- ***** Women - beginning ***** -->
     <section class="section" id="women">
 
         <div class="container">
@@ -335,10 +333,10 @@
         </div>
 
     </section>
-    <!-- ***** Section Femmes - Fin ***** -->
+    <!-- ***** Women - end ***** -->
 
 
-    <!-- ***** Section Enfants - Début ***** -->
+    <!-- ***** Kids - beginning ***** -->
     <section class="section" id="kids">
 
         <div class="container">
@@ -423,66 +421,65 @@
         </div>
 
     </section>
-    <!-- ***** Section Enfants - Fin ***** -->
+    <!-- ***** Kids - end ***** -->
 
-<!-- ***** Section Avis - Début ***** -->
+    <!-- ***** Reviews - beginning ***** -->
+    <section class="section" id="kids">
 
-<section class="section" id="kids">
+            <div class="container">
+                <div class="row">
 
-        <div class="container">
-            <div class="row">
-
-                <div class="col-lg-6">
-                    <div class="section-heading">
-                        <h2>Ils nous font confiance</h2>
-                    <span>
-                        L'avis de nos clients sur leurs costumes Brave & Supply.
-                    </span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-
-                <div class="col-lg-12">
-                    <div class="kid-item-carousel">
-                        <div class="owl-kid-item owl-carousel">
-
-                             <?php foreach ($reviews as $review): ?>
-
-                                <div class="item">
-                                    <div class="review-box">
-
-                                        <i class="fa fa-quote-left"></i>
-
-                                        <p style="color:black;">
-                                            <?= htmlspecialchars($review['comment'], ENT_QUOTES, 'UTF-8') ?>
-                                        </p>
-
-                                        <strong style="color: grey;">
-                                            <?= htmlspecialchars($review['name'], ENT_QUOTES, 'UTF-8') ?>
-                                        </strong>
-
-                                    </div>
-                                </div>
-
-                            <?php endforeach; ?>
+                    <div class="col-lg-6">
+                        <div class="section-heading">
+                            <h2>Ils nous font confiance</h2>
+                        <span>
+                            L'avis de nos clients sur leurs costumes Brave & Supply.
+                        </span>
                         </div>
                     </div>
+
                 </div>
-
             </div>
-        </div>
 
-    </section>
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="kid-item-carousel">
+                            <div class="owl-kid-item owl-carousel">
+
+                                <?php foreach ($reviews as $review): ?>
+
+                                    <div class="item">
+                                        <div class="review-box">
+
+                                            <i class="fa fa-quote-left"></i>
+
+                                            <p style="color:black;">
+                                                <?= htmlspecialchars($review['comment'], ENT_QUOTES, 'UTF-8') ?>
+                                            </p>
+
+                                            <strong style="color: grey;">
+                                                <?= htmlspecialchars($review['name'], ENT_QUOTES, 'UTF-8') ?>
+                                            </strong>
+
+                                        </div>
+                                    </div>
+
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
 
 
-<!-- ***** Section Avis - Fin ***** -->
+    <!-- ***** Reviews - end ***** -->
 
-    <!-- ***** Section Explorer - Début ***** -->
+    <!-- *****  Explorer - beginning ***** -->
     <section class="section" id="explore">
 
         <div class="container">
@@ -535,20 +532,20 @@
 
                             <div class="col-lg-6">
                                 <div class="first-image">
-                                    <img src="<?= BASE_URL ?>assets/images/explore-image-01.jpg" alt="Photo explore">
+                                    <img src="<?= BASE_URL ?>assets/images/supplement/explore-image-01.jpg" alt="Photo explore">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="second-image">
-                                    <img src="<?= BASE_URL ?>assets/images/explore-image-02.jpg" alt="Photo explore">
+                                    <img src="<?= BASE_URL ?>assets/images/supplement/explore-image-02.jpg" alt="Photo explore">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="types">
                                     <h4>Différents types</h4>
-                                    <span>Plus de 1 000 produits</span>
+                                    <span>Plus de 100 produits</span>
                                 </div>
                             </div>
 
@@ -560,10 +557,10 @@
         </div>
 
     </section>
-    <!-- ***** Section Explorer - Fin ***** -->
+    <!-- *****  Explorer - end ***** -->
 
 
-    <!-- ***** Zone Réseaux Sociaux - Début ***** -->
+    <!-- ***** Social network - beginning ***** -->
     <section class="section" id="social">
 
         <div class="container">
@@ -593,7 +590,7 @@
                             </a>
                         </div>
 
-                        <img src="<?= BASE_URL ?>assets/images/instagram-01.jpg" alt="Photo instagram">
+                        <img src="<?= BASE_URL ?>assets/images/supplement/instagram-01.jpg" alt="Photo instagram">
                     </div>
                 </div>
 
@@ -606,7 +603,7 @@
                             </a>
                         </div>
 
-                        <img src="<?= BASE_URL ?>assets/images/instagram-02.jpg" alt="Photo instagram">
+                        <img src="<?= BASE_URL ?>assets/images/supplement/instagram-02.jpg" alt="Photo instagram">
                     </div>
                 </div>
 
@@ -619,7 +616,7 @@
                             </a>
                         </div>
 
-                        <img src="<?= BASE_URL ?>assets/images/instagram-03.jpg" alt="Photo instagram">
+                        <img src="<?= BASE_URL ?>assets/images/supplement/instagram-03.jpg" alt="Photo instagram">
                     </div>
                 </div>
 
@@ -632,7 +629,7 @@
                             </a>
                         </div>
 
-                        <img src="<?= BASE_URL ?>assets/images/instagram-04.jpg" alt="Photo instagram">
+                        <img src="<?= BASE_URL ?>assets/images/supplement/instagram-04.jpg" alt="Photo instagram">
                     </div>
                 </div>
 
@@ -658,7 +655,7 @@
                             </a>
                         </div>
 
-                        <img src="<?= BASE_URL ?>assets/images/instagram-06.jpg" alt="Photo instagram">
+                        <img src="<?= BASE_URL ?>assets/images/supplement/instagram-06.jpg" alt="Photo instagram">
                     </div>
                 </div>
 
@@ -666,10 +663,10 @@
         </div>
 
     </section>
-    <!-- ***** Zone Réseaux Sociaux - Fin ***** -->
+    <!-- ***** Social network - End ***** -->
 
 
-    <!-- ***** Zone d'abonnement - Début ***** -->
+    <!-- ***** Followers - beginning ***** -->
     <div class="subscribe">
 
         <div class="container">
@@ -777,8 +774,6 @@
         </div>
 
     </div>
-    <!-- ***** Zone d'abonnement - Fin ***** -->
+    <!-- ***** Followers - end ***** -->
 
 </main>
-
-<?php include(INCLUDE_PATH . "/footer.php"); ?>
