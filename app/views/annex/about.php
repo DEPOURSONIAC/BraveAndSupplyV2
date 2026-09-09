@@ -1,5 +1,3 @@
-<?php include( INCLUDE_PATH . "/header.php"); ?>
-
 <main class="pt-5">
     <!-- ***** Main Banner Area Start ***** -->
     <div class="page-heading about-page-heading" id="top">
@@ -22,7 +20,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="left-image">
-                        <img src="<?= BASE_URL ?>/assets/images/about-left-image.jpg" alt="about">
+                        <img src="<?= BASE_URL ?>/assets/images/supplement/about-left-image.jpg" alt="about">
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -69,7 +67,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <img src="<?= BASE_URL ?>/assets/images/team-member-01.jpg" alt="membres">
+                            <img src="<?= BASE_URL ?>/assets/images/supplement/team-member-01.jpg" alt="membres">
                             
                         </div>
                         <div class="down-content">
@@ -91,7 +89,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <img src="<?= BASE_URL ?>/assets/images/team-member-02.jpg">
+                            <img src="<?= BASE_URL ?>/assets/images/supplement/team-member-02.jpg">
                         </div>
                         <div class="down-content">
                             <h4>Toto GRIMAL</h4>
@@ -112,7 +110,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <img src="<?= BASE_URL ?>/assets/images/team-member-03.jpg">
+                            <img src="<?= BASE_URL ?>/assets/images/supplement/team-member-03.jpg">
                         </div>
                         <div class="down-content">
                             <h4>Bob</h4>
@@ -140,21 +138,21 @@
                     <div class="service-item">
                        <h4>Confection soignée</h4>
                         <p>Chaque costume est conçu avec précision pour offrir une coupe impeccable et un confort optimal.</p>
-                        <img src="<?= BASE_URL ?>/assets/images/service-01.jpg" alt="service">
+                        <img src="<?= BASE_URL ?>/assets/images/supplement/service-01.jpg" alt="service">
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="service-item">
                         <h4>Approche responsable</h4>
                         <p>Nous privilégions des circuits courts et une production raisonnée pour limiter notre impact environnemental.</p>
-                        <img src="<?= BASE_URL ?>/assets/images/service-02.jpg" alt="service">
+                        <img src="<?= BASE_URL ?>/assets/images/supplement/service-02.jpg" alt="service">
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="service-item">
                        <h4>Matières naturelles</h4>
                         <p>Nous utilisons exclusivement des tissus nobles : laine, lin et coton, sélectionnés pour leur qualité et leur durabilité.</p>
-                        <img src="<?= BASE_URL ?>/assets/images/service-03.jpg" alt="service">
+                        <img src="<?= BASE_URL ?>/assets/images/supplement/service-03.jpg" alt="service">
                     </div>
                 </div>
             </div>
@@ -214,5 +212,3 @@
     </div>
     <!-- ***** Subscribe Area Ends ***** -->
 </main>
-
-<?php include( INCLUDE_PATH . "/footer.php"); ?>

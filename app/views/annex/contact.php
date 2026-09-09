@@ -1,4 +1,4 @@
-<?php include( INCLUDE_PATH . "/header.php"); ?>
+<main>
 
     <!-- ***** Main Banner Area Start ***** -->
     <div class="page-heading about-page-heading" id="top">
@@ -117,5 +117,3 @@
     </div>
     <!-- ***** Subscribe Area Ends ***** -->
 </main>
-
-<?php include( INCLUDE_PATH . "/footer.php"); ?>
