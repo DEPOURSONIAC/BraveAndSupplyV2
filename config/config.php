@@ -30,7 +30,7 @@ define('PUBLIC_PATH', ROOT . '/public');
 // URL
 // --------------------
 
-define('BASE_URL', '/braveAndSupplyV2/');
+define('BASE_URL', '/brave_and_supply/');
 
 
 // --------------------
