@@ -37,7 +37,7 @@ define('BASE_URL', '/braveAndSupplyV2/');
 // DATABASE
 // --------------------
 
-define('DB_PATH', ROOT . '/config/braveandsupplyv2.db');
+define('DB_PATH', ROOT . '/config/brave_and_supply');
 
 
 // --------------------
