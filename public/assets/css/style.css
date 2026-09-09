@@ -1,15 +1,7 @@
-/*
-.nom-classe
-#nom-id
-*/
-
 html, body {
   height: 100%;
   margin: 0;
   font-family: Arial, sans-serif;
-
-  /* fond plus doux, moins agressif */
-  /*background: radial-gradient(circle at top, #14151a 0%, #0b0c0f 55%, #070709 100%);*/
   color: #eaeaea;
 }
 #menuUtilisateur{
@@ -20,7 +12,6 @@ html, body {
   display:none; position:absolute; right:0; background:#222; padding:10px; border-radius:6px;
 }
 
-/* LAYOUT GLOBAL */
 .page {
   min-height: 100vh;
   display: flex;
@@ -29,7 +20,6 @@ html, body {
   padding: 30px;
 }
 
-/* CARTE PLUS ÉQUILIBRÉE */
 .card {
   width: 100%;
   max-width: 380px;
@@ -43,28 +33,27 @@ html, body {
   box-shadow: 0 25px 70px rgba(0, 0, 0, 0.55);
 }
 
-/* TITRE */
 h1 {
   color: #ffffff;
   font-size: 24px;
   margin-bottom: 6px;
 }
 
-/* SOUS-TITRE */
+
 p {
   color: #b0b0b0;
   font-size: 13px;
   margin-bottom: 22px;
 }
 
-/* FORM */
+
 form {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-/* INPUTS PLUS CLEAN */
+
 input {
   padding: 12px;
   border-radius: 8px;
@@ -82,7 +71,6 @@ input:focus {
   box-shadow: 0 0 0 3px rgba(196,155,99,0.12);
 }
 
-/* OPTIONS */
 .options {
   display: flex;
   justify-content: space-between;
@@ -100,7 +88,7 @@ input:focus {
   color: #e0b87a;
 }
 
-/* BUTTON PLUS PREMIUM */
+/* ----- Button -----*/
 button {
   margin-top: 12px;
   padding: 12px;
@@ -122,7 +110,7 @@ button:hover {
   box-shadow: 0 12px 25px rgba(196,155,99,0.18);
 }
 
-/* FOOTER TEXT HARMONISÉ */
+/* ----- Footer ----- */
 .bottom {
   margin-top: 18px;
   text-align: center;
@@ -149,7 +137,7 @@ button:hover {
   overflow: hidden;
   background: #fff;
 }
-/*     category   */
+/* ----- Category ----- */
 .product:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
@@ -183,7 +171,7 @@ button:hover {
   border-color: #000;
 }
 
-/*  *account */
+/* ----- Account ----- */
 
 .account-container{
     max-width:900px;
@@ -345,7 +333,7 @@ button:hover {
     padding-bottom: 80px;
 }
 
-/* panier */
+/* ----- Cart ----- */
 .section-dark {
   background: #ffffff;
 }
@@ -377,9 +365,7 @@ button:hover {
   color: black;
 }
 
-/* ============================
-   Tableau commun (panier / commandes)
-   ============================ */
+/* ----- Order & cart ----- */
 
 .account-table-count {
     color: #6c757d;
@@ -446,9 +432,7 @@ button:hover {
     font-weight: 600;
 }
 
-/* ============================
-   États des commandes
-   ============================ */
+/* ----- Order state ----- */
 
 .account-status {
     display: inline-block;
@@ -466,9 +450,7 @@ button:hover {
 .account-status-delivered  { background: #d4edda; color: #155724; }
 .account-status-cancelled  { background: #f8d7da; color: #721c24; }
 
-/* ============================
-   Résumé panier
-   ============================ */
+/* ----- Cart's summ up ----- */
 
 .account-cart-summary {
     display: flex;
@@ -484,9 +466,7 @@ button:hover {
     font-size: 1.25rem;
 }
 
-/* ============================
-   Avis
-   ============================ */
+/* ----- Review ----- */
 
 .account-review-list {
     display: flex;
@@ -532,9 +512,7 @@ button:hover {
     font-size: 0.9rem;
 }
 
-/* ============================
-   État vide
-   ============================ */
+
 
 .account-empty {
     text-align: center;
@@ -596,4 +574,255 @@ button:hover {
 .quantity-control button:focus,
 .quantity-control input:focus {
     outline: none;
+}
+/* ----- Home ----- */
+.product-action-form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.product-action-button {
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    line-height: 50px;
+    display: inline-block;
+    text-align: center;
+    color: #2a2a2a;
+    background: #fff;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+/* ----- Order ----- */
+
+
+.order-page {
+    margin-top: 160px;
+    margin-bottom: 90px;
+}
+
+.order-back-link {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #2a2a2a;
+    margin-bottom: 30px;
+    transition: all .3s;
+}
+
+.order-back-link:hover {
+    opacity: .7;
+}
+
+.order-info-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+.order-info-list li:last-child {
+    border-bottom: none;
+}
+
+.order-info-list li span {
+    color: #a1a1a1;
+    font-weight: 500;
+}
+
+.order-info-list li strong {
+    color: #2a2a2a;
+    font-weight: 600;
+    text-align: right;
+}
+
+.order-status {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 14px;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    text-transform: capitalize;
+}
+
+.order-status--pending {
+    color: #a1a1a1;
+    border-color: #a1a1a1;
+    background-color: #f7f7f7;
+}
+
+.order-status--preparing {
+    color: #2a6fa1;
+    border-color: #2a6fa1;
+    background-color: #eaf3fa;
+}
+
+.order-status--shipped {
+    color: #a17b2a;
+    border-color: #a17b2a;
+    background-color: #faf4ea;
+}
+
+.order-status--paid,
+.order-status--delivered {
+    color: #2a7a4a;
+    border-color: #2a7a4a;
+    background-color: #eafaf0;
+}
+
+.order-status--cancelled {
+    color: #a12a2a;
+    border-color: #a12a2a;
+    background-color: #faeaea;
+}
+
+.order-qty-cell {
+    text-align: center;
+    color: #2a2a2a;
+    font-weight: 500;
+}
+
+.order-summary {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 3px dotted #eee;
+}
+
+.order-summary-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+    color: #a1a1a1;
+    font-weight: 500;
+}
+
+.order-summary-line--total {
+    margin-top: 8px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    font-size: 18px;
+    color: #2a2a2a;
+    font-weight: 700;
+}
+
+.order-actions {
+    margin-top: 25px;
+    text-align: right;
+}
+
+.order-actions .main-border-button a {
+    color: #2a2a2a;
+    border-color: #2a2a2a;
+}
+
+.order-actions .main-border-button a:hover {
+    background-color: #2a2a2a;
+    color: #fff;
+}
+
+
+
+/* ----- Review 2 ----- */
+
+#reviews .owl-review-item {
+    display: block;
+    width: 100%;
+}
+
+#reviews .review-box {
+    background: #f5f5f5;
+    padding: 35px;
+    margin: 10px;
+    min-height: 200px;
+    text-align: center;
+}
+
+#reviews .review-box p {
+    margin: 20px 0;
+    line-height: 26px;
+}
+
+#reviews .review-box strong {
+    display: block;
+}
+
+
+/* ----- Account edit ----- */
+
+.account-edit-form {
+    color: #000;
+    max-width: 700px;
+}
+
+.account-edit-form > div {
+    width: 100%;
+}
+
+.account-edit-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #000;
+    font-weight: 500;
+}
+
+.account-edit-form input,
+.account-edit-form textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    color: #000;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px 12px;
+    font: inherit;
+}
+
+.account-edit-form textarea {
+    resize: vertical;
+}
+
+.account-password-section {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.account-password-section h6 {
+    margin-bottom: 8px;
+    color: #000;
+}
+
+.account-password-section p {
+    margin-bottom: 16px;
+    color: #000;
+}
+
+.account-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+/* ----- Responsive ----- */
+
+@media (max-width: 767px) {
+    .order-page {
+        margin-top: 120px;
+    }
+    .order-actions {
+        text-align: center;
+    }
 }
