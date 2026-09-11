@@ -1,5 +1,16 @@
+<?php
+$current_action = $_GET['action'] ?? '';
+
+$isLoggedIn = isset($_SESSION['id']);
+$isAdmin = $isLoggedIn && isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+
+$userName = $isLoggedIn
+    ? htmlspecialchars($_SESSION['name'] ?? 'Utilisateur', ENT_QUOTES, 'UTF-8')
+    : 'Invité';
+?>
+
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
 
@@ -9,14 +20,24 @@
 
     <title>Brave & Supply</title>
 
-    <!-- CSS -->
+     <!-- CSS -->
+     <!-- Bootstrap -->
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/bootstrap.min.css">
+
+    <!-- Librairies -->
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/font-awesome.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/templatemo-hexashop.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/owl-carousel.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/lightbox.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/flex-slider.css">
+
+    <!-- Template -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/templatemo-hexashop.css">
+
+    <!-- MY CSS -->
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/style.css">
-    
+
+    <!-- ADMIN -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin.css">
 </head>
 
 <body>
@@ -31,126 +52,220 @@
 
                 <nav class="main-nav">
 
-                    <!-- Logo -->
+                    <!-- LOGO -->
+
                     <a href="<?= BASE_URL ?>" class="logo">
-
                         <img src="<?= BASE_URL ?>assets/images/logo_site.png" alt="Logo Brave & Supply" width="100">
-
                     </a>
 
-                    <!-- Menu -->
-                    <ul class="nav">
 
-                        <li>
-                            <a href="<?= BASE_URL ?>">
-                                Accueil
-                            </a>
-                        </li>
+                    <!-- MENU ADMIN -->
 
-                        <li>
-                            <a href="<?= BASE_URL ?>?action=category&id=1">
-                                Hommes
-                            </a>
-                        </li>
+                    <?php if ($isAdmin): ?>
 
-                        <li>
-                            <a href="<?= BASE_URL ?>?action=category&id=2">
-                                Femmes
-                            </a>
-                        </li>
+                        <ul class="nav">
 
-                        <li>
-                            <a href="<?= BASE_URL ?>?action=category&id=3">
-                                Enfants
-                            </a>
-                        </li>
+                            <li>
+                                <a href="<?= BASE_URL ?>?action=admin" class="<?= $current_action === 'admin' ? 'active' : '' ?>">
+                                    <i class="fa fa-th-large"></i>
+                                    Dashboard
+                                </a>
+                            </li>
 
-                        <!-- Menu utilisateur -->
-                        <li class="submenu" id="menuUtilisateur"">
+                            <li>
+                                <a href="<?= BASE_URL ?>?action=adminUsers" class="<?= $current_action === 'adminUsers' ? 'active' : '' ?>">
+                                    <i class="fa fa-users"></i>
+                                    Utilisateurs
+                                </a>
+                            </li>
 
-                            <a href="javascript:;" id="userDropdown">
+                            <li>
+                                <a href="<?= BASE_URL ?>?action=adminProducts" class="<?= $current_action === 'adminProducts' ? 'active' : '' ?>">
+                                    <i class="fa fa-cube"></i>
+                                    Produits
+                                </a>
+                            </li>
 
-                                <?= isset($_SESSION['id']) ? htmlspecialchars($_SESSION['name']) : 'Invité'; ?>
+                            <li>
+                                <a href="<?= BASE_URL ?>?action=adminOrders" class="<?= $current_action === 'adminOrders' ? 'active' : '' ?>">
+                                    <i class="fa fa-shopping-bag"></i>
+                                    Commandes
+                                </a>
+                            </li>
 
-                            </a>
+                            <!-- Back to store -->
+                            <li>
+                                <a href="<?= BASE_URL ?>">
+                                    <i class="fa fa-home"></i>
+                                    Boutique
+                                </a>
+                            </li>
 
-                            <ul id="userMenu">
 
-                                <?php if (!isset($_SESSION['id'])): ?>
+                            <!-- MENU ADMIN / USER -->
 
-                                    <li>
-                                        <a href="<?= BASE_URL ?>?action=login">
-                                            Connexion
-                                        </a>
-                                    </li>
+                            <li class="submenu">
 
-                                    <li>
-                                        <a href="<?= BASE_URL ?>?action=register">
-                                            Inscription
-                                        </a>
-                                    </li>
+                                <a href="javascript:;" id="userDropdown">
+                                    <i class="fa fa-user"></i>
+                                    <?= $userName ?>
+                                </a>
 
-                                <?php else: ?>
+                                <ul id="userMenu">
 
                                     <li>
                                         <a href="<?= BASE_URL ?>?action=account">
+                                            <i class="fa fa-user"></i>
                                             Mon compte
                                         </a>
                                     </li>
 
-                                    <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                                    <li>
+                                        <a href="<?= BASE_URL ?>?action=logout">
+                                            <i class="fa fa-sign-out"></i>
+                                            Déconnexion
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+                        </ul>
+
+
+                    <!-- CLASSIC MENU -->
+
+                    <?php else: ?>
+
+                        <ul class="nav">
+
+                            <!-- HOME -->
+                            <li>
+                                <a href="<?= BASE_URL ?>" class="<?= $current_action === '' ? 'active' : '' ?>">
+                                    Accueil
+                                </a>
+                            </li>
+
+
+                            <!-- MEN -->
+                            <li>
+                                <a href="<?= BASE_URL ?>?action=category&id=1" class="<?= $current_action === 'category' && ($_GET['id'] ?? '') == '1' ? 'active' : '' ?>">
+                                    Hommes
+                                </a>
+                            </li>
+
+
+                            <!-- WOMEN -->
+                            <li>
+                                <a href="<?= BASE_URL ?>?action=category&id=2" class="<?= $current_action === 'category' && ($_GET['id'] ?? '') == '2' ? 'active' : '' ?>">
+                                    Femmes
+                                </a>
+                            </li>
+
+
+                            <!-- KIDS -->
+                            <li>
+                                <a href="<?= BASE_URL ?>?action=category&id=3" class="<?= $current_action === 'category' && ($_GET['id'] ?? '') == '3' ? 'active' : '' ?>" >
+                                    Enfants
+                                </a>
+                            </li>
+
+
+                             <!-- USER MENU -->
+
+                            <li class="submenu" id="menuUtilisateur">
+
+                                <a href="javascript:;" id="userDropdown">
+
+                                    <i class="fa fa-user"></i>
+
+                                    <?= $userName ?>
+
+                                </a>
+
+                                <ul id="userMenu">
+
+
+                                    <?php if (!$isLoggedIn): ?>
+
+                                        <!-- VISITOR -->
 
                                         <li>
-                                            <a href="<?= BASE_URL ?>?action=admin">
-                                                Administration
+                                            <a href="<?= BASE_URL ?>?action=login">
+                                                <i class="fa fa-sign-in"></i>
+                                                Connexion
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="<?= BASE_URL ?>?action=register">
+                                                <i class="fa fa-user-plus"></i>
+                                                Inscription
+                                            </a>
+                                        </li>
+
+
+                                    <?php else: ?>
+
+                                         <!-- IF USER IS CONNECTED -->
+
+                                        <li>
+                                            <a href="<?= BASE_URL ?>?action=account">
+                                                <i class="fa fa-user"></i>
+                                                Mon compte
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="<?= BASE_URL ?>?action=logout">
+                                                <i class="fa fa-sign-out"></i>
+                                                Déconnexion
                                             </a>
                                         </li>
 
                                     <?php endif; ?>
 
+                                </ul>
+
+                            </li>
+
+
+                            <!-- PAGES -->
+
+                            <li class="submenu">
+
+                                <a href="javascript:;">
+                                    Pages
+                                </a>
+
+                                <ul>
+
                                     <li>
-                                        <a href="<?= BASE_URL ?>?action=logout">
-                                            Déconnexion
+                                        <a href="<?= BASE_URL ?>?action=catalogue">
+                                            Catalogue
                                         </a>
                                     </li>
 
-                                <?php endif; ?>
+                                    <li>
+                                        <a href="<?= BASE_URL ?>?action=about">
+                                            À propos
+                                        </a>
+                                    </li>
 
-                            </ul>
+                                    <li>
+                                        <a href="<?= BASE_URL ?>?action=contact">
+                                            Contact
+                                        </a>
+                                    </li>
 
-                        </li>
+                                </ul>
 
-                        <li class="submenu">
+                            </li>
 
-                            <a href="javascript:;">
-                                Pages
-                            </a>
+                        </ul>
 
-                            <ul>
-
-                                <li>
-                                    <a href="<?= BASE_URL ?>?action=catalogue">
-                                        Catalogue
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="<?= BASE_URL ?>?action=about">
-                                        À propos
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="<?= BASE_URL ?>?action=contact">
-                                        Contact
-                                    </a>
-                                </li>
-
-                            </ul>
-
-                        </li>
-
-                    </ul>
+                    <?php endif; ?>
 
                 </nav>
 
@@ -161,4 +276,3 @@
     </div>
 
 </header>
-
