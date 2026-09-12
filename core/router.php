@@ -377,6 +377,113 @@ function allRoutes(): array
             ]
         ],
 
+        // ***************
+        //      ADMIN
+        // ***************
+
+        'admin' => [
+            'GET' => [
+                'function' => 'showAdmin',
+                'params' => []
+            ],
+            'admin' => true
+        ],
+
+        'adminUsers' => [
+            'GET' => [
+                'function' => 'showAdminUsers',
+                'params' => []
+            ],
+            'admin' => true
+        ],
+
+        'adminProducts' => [
+            'GET' => [
+                'function' => 'showAdminProducts',
+                'params' => []
+            ],
+            'admin' => true
+        ],
+
+        'adminOrders' => [
+            'GET' => [
+                'function' => 'showAdminOrders',
+                'params' => []
+            ],
+            'admin' => true
+        ],
+
+        'adminOrder' => [
+            'GET' => [
+                'function' => 'showAdminOrder',
+                'params' => [
+                    'id'
+                ]
+            ],
+            'admin' => true
+        ],
+
+            // ***************
+            //      ADMIN EDIT
+            // ***************
+            
+        'adminAddProduct' => [
+            'POST' => [
+                'function' => 'adminAddProduct',
+                'params' => [
+                    'name',
+                    'description',
+                    'price',
+                    'quantity'
+                ]
+            ],
+            'admin' => true
+        ],
+
+        'adminEditProduct' => [
+            'POST' => [
+                'function' => 'adminEditProduct',
+                'params' => [
+                    'id',
+                    'name',
+                    'description',
+                    'price',
+                    'quantity'
+                ]
+            ],
+            'admin' => true
+        ],
+
+        'adminDeleteProduct' => [
+            'POST' => [
+                'function' => 'adminDeleteProduct',
+                'params' => [
+                    'id'
+                ]
+            ],
+            'admin' => true
+        ],
+
+        'adminDeleteUser' => [
+            'POST' => [
+                'function' => 'adminDeleteUser',
+                'params' => [
+                    'id'
+                ]
+            ],
+            'admin' => true
+        ],
+
+        'adminMarkOrderReceived' => [
+            'POST' => [
+                'function' => 'adminMarkOrderReceived',
+                'params' => [
+                    'id'
+                ]
+            ],
+            'admin' => true
+        ],
+
     ];
 }
 
@@ -417,29 +524,31 @@ function protectRoute(array $route): array
     /*
         Vérifie si l'utilisateur peut accéder à la route.
 
-        L'application nécessite une connexion,
-        sauf pour les pages 'login' et 'register'.
-
-        Si l'utilisateur n'est pas connecté,
-        il est redirigé vers 'login'.
-
-        Si l'utilisateur est déjà connecté
-        et tente d'accéder à 'login' ou 'register'
-        il est redirigé vers 'home'.
+        - Les visiteurs non connectés sont redirigés vers login.
+        - Un utilisateur connecté ne peut pas accéder à login/register.
+        - Les routes avec 'admin' => true sont réservées aux administrateurs.
     */
 
     $is_logged = isset($_SESSION['id']);
+    $is_admin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
 
     $routes = allRoutes();
 
+    // Utilisateur non connecté
     if (!$is_logged && !in_array($route['name'], ['login', 'register'], true)) {
         $route = $routes['login'];
         $route['name'] = 'login';
     }
 
+    // Utilisateur déjà connecté
     if ($is_logged && in_array($route['name'], ['login', 'register'], true)) {
         $route = $routes['home'];
         $route['name'] = 'home';
+    }
+
+    // Route réservée aux administrateurs
+    if (($route['admin'] ?? false) === true && !$is_admin) {
+        $route = $routes['home'];
     }
 
     return $route;

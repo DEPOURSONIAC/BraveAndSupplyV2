@@ -11,9 +11,13 @@ function view(string $page, array $data = []): void
 
     extract($data);
 
-    require VIEW_PATH . '/' . $page . '.php';
-}
+    include(INCLUDE_PATH . "/header.php");
 
+    require VIEW_PATH . '/' . $page . '.php';
+
+    include(INCLUDE_PATH . "/footer.php");
+    
+}
 
 function redirect(string $route): void
 {

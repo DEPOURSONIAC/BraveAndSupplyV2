@@ -1,17 +1,22 @@
 Pour mettre à jour mon site dans le serveur apache:
 
-    sudo cp -r /home/simsim/Bureau/SimSim/projet/siteWeb/braveAndSupplyV2 /var/www/html/siteWeb/
-         cp -r /home/simsim/Bureau/SimSim/projet/siteWeb/braveAndSupplyV2 /var/www/html/siteWeb/
-        Idéalement il faut être root pour gagner du temps (niveau sécurité c'est pas top quand même)
-
-
-    rm -rf /var/www/html/siteWeb/braveAndSupplyV2
-    cp -r /home/simsim/Bureau/SimSim/projet/siteWeb/braveAndSupplyV2 /var/www/html/siteWeb/
-
-   alias majBAS='rm -rf /var/www/html/siteWeb/braveAndSupplyV2 && cp -r /home/simsim/Bureau/SimSim/projet/siteWeb/braveAndSupplyV2 /var/www/html/siteWeb/'
-
-
-
-alias majBAS='rm -rf /var/www/html/siteWeb/brave_and_supply && cp -r /home/simsim/Bureau/SimSim/projet/siteWeb/brave_and_supply /var/www/html/siteWeb/ && sudo chown -R simsim:www-data /var/www/html/siteWeb/brave_and_supply && sudo chmod -R 775 /var/www/html/siteWeb/brave_and_supply'
+    alias majBAS='rm -rf /var/www/html/siteWeb/brave_and_supply && cp -r /home/simsim/Bureau/SimSim/projet/siteWeb/brave_and_supply /var/www/html/siteWeb/ && sudo chown -R simsim:www-data /var/www/html/siteWeb/brave_and_supply && sudo chmod -R 775 /var/www/html/siteWeb/brave_and_supply'
 
    
+Idée de sécurité:
+
+    Application normale
+    ├── Secure       = true
+    ├── SameSite     = Lax
+    └── HttpOnly     = true
+
+    Session vulnérable du challenge
+    ├── Secure       = true
+    ├── SameSite     = Lax
+    └── HttpOnly     = false <- uniquement pour le flag
+
+
+AJAX:
+    <section id="account-content">
+        <?php require VIEW_PATH . '/user/account/profile.php'; ?>
+    </section>

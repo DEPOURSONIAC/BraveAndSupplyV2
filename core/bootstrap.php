@@ -23,6 +23,7 @@ require_once MODEL_PATH . '/ListModel.php';
 require_once MODEL_PATH . '/ProductModel.php';
 require_once MODEL_PATH . '/ReviewModel.php';
 require_once MODEL_PATH . '/UserModel.php';
+require_once MODEL_PATH . '/AdminModel.php';
 
 
 // ---------------
@@ -39,5 +40,5 @@ require_once CONTROLLER_PATH . '/OrderController.php';
 require_once CONTROLLER_PATH . '/FavoriteController.php';
 require_once CONTROLLER_PATH . '/ListController.php';
 require_once CONTROLLER_PATH . '/ReviewController.php';
-require_once CONTROLLER_PATH . '/accountEditController.php';
-
+require_once CONTROLLER_PATH . '/AccountEditController.php';
+require_once CONTROLLER_PATH . '/AdminController.php';
