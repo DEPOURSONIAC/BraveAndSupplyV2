@@ -1,5 +1,3 @@
-<?php include(INCLUDE_PATH . "/header.php"); ?>
-
 <div class="order-page container">
 
     <a href="<?= BASE_URL ?>?action=account" class="order-back-link">
@@ -108,5 +106,3 @@
     <?php endif; ?>
 
 </div>
-
-<?php include(INCLUDE_PATH . "/footer.php"); ?>

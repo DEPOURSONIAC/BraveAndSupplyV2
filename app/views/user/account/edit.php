@@ -1,7 +1,3 @@
-
-```php
-<?php require_once INCLUDE_PATH . '/header.php'; ?>
-
 <main id="account-main">
 
     <section class="section">
@@ -126,6 +122,3 @@
     </section>
 
 </main>
-
-<?php require_once INCLUDE_PATH . '/footer.php'; ?>
-

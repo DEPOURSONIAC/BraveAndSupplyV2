@@ -1,6 +1,3 @@
-
-<?php require_once INCLUDE_PATH . '/header.php'; ?>
-
 <!-- ***** Page Heading ***** -->
 <div class="page-heading">
     <div class="inner-content">
@@ -209,5 +206,3 @@
     </div>
 
 </div>
-
-<?php require_once INCLUDE_PATH . '/footer.php'; ?>
