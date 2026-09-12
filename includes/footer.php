@@ -63,7 +63,7 @@
                 <div class="under-footer">
 
                     <p>
-                        Copyright © 2026 Brave & Supply - Tous droits réservés.
+                        Copyright © 2026 Brave & Supply
                         <br>
                         Design : TemplateMo & DEPOURSONIAC
                     </p>
@@ -100,7 +100,7 @@
 
 </footer>
 
-  <!-- JS -->
+    <!-- JS -->
     <script src="<?= BASE_URL ?>assets/js/jquery-2.1.0.min.js"></script>
     <script src="<?= BASE_URL ?>assets/js/popper.js"></script>
     <script src="<?= BASE_URL ?>assets/js/bootstrap.min.js"></script>
@@ -123,6 +123,7 @@
 
     <!-- My JS -->
     <script src="<?= BASE_URL ?>assets/js/app.js"></script> 
+    <script src="<?= BASE_URL ?>assets/js/admin.js"></script>
 
 </body>
 </html>
